@@ -244,6 +244,13 @@ done
 conda env list
 ```
 
+### Repository Layout Notes
+
+- `eval/` contains the integrated evaluation modules used by AVGen-Bench.
+- The `benchmark` branch keeps the runtime code needed for benchmark evaluation, but intentionally does not track some large third-party training/example assets.
+- In particular, large auxiliary assets such as `eval/Syncformer/data/`, `eval/videophy/asset/`, and `eval/videophy/preprint.pdf` are excluded from version control on the lightweight benchmark branch.
+- If you need the full upstream training/example resources for a third-party module, fetch them from the original upstream repository rather than expecting them to be present in this benchmark branch.
+
 ## Prompt-based Generation
 
 This repo now includes a prompt-driven generation framework:
@@ -620,8 +627,6 @@ python batch_eval.py --root /path/to/video_generation/wan22_hunyuanFoley --save_
 conda activate ocr
 cd eval/Ocr
 python batch_eval.py --root /path/to/video_generation/wan22_hunyuanFoley --out_dir /path/to/avgenbench/ocr/wan22_hunyuanFoley --prompts_dir /path/to/video_generation/prompts --gemini_workers 32
-
-python /path/to/avgenbench/ocr/summarize.py --root /path/to/avgenbench/ocr/wan22_hunyuanFoley --out_json /path/to/avgenbench/ocr/wan22_hunyuanFoley/summary_final.json
 ```
 
 ### SyncNet (Lip Sync)
