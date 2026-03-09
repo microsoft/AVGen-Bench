@@ -1,0 +1,82 @@
+[
+    {
+        "content": "Archaeology: Ancient Discovery",
+        "prompt": "A professional news segment starting with a female anchor in a bright studio, holding a paper and announcing a major historical find. Suddenly, the video cuts to shaky documentary-style footage inside a dusty cave, showing a gloved hand brushing dirt off a golden ancient artifact buried in the ground. The anchor's voiceover explains the significance of the discovery throughout the clip."
+    },
+    {
+        "content": "Cybersecurity: Data Breach",
+        "prompt": "A serious news report beginning with a male anchor in a suit sitting against a digital background of world maps. He looks grave while delivering a warning about internet safety. The scene then abruptly switches to B-roll footage of computer screens in a dark room displaying scrolling green binary code and 'ACCESS DENIED' pop-ups, symbolizing a cyber attack."
+    },
+    {
+        "content": "Wildlife: Panda Cub",
+        "prompt": "A lighthearted news clip. A smiling anchor sits at the desk with a 'ZOO UPDATE' graphic behind her. She introduces a cute story. The video transitions to high-quality footage of a baby panda clumsily rolling around on green grass and chewing on a bamboo stick in a zoo enclosure. The audio includes the anchor's narration mixed with ambient nature sounds."
+    },
+    {
+        "content": "Economy: Factory Automation",
+        "prompt": "Business news coverage. The video starts with a financial reporter standing in a newsroom, pointing to a graph. He discusses manufacturing trends. The view then cuts to an industrial scene showing fast-moving robotic orange arms assembling car parts on a modern production line with sparks flying. The reporter's voice continues seamlessly over the industrial footage."
+    },
+    {
+        "content": "Entertainment: Red Carpet",
+        "prompt": "Entertainment news update. A glamorous female host stands in a studio with purple lighting, talking excitedly about a movie premiere. The video cuts to a chaotic red carpet scene with bright camera flashes popping repeatedly, showing a blurry celebrity waving to a screaming crowd of fans. The audio shifts from the quiet studio to the roar of the crowd."
+    },
+    {
+        "content": "Public Health: Vaccination Drive",
+        "prompt": "Health news segment. A serious anchor with glasses reads from a teleprompter about a new health initiative. The shot cuts to medical footage showing a close-up of a nurse's hands wearing blue latex gloves carefully preparing a syringe and a vaccine vial in a sterile hospital environment."
+    },
+    {
+        "content": "Consumer: Black Friday Sales",
+        "prompt": "Holiday shopping report. An anchor sits at the desk, gesturing towards a graphic of a shopping bag. He speaks about retail chaos. The scene immediately switches to footage of a large crowd of shoppers rushing through the automatic doors of a department store, grabbing boxes from shelves. The anchor's voiceover describes the record-breaking sales numbers."
+    },
+    {
+        "content": "Travel: Airport Delays",
+        "prompt": "Breaking travel news. A reporter in a trench coat stands outside an airport terminal with planes visible in the distance. She speaks into a microphone about cancellations. The video cuts to an interior shot of a packed airport terminal, showing a departure board filled with red 'CANCELLED' text and tired passengers sleeping on their luggage."
+    },
+    {
+        "content": "Environment: Oil Spill Cleanup",
+        "prompt": "Environmental disaster report. A somber anchor sits in the studio with a blue background. He reports on a recent accident. The video transitions to aerial drone footage looking down at a beach, where black oil sludge is washing up on the white sand and waves are crashing. The sound of the ocean mixes with the serious tone of the news report."
+    },
+    {
+        "content": "Fashion: Runway Show",
+        "prompt": "Fashion week highlight. A stylish presenter stands in a studio, talking about the latest trends. The video cuts to a vibrant fashion runway show, featuring a model walking towards the camera in an avant-garde silver dress, with audience heads silhouetted in the foreground. Rhythmic electronic music plays faintly in the background of the report."
+    },
+    {
+        "content": "Crime: Police Investigation",
+        "prompt": "A breaking crime report. A serious-looking male anchor sits in a dimly lit studio, reading an urgent update from papers in his hand. The video abruptly cuts to night footage of a city street blocked off by yellow 'CRIME SCENE' tape, with red and blue police siren lights reflecting off wet pavement. The anchor's narration continues over the scene."
+    },
+    {
+        "content": "Real Estate: Housing Market Boom",
+        "prompt": "Real estate market update. A female financial reporter stands in a busy newsroom with blurred TV screens behind her. She smiles while discussing rising property values. The scene switches to a sunny outdoor shot of a modern suburban house with a manicured lawn, focusing on a real estate agent hammering a 'SOLD' sign into the grass."
+    },
+    {
+        "content": "Esports: Tournament Victory",
+        "prompt": "Gaming news segment. An energetic host with headphones sits in a neon-lit studio filled with gaming memorabilia. He shouts excitedly about a tournament win. The video cuts to a wide shot of a massive esports arena packed with thousands of cheering fans, watching a giant screen where a team lifts a trophy. The audio shifts to the roar of the stadium."
+    },
+    {
+        "content": "Automotive: EV Car Launch",
+        "prompt": "Auto industry news. A poised anchor sits at a glass desk with a futuristic city background. She introduces a new electric vehicle. The video transitions to cinematic B-roll of a sleek silver electric car driving silently along a winding coastal road at sunset, with the camera tracking its movement. The anchor's voiceover describes the battery range."
+    },
+    {
+        "content": "Crypto: Bitcoin Volatility",
+        "prompt": "Financial technology report. A reporter stands in front of a green screen showing a jagged red line graph plummeting downwards. He looks concerned. The view cuts to a close-up shot of a server room filled with rows of cryptocurrency mining rigs with blinking LED lights and spinning fans. The sound of humming cooling fans is audible under the report."
+    },
+    {
+        "content": "Food: Restaurant Opening",
+        "prompt": "Lifestyle and culinary news. A cheerful female anchor sits in a bright morning show studio with a coffee mug. She announces a new viral restaurant. The scene cuts to a mouth-watering close-up slow-motion shot of a chef slicing into a juicy steak, with steam rising and sauce dripping. The anchor's voice describes the menu."
+    },
+    {
+        "content": "Energy: Solar Farm Expansion",
+        "prompt": "Green energy report. A male anchor wearing a green tie stands in a virtual studio with wind turbine graphics. He talks about renewable targets. The video switches to a high-angle drone shot flying over a massive field of blue solar panels stretching to the horizon under a bright sun. The anchor's narration explains the energy capacity."
+    },
+    {
+        "content": "Astronomy: Meteor Shower",
+        "prompt": "Science update. A meteorologist points to a star map graphic. He encourages viewers to look up tonight. The video cuts to a beautiful time-lapse of a dark night sky, capturing streaks of light (meteors) flashing across the Milky Way. The audio features quiet, awe-inspiring ambient music mixed with the forecast."
+    },
+    {
+        "content": "Education: Digital Classroom",
+        "prompt": "Education reform news. An anchor sits professionally at the desk, clasping her hands. She reports on school technology. The scene transitions to a classroom shot where young students are wearing VR headsets and gesturing in the air, while a teacher watches. The anchor's voiceover discusses the future of learning."
+    },
+    {
+        "content": "Protest: Civil Unrest",
+        "prompt": "Live field report. A reporter in a flak jacket stands on a street corner, shouting into a handheld microphone to be heard over noise. The camera shakes slightly. The view cuts to a chaotic scene of a crowd of people holding protest signs and marching down a city street, chanting slogans. The audio is dominated by the chanting and street noise."
+    }
+]

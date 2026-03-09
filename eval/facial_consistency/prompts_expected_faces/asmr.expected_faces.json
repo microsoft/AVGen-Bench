@@ -1,0 +1,527 @@
+[
+  {
+    "content": "Soap Cutting & Crushing",
+    "prompt": "Vertical close-up shot under soft studio lighting. A hand holding a utility knife slowly carves a grid pattern into a dry, pastel pink soap bar. Then, the thumb presses firmly into the grid. The visuals capture the soap cubes popping up and crumbling. The audio begins with the sharp, dry scratching of the knife tip, transitioning to a satisfying, gritty 'crunch' sound as the soap structure collapses under pressure.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up shot focused specifically on a hand and a soap bar. In this context (ASMR-style carving), the face is almost never shown on screen.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "soap carver",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand and thumb are described as active in the close-up shot."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Honeycomb Mookbang",
+    "prompt": "Extreme close-up of a person's lower face. They hold a piece of golden, dripping honeycomb. They take a large bite, and the sticky honey stretches between their lips and the comb. The visuals focus on the wax structure breaking and the viscous liquid flowing. The audio captures the distinct 'squelching' wet sound of chewing, the sticky smack of lips opening, and the crunch of the beeswax.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly describes an extreme close-up of a single person's lower face interacting with a honeycomb.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Focused specifically on the mouth and lower face area during an extreme close-up."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Kinetic Sand Slicing",
+    "prompt": "A pristine cylinder of purple kinetic sand sits on a white table. A sharp knife slices through it vertically. The sand holds its shape for a split second before the sliced half slowly slumps and disintegrates into grains. The audio captures the unique, soft 'shhh' sound of the blade slicing through the sand, followed by a subtle, sandy crumbling noise as the structure falls apart.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a close-up physical interaction between kinetic sand and a knife. No humans or faces are mentioned or required by the narrative.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Keyboard Typing (Thocky)",
+    "prompt": "A macro shot of fingers typing slowly, then accelerating on a custom mechanical keyboard with cream-colored keycaps. RGB lighting pulses gently. The visuals focus on the key travel distance and the fingers bottoming out. The audio features a deep, resonant, and 'creamy' thock sound (not high-pitched clicking) that perfectly syncs with each keystroke, creating a rhythmic bass-heavy texture.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt specifies a macro shot focused exclusively on fingers and a keyboard. No faces are mentioned or likely to be visible given the camera framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Typist",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only fingers are visible in the macro shot."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Aloe Vera Peeling",
+    "prompt": "A knife peels the green skin off a large, thick aloe vera leaf, revealing the clear, slimy gel inside. The hand then runs a finger through the goo, causing it to drip. The video captures the glistening, viscous texture of the gel. The audio is dominated by wet, slimy, sloshing sounds, emphasizing the stickiness and moisture of the plant.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up of a hand interacting with a plant; no faces are mentioned or expected in this macro-style shot.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Person (hand only)",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand and finger are described as visible for the action."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Tapping Triggers (Glass vs. Wood)",
+    "prompt": "A pair of hands taps rapidly on a clear glass bottle, producing a high-pitched, resonant 'ting-ting' sound. Halfway through, the hands move to a leather-bound book nearby, tapping on it. The audio instantly shifts from the sharp, bright glass tone to a dull, muted, low-frequency thudding sound, testing the model's material awareness.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up focus on a pair of hands and material interaction; there is no suggestion that a face will be visible in the frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Anonymous person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a pair of hands is mentioned performing the action."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Fizzy Drink & Ice Crackle",
+    "prompt": "A clear glass filled with large, round ice spheres. A brightly colored carbonated soda is poured over the ice. The video zooms in on the bubbles rising and the foam head forming. The audio captures the aggressive 'fizzing' of the carbonation and, crucially, the loud, sharp cracking sounds of the ice reacting to the temperature change.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a macro shot focused entirely on a beverage, ice, and carbonation bubbles. No humans or faces are mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "glass with soda and ice",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Main subject of the macro video."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Binaural Ear Brushing",
+    "prompt": "A POV shot facing a dummy head microphone (3Dio) with silicone ears. A large, fluffy makeup brush gently circles the left silicone ear, then moves across the screen to brush the right ear. The visuals focus on the bristles bending against the silicone curves. The audio creates a 3D effect, with the soft, scratchy brushing sound panning smoothly from the left channel to the right channel.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a POV shot of a dummy head microphone and a makeup brush. No human characters or faces are mentioned as being visible on screen.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "dummy head microphone",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "An ASMR prop with silicone ears; lacks a human facial identity."
+      },
+      {
+        "name": "unseen brush operator",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The person holding the brush is behind the camera or only their hand might be visible."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Chalk on Blackboard",
+    "prompt": "A macro shot of a white piece of chalk writing the word 'Relax' in cursive on a rough, green slate blackboard. The chalk crumbles slightly, leaving dust particles falling. The audio captures the friction—a mix of soft scratching and occasional high-pitched squeaks as the chalk drags across the textured slate surface.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a macro shot focusing exclusively on an inanimate object (chalk) writing on a blackboard surface. No humans or faces are mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Chalk",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The primary subject is a piece of chalk; no facial features."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Floral Foam Crushing",
+    "prompt": "A dry block of green floral foam is dipped in water, becoming dark green. A hand squeezes the water-logged foam. The visual shows the foam denting permanently and water rushing out between the fingers. The audio captures a squishy, wet, air-escaping sound, distinct from the dry crunch of dry foam, emphasizing the saturation of the material.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up action focusing on a hand and floral foam. In such texture or ASMR-style videos, the actor's face is typically not shown.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand is explicitly mentioned performing the action."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Glazed Clay Cracking",
+    "prompt": "A close-up of a hand holding a hollow, pastel-blue clay ball covered in a shiny, brittle glaze. The hand squeezes slowly. The video captures the glaze shattering into shards while the soft clay inside squishes out. The audio features a loud, sharp 'crack' like eggshells breaking, followed by the soft, dull squishing sound of the moist clay underneath.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.98,
+      "rationale": "The prompt specifies a close-up of a hand. No faces are mentioned or expected within this tight framing focusing on the tactile interaction with clay.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Unnamed person (hand only)",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand is described and visible in the close-up shot."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Wood Wick Candle Burning",
+    "prompt": "Macro shot of a wooden wick candle being lit by a match. The flame catches, and the wax around the wick begins to melt into a pool. The camera focuses on the blackened, glowing wood. The audio captures the initial 'fwoosh' of the match, followed by the distinct, rhythmic 'crackling' and 'popping' sound unique to wooden wicks, mimicking a miniature fireplace.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a macro shot focused entirely on a candle and a match; no human characters or faces are mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "wooden wick candle",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Subject of the macro shot"
+      },
+      {
+        "name": "match",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Used to light the candle"
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Holographic Cellophane Crinkling",
+    "prompt": "A pair of hands manipulates a sheet of iridescent, stiff holographic cellophane. They scrunch it into a ball and then smooth it out. The visuals catch the shifting rainbow light reflections on the sharp plastic folds. The audio captures the extremely high-frequency, sharp, and 'crispy' crinkling noise, distinguishing it from the softer sound of paper or fabric.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up or macro shot focusing specifically on a pair of hands and the cellophane material; there is no mention of a face being visible.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Hand owner",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only hands are explicitly mentioned as interacting with the cellophane."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Makeup Destruction (Compact Powder)",
+    "prompt": "Top-down view of a pristine, untouched pink blush compact. A metal spatula digs into the center. The pressed powder fractures into loose dust and chunks. The spatula spreads and crushes the debris. The audio captures the gritty, sandy scraping sound of metal against the powder and the pan, providing a satisfying tactile texture.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a macro, top-down product shot of a blush compact and a metal spatula. There is no mention or implication of a human face appearing in the frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "metal spatula",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The tool performing the action in the top-down view."
+      },
+      {
+        "name": "blush compact",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The central object being manipulated."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Sticky Tape Peeling",
+    "prompt": "Extreme close-up of a roll of heavy-duty duct tape. A hand lifts the edge and pulls a strip off slowly, then quickly. The visuals focus on the adhesive stretching into tiny glue strands before snapping. The audio captures the loud, staccato 'ripping' sound of the adhesive separating from the roll, varying in pitch with the speed of the pull.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies an extreme close-up of a roll of duct tape and a hand; the tight framing on the object and the adhesive strands makes the appearance of a face highly unlikely.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "hand",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand is mentioned as interacting with the object in a macro shot."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Acrylic Paint Mixing",
+    "prompt": "A metal palette knife mixes a blob of thick yellow acrylic paint with blue paint on a glass palette. The colors swirl into green. The visuals focus on the thick, buttery texture of the paint. The audio captures the wet 'squishing' and 'slapping' sounds of the paint being folded, accompanied by the occasional sharp scrape of the metal knife against the glass surface.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a close-up shot of paint being mixed with a palette knife on glass; no humans or faces are mentioned or expected in frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Iceberg Lettuce Tearing",
+    "prompt": "A whole head of fresh, wet iceberg lettuce. Two hands grab the center and pull it apart with force. Water droplets fly off the leaves in slow motion. The audio captures the loud, watery, multi-layered 'crunch' and 'tear' of the crisp vegetable fibers breaking, sounding fresh and hydrated.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a close-up action focusing on hands and lettuce; a human face is not mentioned and is unlikely to be visible given the description of the physical interaction with the vegetable.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "unnamed person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hands of this character are described as interacting with the lettuce."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Mic Scratching (Foam Cover)",
+    "prompt": "A visual of a professional microphone covered with a black foam windscreen. Long fingernails gently scratch the surface of the foam in a circular motion. The foam depresses slightly and rebounds. The audio is a raw, textured 'white noise' scratching sound, simulating the proximity effect where the sound feels like it is directly inside the listener's ear.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up macro shot of a microphone and fingernails. No facial features or heads are mentioned, typical of ASMR-style hand-focused shots.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "unseen person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only fingernails/hands are visible interacting with the microphone foam."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Slime Poke & Pop",
+    "prompt": "A container filled with glossy, metallic purple slime. A finger pokes deep into it, creating a hole that slowly closes up. Then, the hand stretches the slime to create an air bubble and squeezes it. The audio captures the wet, thick 'thwock' sound of the poke and the sharp, explosive 'snap' of the air bubble popping.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.98,
+      "rationale": "The prompt focuses exclusively on a hand and finger interacting with slime in a close-up fashion; no facial features are mentioned or narrative-driven.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "unseen person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand and finger are described performing the actions."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Water Beads (Orbeez) Squeezing",
+    "prompt": "A hand dives into a bowl filled with thousands of slippery, transparent water beads. The hand grabs a handful and squeezes tight. The beads slip through fingers and some burst. The audio captures the chaotic, wet 'sloshing' sound of the beads colliding and the subtle 'squelch' of the hydrogel material breaking under pressure.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.98,
+      "rationale": "The prompt explicitly focuses on a hand and water beads in a bowl, implying a close-up or macro shot where a face would not be visible.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "unseen person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand is visible and interacting with the objects."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  }
+]

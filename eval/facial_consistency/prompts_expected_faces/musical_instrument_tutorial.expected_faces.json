@@ -1,0 +1,506 @@
+[
+  {
+    "content": "Acoustic Guitar: C Major Chord Strum",
+    "prompt": "A close-up tutorial shot focusing on the fretboard of an acoustic guitar. Soft lighting. A left hand cleanly presses the strings into a C Major chord shape (fingers on the 1st, 2nd, and 3rd frets). A right hand holding a pick performs a single, slow, downward strum across all strings, producing a rich, resonant major chord that rings as the metal strings visibly vibrate.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt specifies a close-up tutorial shot focusing strictly on the hands and guitar fretboard, making face visibility highly unlikely.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "guitar player",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the left and right hands are described in the frame."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Piano: Legato Scale",
+    "prompt": "A top-down view of a hand positioned on a piano keyboard with a metronome ticking steadily in the background. The fingers press down on the white keys one by one in a smooth, connected motion to play a 5-note ascending scale, and each note lands exactly when the fingertip makes contact and the key bottoms out before rebounding.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt specifies a top-down view focused exclusively on a hand and piano keyboard. No faces are expected within this framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "pianist",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand is mentioned and the top-down perspective typically excludes the face."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Drum Lesson: Snare Hit",
+    "prompt": "A super slow-motion shot of a drumstick hitting a snare drum under studio lighting that highlights the texture of the drum skin. The stick strikes the exact center of the drum, creating a visible ripple on the drumhead as it snaps back, and the audio matches with a sharp snare 'crack' followed by the quick buzzing rattle of the snare wires underneath.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a macro/close-up shot of a drumstick hitting a snare drum. No human figures or faces are mentioned or implied within the frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Violin: Smooth Bowing",
+    "prompt": "A side-profile close-up of a violin being played in a quiet classical practice setting. The right hand holds the bow with a proper grip and pulls it slowly across the A string in a straight line (down-bow), producing a steady sustained tone that stays smooth and clean as the horsehair visibly grips the string without scratchy noise.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a side-profile close-up focusing on the violin, strings, and the right hand. In this framing, the player's face is excluded.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Violinist",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the right hand and its interaction with the bow and strings are described."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Bass Guitar: Slap Technique",
+    "prompt": "A dynamic shot of a bass guitar body with no background music, focusing on technique. The right thumb strikes the thickest string forcefully (slap) and the index finger hooks and pops a higher string upward (pop), creating a tight percussive thump followed by a bright metallic clank that lines up with each visible string snap.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt specifies a dynamic shot focused on the bass guitar body and the technique of the hand (slap and pop); there is no mention or expectation of a face in such a technical close-up.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Bassist's hand",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the right hand/fingers are described as visible actors performing the slap and pop technique."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Ukulele: Island Strumming",
+    "prompt": "A warm, bright shot of a ukulele held against a chest with faint ocean waves in the background. The right hand performs a rhythmic down-up-down-up strumming pattern using the index finger, and each visible brush across the nylon strings produces a cheerful, high-pitched jingle in perfect sync with the wrist motion.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.9,
+      "rationale": "The prompt describes a close-up framing of the ukulele, chest, and hands, which typically excludes the player's face from the shot.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "ukulele player",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Main actor whose hands and chest are visible, but framing is centered on the instrument."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Trumpet: Valve Maintenance",
+    "prompt": "A close-up of a brass trumpet's valve casing while a narrator says, 'Check the valves.' A hand presses the three valves rapidly in a random sequence, and each press bottoms out with a crisp metallic click and springy return that matches the piston movement.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a close-up of a trumpet's valve casing and a hand. No facial features are described or likely given the tight framing on the instrument parts.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Trumpet player",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand is mentioned as visible in the close-up."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Cello: Vibrato Technique",
+    "prompt": "A tight focus on the fingerboard of a cello as a deep, warm note sustains. A left-hand finger presses a string against the ebony board and rocks back and forth rhythmically, and the audio wavers in pitch in sync with the visible vibrato motion while the bow continues to draw a stable tone.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a tight focus on the fingerboard and finger, which explicitly limits the field of view to exclude the performer's face.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cellist",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand/finger is described as being on-screen in a tight focus shot."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Tambourine: Shake Roll",
+    "prompt": "A hand holds a wooden tambourine against a plain background and rotates the wrist rapidly back and forth. The metal jingles blur as they strike and rub, producing a continuous shimmering high-pitched jingle that intensifies as the shake speed increases.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up shot of a hand and wrist against a plain background. There is no indication that the person's face will be in the frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Tambourine player",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand and wrist are described as being on-screen."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Synthesizer: Pitch Bend",
+    "prompt": "A close-up of a synthesizer keyboard and the pitch bend wheel on the left with a sustained synth chord held down. A hand slowly pushes the pitch bend wheel upward and then releases it back to center, and the chord glides smoothly up in pitch and returns exactly with the wheel's travel and snap-back.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a close-up of a synthesizer keyboard and a hand; no faces are mentioned or expected in this framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Musician",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand is visible in the close-up shot of the instrument."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Harp: Glissando Sweep",
+    "prompt": "A dreamy, soft-focus shot of a golden harp's strings in a quiet studio. A hand sweeps across the strings from low to high in one continuous motion (glissando), and the camera shows each string briefly vibrating as the sound cascades upward in a sparkling run that follows the hand's path.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up, soft-focus shot of harp strings and a hand. No faces are mentioned, and the focus is on the instrument and hand movement.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "harpist",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand is explicitly mentioned performing the glissando."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "DJ Turnable: Vinyl Scratch",
+    "prompt": "A top-down view of a DJ turntable deck with a simple drum beat playing. A hand rests on a black vinyl record and pushes it forward then pulls it back rhythmically, and each stop-and-reverse motion produces the classic 'wiki-wiki' scratch sound exactly when the record changes direction.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The top-down view focuses strictly on the DJ turntable deck and a human hand; the person's face is expected to be out of the camera's frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "DJ",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand is specified as visible in the top-down shot."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Saxophone: Key Action",
+    "prompt": "A macro shot of the brass keys on a saxophone during a fast run. The fingers press the pearl keys in rapid sequence, and the audio line up with quick mechanical key taps as the pads visibly lift and seal over tone holes at each note change.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly calls for a macro shot focused on the saxophone keys and fingers; the framing precludes the visibility of a face.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Musician",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only fingers are described as part of the macro shot interaction with the instrument."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Triangle: The Perfect Ding",
+    "prompt": "A hand holds a metal triangle by a string, suspended in the air in silence. The other hand strikes the bottom horizontal bar with a metal beater, and the beater recoils immediately as the triangle frame shimmers visibly and a clear high-pitched 'ding' rings out and decays.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a focused close-up interaction between hands and a musical instrument. No faces are mentioned, and the framing implies the focus is on the triangle and the strike action.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Musician",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hands of the individual are described as interacting with the object."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Electric Guitar: String Bend",
+    "prompt": "A zoomed-in shot of an electric guitar fretboard with distortion on. A finger frets a note and then pushes the steel string upward across the wood (bending), and the pitch rises smoothly as the string visibly stretches, then settles when the finger releases.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt specifies a zoomed-in shot of a guitar fretboard focusing on a finger; faces would not be visible in this macro framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "guitarist",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a finger is visible in this macro shot of the fretboard."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Kalimba (Thumb Piano): Plucking",
+    "prompt": "A POV shot of a wooden kalimba held in two hands in a quiet room. The two thumbs alternate plucking the metal tines downward, and each tine bends under the thumb then snaps back to blur with vibration as a soft bell-like note sounds exactly at the release.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a POV shot focusing specifically on hands and a kalimba instrument; no faces are mentioned or would typically be visible in this framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Kalimba player",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hands and thumbs are visible due to the POV camera angle."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Cymbal: Crash Choke",
+    "prompt": "A dynamic shot of a gold crash cymbal on a stand. A drumstick strikes the cymbal edge hard, making it wobble violently as a loud crash blooms, then a hand immediately grabs the edge to choke it, cutting the ringing sound off instantly as the cymbal's motion stops.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up interaction with a cymbal involving a drumstick and a hand. No facial identity is mentioned or expected in this specific framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "drummer",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The prompt mentions a hand and drumstick interaction with the cymbal, suggesting the rest of the person is off-screen."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Accordion: Bellows Movement",
+    "prompt": "A medium shot of an accordion being played with a steady chord. The left arm pulls the bellows outward and then pushes them back in, and the chord audibly swells louder as the bellows open and softens as they close, synchronized with the visible 'breathing' folds.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.8,
+      "rationale": "The prompt describes a medium shot focusing on the accordion and the player's arm. While a human is playing the instrument, the focus on the bellows and arm suggests the face might be out of frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "accordion player",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Only the left arm is explicitly mentioned as interacting with the instrument."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Maracas: Rhythmic Shake",
+    "prompt": "A close-up of a pair of wooden maracas in two hands against a plain background with no other instruments. The hands shake the maracas forward and backward sharply in a steady rhythm, and each reversal produces a crisp sandy rattle as the beads inside lag behind and then strike the shell, creating a clear shake-shake pattern perfectly synchronized with the motion.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a close-up focus on hands and maracas against a plain background. While a human is present, their face is not expected to be on screen given the framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "person holding maracas",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only hands are visible in the close-up."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Xylophone: Mallet Rebound",
+    "prompt": "A side-angle view of wooden xylophone bars. A hard plastic mallet strikes a single bar, producing a bright woody 'plonk' exactly at impact, and the mallet bounces back immediately instead of sticking so the bar can keep vibrating as the note rings.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses exclusively on a musical instrument and a mallet; no humans or faces are mentioned or implied in the frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  }
+]

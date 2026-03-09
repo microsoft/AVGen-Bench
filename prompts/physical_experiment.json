@@ -1,0 +1,82 @@
+[
+    {
+        "content": "Lenz's Law (Magnet in Copper Pipe)",
+        "prompt": "A physics classroom demonstration focusing on electromagnetism. A hollow, vertical copper tube is clamped to a stand while quiet classroom room tone is audible. A hand drops a strong neodymium magnet into the tube, and instead of a fast clatter the magnet descends slowly with a faint metallic sliding rasp, finally landing with a soft muted thud compared to a normal free-fall drop."
+    },
+    {
+        "content": "The Leidenfrost Effect",
+        "prompt": "A close-up shot of a cast iron skillet being heated to an extremely high temperature on a gas stove, the burner hissing steadily. A pipette releases a single fat droplet of water onto the scorching surface, and rather than a continuous loud sizzle the droplet skitters around with a light rapid tapping while a thin halo of steam crackles softly beneath it."
+    },
+    {
+        "content": "Laminar Flow (Water Balloon)",
+        "prompt": "A backyard science experiment featuring a large water balloon filled with water and taped with a square of electrical tape, with birds chirping in the background. A pin pokes a clean hole through the tape with a sharp pop, and a perfectly smooth stream of water exits with a steady quiet pour, looking strangely frozen and glassy as it falls without turbulent splashing."
+    },
+    {
+        "content": "Chladni Plate (Resonance Patterns)",
+        "prompt": "A top-down view of a black square metal plate sprinkled evenly with fine white sand as a tone generator plays a pure sine wave that sweeps upward in pitch. As the plate begins to vibrate, the rising tone makes the sand suddenly jitter and chatter across the metal, then fall quiet as grains slide into crisp geometric nodal lines that sharpen and rearrange each time the pitch crosses a new resonance."
+    },
+    {
+        "content": "Refraction of Light (Pencil in Water)",
+        "prompt": "A simple optical physics setup shows a clear glass tank filled with water in a quiet room with faint ambient noise. A bright yellow pencil is lowered into the water at a 45-degree angle, making a small water ripple sound as it breaks the surface, and the camera from the side captures the pencil appearing visibly 'broken' and laterally shifted exactly at the air–water boundary."
+    },
+    {
+        "content": "Non-Newtonian Fluid (Oobleck Punch)",
+        "prompt": "A large bowl filled with white cornstarch-and-water oobleck sits on a table, making wet squelching sounds as a hand stirs it. A fist punches straight down, hitting with a hard flat smack as the surface behaves like a solid, then the hand relaxes and slowly sinks in with sticky gurgling squishes as the mixture flows like a liquid around the fingers."
+    },
+    {
+        "content": "Newton's Cradle (Conservation of Momentum)",
+        "prompt": "A classic Newton's Cradle sits on a wooden desk in a quiet room. A hand pulls back exactly two metal spheres on the left and releases them; the impact produces a crisp synchronized clack, and on the right exactly two spheres swing out together, clicking in rhythm as the motion continues."
+    },
+    {
+        "content": "Gyroscopic Precession",
+        "prompt": "In a physics lab, a heavy bicycle wheel is spun up rapidly, its bearings producing a steady high whir. A rope is attached to one handle and the demonstrator lets the other side go; instead of dropping flat with a bang, the wheel stays upright and slowly precesses around the rope while the whirring pitch subtly wobbles as the axis turns."
+    },
+    {
+        "content": "Prince Rupert's Drop",
+        "prompt": "A high-speed camera close-up shows a Prince Rupert's Drop under dramatic silence with only faint tool handling noises. Hydraulic pliers squeeze the bulbous head without breaking it, then snip the thin tail with a tiny sharp click, instantly triggering a violent crackling burst as the entire glass drop explosively disintegrates into fine dust."
+    },
+    {
+        "content": "Total Internal Reflection (Laser in Water Stream)",
+        "prompt": "In a darkened room, a plastic bottle drains a smooth stream of water into a bucket with a steady splashing sound. A green laser pointer shines into the bottle so the beam enters the exiting water, and the video shows the light bending and staying trapped inside the stream like a glowing fiber as the water continues to pour audibly."
+    },
+    {
+        "content": "Bernoulli's Principle (Floating Ball)",
+        "prompt": "A home science video in a living room features a hair dryer roaring loudly as it blows straight upward. A hand places a ping-pong ball into the air jet, and when the hand lets go the ball hovers and wobbles in the rushing airflow, bobbing slightly while the loud blower sound stays constant."
+    },
+    {
+        "content": "Meissner Effect (Quantum Levitation)",
+        "prompt": "A lab close-up shows a black ceramic superconductor disk cooled with liquid nitrogen, cold white vapor cascading off the sides with a soft hiss. A gloved hand lowers a small shiny magnet above the frosted disk, and when the hand releases it the magnet levitates silently a few millimeters in the air, drifting smoothly while nitrogen vapor continues to whisper around the setup."
+    },
+    {
+        "content": "Sympathetic Resonance (Tuning Forks)",
+        "prompt": "Two identical tuning forks on wooden resonance boxes sit a few feet apart in a quiet classroom. A rubber mallet strikes the first fork, producing a loud pure tone, and after two seconds a hand pinches the first fork to silence it instantly while the same note continues softly from the second fork, as if the sound has moved across the table."
+    },
+    {
+        "content": "Slinky Drop (Tension vs Gravity)",
+        "prompt": "A slow-motion wide shot in a quiet gym shows a person on a ladder holding a fully stretched rainbow slinky. The top is released with a faint metallic jingle, and while the upper coils collapse downward the bottom end appears to hover nearly motionless for a moment before suddenly snapping down and hitting the floor with a quick rattling clatter."
+    },
+    {
+        "content": "Surface Tension (Pepper & Soap)",
+        "prompt": "A top-down kitchen shot shows a plate of water covered with black pepper flakes, with faint room sounds in the background. A soapy fingertip touches the center with a tiny tap, and instantly the pepper darts outward in a fast sweeping motion as the surface tension breaks, accompanied by a subtle sloshing ripple sound."
+    },
+    {
+        "content": "Gallium Melting Point",
+        "prompt": "A warm close-up shows a steaming cup of hot tea on a wooden saucer, and a metal spoon clinks against the ceramic as it stirs. The spoon is revealed to be gallium; as it stays submerged, the 'spoon' begins to slump and deform, wobbling and softening while the stirring sound changes from a firm clink to a duller, mushier scrape."
+    },
+    {
+        "content": "Static Electricity (Water Bending)",
+        "prompt": "In a bathroom, a faucet runs a thin steady stream with constant water noise. A person rubs a plastic comb against dry hair, producing faint crackling, and as the charged comb approaches the falling stream the water audibly stays the same but visibly curves sideways toward the comb without being touched."
+    },
+    {
+        "content": "Vacuum Chamber (Feather and Coin)",
+        "prompt": "A high-fidelity view into a glass vacuum chamber shows absolute silence with no air movement. A release mechanism drops a metal coin and a feather side-by-side, and they fall at the same rate and hit the floor together with a single sharp impact sound transmitted through the chamber's base rather than through air."
+    },
+    {
+        "content": "Polarization (Crossed Polarizers)",
+        "prompt": "A tabletop optics demo shows a bright phone flashlight shining through a first polarizing filter, with quiet room tone. A second polarizer is held in front and slowly rotated, the plastic making a faint rubbing sound between fingers; as it turns, the beam visibly dims smoothly to near-black at the crossed position and then brightens again as the rotation continues."
+    },
+    {
+        "content": "Tuning Fork Splash",
+        "prompt": "A metal tuning fork is struck on a table with a sharp tap, producing a steady hum. The vibrating prongs are lowered to just touch a bowl of still water, and the moment the tips meet the surface they create rapid tiny splashes and ripples that buzz in sync with the audible vibration."
+    }
+]

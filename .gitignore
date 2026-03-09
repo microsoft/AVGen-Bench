@@ -1,0 +1,18 @@
+__pycache__/
+**/__pycache__/
+.DS_Store
+**/.DS_Store
+
+
+
+eval/videophy/VIDEOPHY2/videophy_2_auto
+eval/Syncformer/logs/
+generated_videos/
+avgenbench/
+Audio_video_benchmark_src/
+AVGen-Bench.code-workspace
+
+# Large third-party datasets and docs not needed for benchmark evaluation
+eval/Syncformer/data/
+eval/videophy/asset/
+eval/videophy/preprint.pdf

@@ -1,0 +1,733 @@
+# AVGen-Bench
+
+AVGen-Bench is a **task-driven benchmark** for multi-granular evaluation of Text-to-Audio-Video (T2AV) generation.
+
+🔗 **Project Page:** [AVGen-Bench Homepage](index.html)
+
+
+
+<p align="center">
+  <img src="assets/benchmark_comparison.drawio.png" alt="Comparison between AVGen-Bench and prior benchmarks" width="100%" />
+</p>
+<p align="center"><em>
+Compared with prior benchmarks, AVGen-Bench emphasizes joint audio-video evaluation,
+fine-grained multi-dimensional assessment, and more complex task-oriented prompts.
+</em></p>
+
+## Benchmark Results
+
+<p align="center">
+  <img src="assets/avgenbench_test_results.png" alt="AVGen-Bench main quantitative results" width="100%" />
+</p>
+<p align="center"><em>
+Main quantitative results on AVGen-Bench across 10 metrics.
+</em></p>
+
+Metric direction: higher is better for `Vis`, `Aud (PQ)`, `Text`, `Face`, `Music`, `Speech`, `Lo-Phy`, `Hi-Phy`, and `Holistic`; lower is better for `AV` and `Lip`.
+
+## Failure Demo Videos
+
+The following demos are selected from Appendix A failure cases.  
+For repository portability, all showcased clips are stored in `assets/failure_demos/`.
+
+<details open>
+<summary><strong>Case 1: Prompted Text Rendering ("Your customers are talking")</strong></summary>
+
+**Original Prompt**  
+A single wind-up chattering teeth toy clacks continuously against a solid teal background. The scene cuts to a blue screen displaying the white text 'Your customers are talking,' abruptly followed by rows of multi-colored chattering teeth toys all moving at once, creating a loud chaotic mechanical clatter. A green screen appears with the text 'Are you listening?' before cutting to a generic product logo and a 'Try it free' button on a white background as the noise ceases.
+
+#### Veo 3.1 Fast
+[![Preview](assets/failure_demos/text_customers/veo3_1_fast.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-text-customers)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/text_customers/veo3_1_fast.mp4)
+
+#### Ovi
+[![Preview](assets/failure_demos/text_customers/ovi.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-text-customers)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/text_customers/ovi.mp4)
+
+#### LTX-2
+[![Preview](assets/failure_demos/text_customers/ltx2.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-text-customers)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/text_customers/ltx2.mp4)
+
+#### Kling 2.6
+[![Preview](assets/failure_demos/text_customers/kling26.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-text-customers)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/text_customers/kling26.mp4)
+
+</details>
+
+<details>
+<summary><strong>Case 2: Trailer Title Rendering ("EIGHTY-SEVEN SECONDS")</strong></summary>
+
+**Original Prompt**  
+Four-shot high-tempo teaser with clean sync hits. Shot 1: Inside a bank vault, fluorescent hum and distant alarms; a timer on a device beeps faster as a thief whispers, "Eighty-seven seconds, move." Shot 2: Close-up of a glass cutter scoring a pane with a sharp scratch, then a suction cup pops as the circle lifts free, landing on a bass hit. Shot 3: Smash cut to a getaway car; engine revs, tires chirp, and the car fishtails out of a tight alley with gravel spraying and rattling off the chassis. Shot 4: A final slow-motion shot of a duffel bag hitting the pavement with a heavy thud as sirens surge; the title EIGHTY-SEVEN SECONDS slams onto black with a metallic logo sting.
+
+#### Veo 3.1 Fast
+[![Preview](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-text-eighty-seven-seconds)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.mp4)
+
+#### Ovi
+[![Preview](assets/failure_demos/text_eighty_seven_seconds/ovi.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-text-eighty-seven-seconds)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/text_eighty_seven_seconds/ovi.mp4)
+
+#### LTX-2
+[![Preview](assets/failure_demos/text_eighty_seven_seconds/ltx2.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-text-eighty-seven-seconds)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/text_eighty_seven_seconds/ltx2.mp4)
+
+#### Kling 2.6
+[![Preview](assets/failure_demos/text_eighty_seven_seconds/kling26.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-text-eighty-seven-seconds)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/text_eighty_seven_seconds/kling26.mp4)
+
+</details>
+
+<details>
+<summary><strong>Case 3: Physical Plausibility (Chladni Plate)</strong></summary>
+
+**Original Prompt**  
+A top-down view of a black square metal plate sprinkled evenly with fine white sand as a tone generator plays a pure sine wave that sweeps upward in pitch. As the plate begins to vibrate, the rising tone makes the sand suddenly jitter and chatter across the metal, then fall quiet as grains slide into crisp geometric nodal lines that sharpen and rearrange each time the pitch crosses a new resonance.
+
+#### Veo 3.1 Fast
+[![Preview](assets/failure_demos/physics_chladni/veo3_1_fast.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-physics-chladni)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/physics_chladni/veo3_1_fast.mp4)
+
+#### Ovi
+[![Preview](assets/failure_demos/physics_chladni/ovi.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-physics-chladni)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/physics_chladni/ovi.mp4)
+
+#### LTX-2
+[![Preview](assets/failure_demos/physics_chladni/ltx2.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-physics-chladni)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/physics_chladni/ltx2.mp4)
+
+#### Kling 2.6
+[![Preview](assets/failure_demos/physics_chladni/kling26.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-physics-chladni)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/physics_chladni/kling26.mp4)
+
+</details>
+
+<details>
+<summary><strong>Case 4: Physical Plausibility (Briggs-Rauscher)</strong></summary>
+
+**Original Prompt**  
+A high-speed time-lapse shows a beaker on a magnetic stirrer, the stir plate motor making a steady whir as a stir bar spins. The beaker contains a Briggs-Rauscher mixture (hydrogen peroxide, potassium iodate, malonic acid, and a metal-ion catalyst with starch indicator). While the vortex turns, the liquid repeatedly cycles through several distinct visible states in a rhythmic pattern, switching abruptly and then returning again and again as the stirring continues.
+
+#### Veo 3.1 Fast
+[![Preview](assets/failure_demos/physics_briggs/veo3_1_fast.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-physics-briggs)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/physics_briggs/veo3_1_fast.mp4)
+
+#### Ovi
+[![Preview](assets/failure_demos/physics_briggs/ovi.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-physics-briggs)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/physics_briggs/ovi.mp4)
+
+#### LTX-2
+[![Preview](assets/failure_demos/physics_briggs/ltx2.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-physics-briggs)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/physics_briggs/ltx2.mp4)
+
+#### Kling 2.6
+[![Preview](assets/failure_demos/physics_briggs/kling26.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-physics-briggs)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/physics_briggs/kling26.mp4)
+
+</details>
+
+<details>
+<summary><strong>Case 5: Semantic Misalignment (Vacation Ad)</strong></summary>
+
+**Original Prompt**  
+A young boy hits a beach ball as a group of children runs past him and jumps into a swimming pool with loud splashes, while a voiceover states, 'We went on vacation with a toe dipper.' The camera follows the kids underwater as bubbles roar and feet kick past the lens, and the voiceover finishes, 'and left with a cannonballer.' Finally, the view resurfaces to show a laughing girl in the water as on-screen text reads 'Book your family home now.'
+
+#### Veo 3.1 Fast
+[![Preview](assets/failure_demos/semantic_vacation/veo3_1_fast.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-semantic-vacation)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/semantic_vacation/veo3_1_fast.mp4)
+
+#### Ovi
+[![Preview](assets/failure_demos/semantic_vacation/ovi.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-semantic-vacation)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/semantic_vacation/ovi.mp4)
+
+#### LTX-2
+[![Preview](assets/failure_demos/semantic_vacation/ltx2.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-semantic-vacation)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/semantic_vacation/ltx2.mp4)
+
+#### Kling 2.6
+[![Preview](assets/failure_demos/semantic_vacation/kling26.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-semantic-vacation)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/semantic_vacation/kling26.mp4)
+
+</details>
+
+<details>
+<summary><strong>Case 6: Music Pitch Accuracy (Single Note A4)</strong></summary>
+
+**Original Prompt**  
+A zoomed-in tutorial shot of a clean-tone electric guitar fretboard and picking hand. The player frets a single note A4 and plucks it four times with even timing, letting each note ring briefly. The pitch stays stable (no bend, no vibrato), and no other strings ring.
+
+#### Veo 3.1 Fast
+[![Preview](assets/failure_demos/music_a4/veo3_1_fast.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-music-a4)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/music_a4/veo3_1_fast.mp4)
+
+#### Ovi
+[![Preview](assets/failure_demos/music_a4/ovi.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-music-a4)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/music_a4/ovi.mp4)
+
+#### LTX-2
+[![Preview](assets/failure_demos/music_a4/ltx2.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-music-a4)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/music_a4/ltx2.mp4)
+
+#### Kling 2.6
+[![Preview](assets/failure_demos/music_a4/kling26.jpg)](https://lliar-liar.github.io/AVGen-Bench/#case-music-a4)
+[Watch video (raw)](https://github.com/Lliar-liar/AVGen-Bench/raw/main/assets/failure_demos/music_a4/kling26.mp4)
+
+</details>
+
+Click any preview image to jump to the corresponding section on the homepage. Use `Watch video (raw)` to open the MP4 file directly.
+
+
+## Installation
+
+To ensure reproducibility and minimize dependency conflicts, each evaluation module uses a dedicated Conda environment defined in `environments/*.yml`.
+
+### 1. Prerequisites
+
+- Linux with Conda installed (`Miniconda` or `Anaconda`)
+- CUDA-enabled GPU for GPU-dependent modules
+
+```bash
+cd AVGen-Bench
+```
+
+> Note: the YAML files include historical `prefix` fields. Always pass `-n <env_name>` when creating environments to avoid local path conflicts.
+
+### 2. Evaluation dimension to environment mapping
+
+| Granularity | Evaluation Dimension | Module Directory | Environment YAML | Env Name |
+|---|---|---|---|---|
+| Basic Uni-modal | Visual Quality | `eval/Q-Align` | `environments/visual_quality.yml` | `q_align` |
+| Basic Uni-modal | Audio Quality (Audiobox-Aesthetic) | `eval/audiobox-aesthetics` | `environments/audio_quality.yml` | `audiobox` |
+| Basic Cross-modal | AV Sync | `eval/Syncformer` | `environments/avsync.yml` | `syncformer` |
+| Basic Cross-modal | Lip Sync | `eval/syncnet_python` | `environments/lipsync.yml` | `syncnet` |
+| Fine-grained Visual | Scene Text Rendering | `eval/Ocr` | `environments/text_rendering_quality.yml` | `ocr` |
+| Fine-grained Visual | Facial Consistency | `eval/facial_consistency` | `environments/facial_consistency.yml` | `face` |
+| Fine-grained Audio | Pitch Accuracy | `eval/music_check` | `environments/pitch_accuracy.yml` | `music` |
+| Fine-grained Audio | Speech Intelligibility \& Coherence | `eval/speech` | `environments/speech_quality.yml` | `whisper` |
+| Fine-grained Macro | Low-level Physical Plausibility | `eval/videophy` | `environments/low_level_physics.yml` | `videophy` |
+| Fine-grained Macro | High-level Physical Plausibility | `eval/gemini_phy` | `environments/mllm.yml` | `mllm` |
+| Fine-grained Macro | Holistic Semantic Alignment | `eval/plot_matching` | `environments/mllm.yml` | `mllm` |
+
+### 3. Create environments (recommended: on demand)
+
+Create only the environments required by the modules you plan to run.
+
+```bash
+# Visual quality
+conda env create -f environments/visual_quality.yml -n q_align
+
+# AV synchronization
+conda env create -f environments/avsync.yml -n syncformer
+
+# Shared MLLM environment (used by both eval/gemini_phy and eval/plot_matching)
+conda env create -f environments/mllm.yml -n mllm
+```
+
+Activate the corresponding environment before running each module:
+
+```bash
+conda activate <env_name>
+```
+
+### 4. (Optional) Create all environments in batch
+
+```bash
+for yml in environments/*.yml; do
+  env_name=$(grep '^name:' "$yml" | awk '{print $2}')
+  conda env create -f "$yml" -n "$env_name"
+done
+```
+
+### 5. Verify installation
+
+```bash
+conda env list
+```
+
+## Prompt-based Generation
+
+This repo now includes a prompt-driven generation framework:
+
+- Entry script: `batch_generate.py`
+- Core runner: `generation/runner.py`
+- Client interface: `generation/clients/base.py`
+- Built-in provider: `generation/clients/sora2.py`
+- Additional providers: `generation/clients/kling26.py`, `generation/clients/wan26.py`, `generation/clients/seedance.py`, `generation/clients/ovi.py`
+
+### 1. Generate videos from `prompts/*.json`
+
+```bash
+python batch_generate.py \
+  --provider sora2 \
+  --task_type video_generation \
+  --prompts_dir ./prompts \
+  --out_dir ./generated_videos/sora2 \
+  --concurrency 2 \
+  --seconds 12 \
+  --size 1280x720
+```
+
+Output layout is evaluation-compatible:
+
+```text
+generated_videos/sora2/
+  ads/<safe_filename(content)>.mp4
+  animals/<safe_filename(content)>.mp4
+  ...
+```
+
+### 2. Environment variables for `sora2`
+
+```bash
+export AZURE_OPENAI_API_KEY=...
+export ENDPOINT_URL="https://xxxxx.openai.azure.com/"
+export DEPLOYMENT_NAME="sora-2"
+```
+
+`ENDPOINT_URL` and `DEPLOYMENT_NAME` have defaults in code, while `AZURE_OPENAI_API_KEY` is required.
+
+### 3. Other integrated providers
+
+#### `kling26`
+
+```bash
+export KLING_ACCESS_KEY=...
+export KLING_SECRET_KEY=...
+export KLING_BASE_URL="https://api-beijing.klingai.com"
+
+python batch_generate.py \
+  --provider kling26 \
+  --prompts_dir ./prompts \
+  --out_dir ./generated_videos/kling26 \
+  --concurrency 2
+```
+
+#### `wan26`
+
+```bash
+export DASHSCOPE_API_KEY=...
+export DASHSCOPE_BASE_URL="https://dashscope.aliyuncs.com"
+
+python batch_generate.py \
+  --provider wan26 \
+  --prompts_dir ./prompts \
+  --out_dir ./generated_videos/wan26 \
+  --concurrency 2
+```
+
+#### `seedance`
+
+```bash
+export ARK_API_KEY=...
+export ARK_BASE_URL="https://ark.cn-beijing.volces.com/api/v3"
+
+python batch_generate.py \
+  --provider seedance \
+  --prompts_dir ./prompts \
+  --out_dir ./generated_videos/seedance \
+  --concurrency 2
+```
+
+#### `ltx2`
+
+`ltx2` provider uses the vendored LTX-2 source code already included in this repo under `third_party/LTX-2`.
+Current integration targets the official `DistilledPipeline` for text-to-video.
+
+Environment setup:
+
+```bash
+python -m venv .venv-ltx2
+source .venv-ltx2/bin/activate
+
+# Install runtime dependencies required by vendored ltx-core + ltx-pipelines
+pip install "torch~=2.7" torchaudio einops numpy "transformers>=4.52" \
+  safetensors accelerate "scipy>=1.14" av tqdm pillow
+
+# Optional performance extras
+pip install xformers
+```
+
+If you keep LTX-2 in a dedicated environment, point the runner to that Python binary:
+
+```bash
+export LTX2_PYTHON_BIN="$(pwd)/.venv-ltx2/bin/python"
+```
+
+Required weights for the current `ltx2` integration:
+
+- `ltx-2.3-22b-distilled.safetensors`
+- `ltx-2.3-spatial-upscaler-x2-1.0.safetensors`
+- Gemma text encoder files from `google/gemma-3-12b-it-qat-q4_0-unquantized`
+
+Recommended layout:
+
+```text
+/path/to/ltx2_models/
+  ltx-2.3-22b-distilled.safetensors
+  ltx-2.3-spatial-upscaler-x2-1.0.safetensors
+  gemma-3-12b-it-qat-q4_0-unquantized/
+```
+
+Then configure:
+
+```bash
+export LTX2_MODELS_DIR=/path/to/ltx2_models
+export LTX2_PYTHON_BIN=/path/to/.venv-ltx2/bin/python
+```
+
+Or set explicit paths instead:
+
+```bash
+export LTX2_DISTILLED_CHECKPOINT_PATH=/path/to/ltx-2.3-22b-distilled.safetensors
+export LTX2_SPATIAL_UPSAMPLER_PATH=/path/to/ltx-2.3-spatial-upscaler-x2-1.0.safetensors
+export LTX2_GEMMA_ROOT=/path/to/gemma-3-12b-it-qat-q4_0-unquantized
+```
+
+Run generation:
+
+```bash
+python batch_generate.py \
+  --provider ltx2 \
+  --prompts_dir ./prompts \
+  --out_dir ./generated_videos/ltx2 \
+  --concurrency 1 \
+  --ltx2_python_bin "$LTX2_PYTHON_BIN" \
+  --ltx2_size 1280x704 \
+  --ltx2_num_frames 193
+```
+
+Notes:
+
+- `ltx2` currently supports `pipeline=distilled` only.
+- The default size is `1280x704`, not `1280x720`, because the two-stage LTX-2 pipeline requires width and height divisible by 64.
+- You can use `--ltx2_quantization fp8-cast` on supported setups to reduce memory pressure.
+
+#### `ovi`
+
+`ovi` provider uses the vendored Ovi source code already included in this repo under `third_party/Ovi`.
+You do not need to clone Ovi separately. You only need to prepare the Ovi checkpoints.
+
+Environment setup:
+
+```bash
+cd third_party/Ovi
+python -m venv .venv
+source .venv/bin/activate
+
+# Install PyTorch first. Choose the wheel that matches your CUDA/driver setup.
+pip install torch==2.6.0 torchvision torchaudio
+
+# Install Ovi dependencies vendored with this repo
+pip install -r requirements.txt
+
+# Optional but recommended for Ovi inference
+pip install flash_attn --no-build-isolation
+```
+
+If you keep Ovi in a dedicated environment, point the runner to that Python binary:
+
+```bash
+export OVI_PYTHON_BIN="$(pwd)/.venv/bin/python"
+```
+
+Weights download:
+
+```bash
+cd third_party/Ovi
+source .venv/bin/activate
+
+# Download all default Ovi checkpoints plus Wan/MMAudio dependencies
+python download_weights.py
+
+# Or download to a custom directory
+python download_weights.py --output-dir /path/to/ckpts
+
+# Or only download the 10s model
+python download_weights.py --output-dir /path/to/ckpts --models 960x960_10s
+```
+
+This downloads the Ovi model weights together with the required Wan and MMAudio components. By default they are stored under `third_party/Ovi/ckpts`.
+
+Optional fp8 checkpoint for lower VRAM setups:
+
+```bash
+wget -O "./ckpts/Ovi/model_fp8_e4m3fn.safetensors" \
+  "https://huggingface.co/rkfg/Ovi-fp8_quantized/resolve/main/model_fp8_e4m3fn.safetensors"
+```
+
+When using a custom checkpoint directory, set `OVI_CKPT_DIR` or pass `--ovi_ckpt_dir`.
+
+```bash
+# Optional: override checkpoint directory
+export OVI_CKPT_DIR=/path/to/ckpts
+export OVI_PYTHON_BIN=/path/to/third_party/Ovi/.venv/bin/python
+
+python batch_generate.py \
+  --provider ovi \
+  --prompts_dir ./prompts \
+  --out_dir ./generated_videos/ovi \
+  --concurrency 1 \
+  --ovi_ckpt_dir "$OVI_CKPT_DIR" \
+  --ovi_python_bin "$OVI_PYTHON_BIN" \
+  --ovi_model_name 960x960_10s \
+  --ovi_mode t2v \
+  --ovi_size 1280x720
+```
+
+The vendored Ovi helper for downloading weights is available at `third_party/Ovi/download_weights.py`.
+
+
+
+### 4. Re-run control
+
+- Skip existing outputs (default behavior)
+- Force regenerate with `--rerun_existing`
+
+```bash
+python batch_generate.py --provider sora2 --rerun_existing
+```
+
+### 5. Reserved `image_generation` interface (for future models)
+
+The framework includes an `image_generation(prompt, **kwargs)` interface in `generation/clients/base.py`.
+
+To test your own model in the future:
+
+1. Add a new client class under `generation/clients/` inheriting `BaseGenerationClient`.
+2. Implement `video_generation(...)` and optionally `image_generation(...)`.
+3. Register the provider key in `create_client()` in `generation/runner.py`.
+4. Run with:
+
+```bash
+python batch_generate.py --provider <your_provider> --task_type image_generation
+```
+
+## Evaluation
+
+All evaluation commands must be executed **inside the corresponding `eval/` module subdirectory**.
+
+> Replace the example paths (e.g., `/path/to/...`) with your local paths.
+
+### One-click full evaluation script
+
+We provide a single script to run the full evaluation suite end-to-end:
+
+```bash
+bash run_full_evaluation.sh
+```
+
+Default arguments:
+
+- `--prompts-dir prompts`
+- `--videos-dir generated_videos/veo3.1_fast`
+- `--output-dir avgenbench`
+- `--run-tag <basename(videos-dir)>`
+
+You can override them as follows:
+
+```bash
+bash run_full_evaluation.sh \
+  --prompts-dir /path/to/prompts \
+  --videos-dir /path/to/generated_videos \
+  --output-dir /path/to/avgenbench \
+  --run-tag veo3.1_fast
+```
+
+Notes:
+
+- The script executes each module in its own subdirectory automatically.
+- Gemini-dependent modules are skipped when neither `GEMINI_API_KEY` nor `GOOGLE_API_KEY` is set.
+- Additional optional flags: `--workers`, `--syncformer-exp-name`, `--videophy-checkpoint`, `--run-tag`.
+- Output layout follows avgenbench style:
+  - `q_align/<run_tag>.csv`
+  - `audiobox_aesthetic/<run_tag>.csv`
+  - `av_sync/<run_tag>.csv`
+  - `syncnet/<run_tag>/result.csv`
+  - `videophy2/<run_tag>.csv`
+  - `ocr/<run_tag>/results_text_quality.csv`
+  - `gemini_phy2/<run_tag>/summary.csv`
+  - `facial/<run_tag>/eval_results.json`
+  - `plot_matching/<run_tag>/eval_results.json`
+  - `music/<run_tag>/summary.json`
+  - `speech/<run_tag>/summary.json`
+- After module evaluation, the script computes an aggregate score and saves:
+  - `avgenbench/overall_score/<run_tag>.json`
+  - `avgenbench/overall_score/<run_tag>.csv`
+
+### Aggregate Total Score (Scheme 2)
+
+AVGen-Bench provides an aggregate score computed from 3 groups:
+For paper-level reporting, we keep the "10 dimensions" narrative, where cross-modal synchronization is one dimension and `AV`/`Lip` are two complementary measurements.
+
+- `Basic Uni-modal`: `Vis`, `Aud(PQ)`
+- `Basic Cross-modal`: one synchronization dimension reported by two complementary indicators (`AV`, `Lip`)
+- `Fine-grained`: `Text`, `Face`, `Music`, `Speech`, `Lo-Phy`, `Hi-Phy`, `Holistic`
+
+Group weights:
+
+- `Basic Uni-modal`: `0.2`
+- `Basic Cross-modal`: `0.2`
+- `Fine-grained`: `0.6`
+
+Metric normalization to `0-100`:
+
+- `Vis_n = Vis * 100`
+- `Aud_n = Aud(PQ) * 10`
+- `AV_n = 100 * max(0, 1 - AV / 0.5)` (lower is better)
+- `Lip_n = 100 * max(0, 1 - Lip / 8)` (lower is better)
+- `LoPhy_n = Lo-Phy * 20`
+- `Text/Face/Music/Speech/Hi-Phy/Holistic` are already in `0-100`
+
+By default, per-metric weights are equal inside each group.
+
+You can run aggregation separately:
+
+```bash
+python aggregate_score.py \
+  --output-dir avgenbench \
+  --run-tag veo3.1_fast \
+  --save-json avgenbench/overall_score/veo3.1_fast.json \
+  --save-csv avgenbench/overall_score/veo3.1_fast.csv
+```
+
+### Q-Align (Visual Quality)
+
+```bash
+conda activate q_align
+cd eval/Q-Align
+python batch_eval.py --root /path/to/video_generation/wan22_hunyuanFoley --save_summary_csv /path/to/avgenbench/q_align/wan22_hunyuanFoley.csv
+```
+
+### Audiobox-Aesthetic (Audio Quality)
+
+```bash
+conda activate audiobox
+cd eval/audiobox-aesthetics
+python batch_eval.py --root /path/to/video_generation/wan22_hunyuanFoley --save_summary_csv /path/to/avgenbench/audiobox_aesthetic/wan22_hunyuanFoley.csv
+```
+
+### Synchformer (AV Sync)
+
+```bash
+conda activate syncformer
+cd eval/Syncformer
+python batch_eval.py --root /path/to/video_generation/wan22_hunyuanFoley --save_summary_csv /path/to/avgenbench/av_sync/wan22_hunyuanFoley.csv --exp_name "24-01-04T16-39-21"
+```
+
+### OCR (Scene Text Rendering)
+
+```bash
+conda activate ocr
+cd eval/Ocr
+python batch_eval.py --root /path/to/video_generation/wan22_hunyuanFoley --out_dir /path/to/avgenbench/ocr/wan22_hunyuanFoley --prompts_dir /path/to/video_generation/prompts --gemini_workers 32
+
+python /path/to/avgenbench/ocr/summarize.py --root /path/to/avgenbench/ocr/wan22_hunyuanFoley --out_json /path/to/avgenbench/ocr/wan22_hunyuanFoley/summary_final.json
+```
+
+### SyncNet (Lip Sync)
+
+```bash
+conda activate syncnet
+cd eval/syncnet_python
+python batch_eval.py \
+  --video_root /path/to/video_generation/wan22_hunyuanFoley \
+  --save_csv /path/to/avgenbench/syncnet/wan22_hunyuanFoley/result.csv \
+  --conf_th 1.0 \
+  --inference_py inference.py
+```
+
+### VideoPhy2 (Low-level Physical Plausibility)
+
+```bash
+conda activate videophy
+cd eval/videophy/VIDEOPHY2
+python batch_eval.py --root /path/to/video_generation/wan22_hunyuanFoley --save_summary_csv /path/to/avgenbench/videophy2/wan22_hunyuanFoley.csv --checkpoint videophy_2_auto --task pc
+```
+
+### Gemini Phy (High-level Physical Plausibility)
+
+```bash
+conda activate mllm
+cd eval/gemini_phy
+export GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+python batch_eval.py \
+  --root_videos /path/to/video_generation/wan22_hunyuanFoley \
+  --prompts_dir /path/to/video_generation/prompts \
+  --model gemini-3-flash-preview \
+  --expectations_cache cache/expectations_cache.json \
+  --out_dir /path/to/avgenbench/gemini_phy2/wan22_hunyuanFoley \
+  --save_csv /path/to/avgenbench/gemini_phy2/wan22_hunyuanFoley/results.csv \
+  --save_summary_csv /path/to/avgenbench/gemini_phy2/wan22_hunyuanFoley/summary.csv \
+  --workers 32
+```
+
+### Facial Quality (Facial Consistency)
+
+```bash
+conda activate face
+cd eval/facial_consistency
+export ORT_CUDNN_CONV_ALGO_SEARCH=DEFAULT
+python batch_eval.py \
+  --prompts_dir /path/to/AVGen-Bench/eval/facial_consistency/prompts_expected_faces \
+  --root_videos /path/to/video_generation/wan22_hunyuanFoley \
+  --out_json /path/to/avgenbench/facial/wan22_hunyuanFoley/eval_results.json \
+  --ctx_id 0
+```
+
+### Plot Matching (Holistic Semantic Alignment)
+
+```bash
+conda activate mllm
+cd eval/plot_matching
+export GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+python batch_eval.py \
+  --prompts_dir /path/to/video_generation/prompts \
+  --root_videos /path/to/video_generation/wan22_hunyuanFoley \
+  --out_json /path/to/avgenbench/plot_matching/wan22_hunyuanFoley/eval_results.json
+```
+
+### Music Check (Pitch Accuracy)
+
+```bash
+conda activate music
+cd eval/music_check
+export GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+python batch_eval.py \
+  --videos-root /path/to/video_generation/wan22_hunyuanFoley \
+  --prompts-root /path/to/video_generation/prompts \
+  --outputs-root /path/to/avgenbench/music/wan22_hunyuanFoley/per_video_result \
+  --summary-out /path/to/avgenbench/music/wan22_hunyuanFoley/summary.json \
+  --only-category musical_instrument_tutorial \
+  --workers 32 \
+  --constraints-cache-dir cache/music_prompt_constraints
+```
+
+### Speech (Speech Intelligibility \& Coherence)
+
+```bash
+conda activate whisper
+cd eval/speech
+export GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+python batch_eval.py \
+  --videos_root /path/to/video_generation/ltx2 \
+  --prompts_dir /path/to/video_generation/prompts \
+  --out_dir /path/to/avgenbench/speech/ltx2 \
+  --gemini_workers 32 \
+  --whisper_model large-v3
+```
+
+## Acknowledgements
+
+We gratefully acknowledge the open-source projects and toolkits that power AVGen-Bench and its evaluation modules, including:
+
+- [`Q-Align`](https://github.com/Q-Future/Q-Align) (`eval/Q-Align/`) for visual quality evaluation.
+- [`Audiobox-Aesthetic`](https://github.com/facebookresearch/audiobox-aesthetics) (`eval/audiobox-aesthetics/`) for audio production quality evaluation.
+- [`Synchformer`](https://github.com/v-iashin/Synchformer) (`eval/Syncformer/`) and [`SyncNet`](https://github.com/joonson/syncnet_python) (`eval/syncnet_python/`) for cross-modal synchronization evaluation.
+- [`VideoPhy`](https://github.com/Hritikbansal/videophy) / [`VideoPhy2`](eval/videophy/VIDEOPHY2/) (`eval/videophy/`) for low-level physical plausibility evaluation.
+- [`PaddleOCR`](https://github.com/PaddlePaddle/PaddleOCR) (used in `eval/Ocr/`) for scene text extraction.
+- [`InsightFace`](https://github.com/deepinsight/insightface) (used in `eval/facial_consistency/`) for facial representation and consistency analysis.
+- [`Faster-Whisper`](https://github.com/SYSTRAN/faster-whisper) (used in `eval/speech/`) for speech transcription.
+- [`Basic Pitch`](https://github.com/spotify/basic-pitch) (used in `eval/music_check/`) for symbolic music transcription.
+- [`Gemini API (Python)`](https://ai.google.dev/gemini-api/docs/python) via `google-generativeai` (used in `eval/gemini_phy/`, `eval/plot_matching/`, `eval/speech/`, `eval/music_check/`, and `eval/Ocr/`) for MLLM-based reasoning modules.
+
+Please refer to the original repositories, papers, and licenses of these projects for attribution, usage terms, and model-specific restrictions.

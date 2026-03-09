@@ -1,0 +1,481 @@
+[
+  {
+    "content": "Lenz's Law (Magnet in Copper Pipe)",
+    "prompt": "A physics classroom demonstration focusing on electromagnetism. A hollow, vertical copper tube is clamped to a stand while quiet classroom room tone is audible. A hand drops a strong neodymium magnet into the tube, and instead of a fast clatter the magnet descends slowly with a faint metallic sliding rasp, finally landing with a soft muted thud compared to a normal free-fall drop.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies 'a hand' performing the demonstration. In physics demonstration videos, the focus is typically on the apparatus and hands, with the face of the demonstrator usually off-camera.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "demonstrator",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand is explicitly mentioned as being part of the action."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "The Leidenfrost Effect",
+    "prompt": "A close-up shot of a cast iron skillet being heated to an extremely high temperature on a gas stove, the burner hissing steadily. A pipette releases a single fat droplet of water onto the scorching surface, and rather than a continuous loud sizzle the droplet skitters around with a light rapid tapping while a thin halo of steam crackles softly beneath it.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt specifies a close-up shot of inanimate objects—a skillet, stove, and water droplet—with no human presence or facial features described.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Laminar Flow (Water Balloon)",
+    "prompt": "A backyard science experiment featuring a large water balloon filled with water and taped with a square of electrical tape, with birds chirping in the background. A pin pokes a clean hole through the tape with a sharp pop, and a perfectly smooth stream of water exits with a steady quiet pour, looking strangely frozen and glassy as it falls without turbulent splashing.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up/macro science experiment focusing on a water balloon and laminar flow. While a human pokes the pin, the face is not mentioned and is unlikely to be on screen in this context.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "unseen experimenter",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Implied by the action of the pin, but likely only a hand or the pin itself is visible."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Chladni Plate (Resonance Patterns)",
+    "prompt": "A top-down view of a black square metal plate sprinkled evenly with fine white sand as a tone generator plays a pure sine wave that sweeps upward in pitch. As the plate begins to vibrate, the rising tone makes the sand suddenly jitter and chatter across the metal, then fall quiet as grains slide into crisp geometric nodal lines that sharpen and rearrange each time the pitch crosses a new resonance.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a scientific demonstration of Chladni patterns on a metal plate from a top-down perspective with no human characters mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Refraction of Light (Pencil in Water)",
+    "prompt": "A simple optical physics setup shows a clear glass tank filled with water in a quiet room with faint ambient noise. A bright yellow pencil is lowered into the water at a 45-degree angle, making a small water ripple sound as it breaks the surface, and the camera from the side captures the pencil appearing visibly 'broken' and laterally shifted exactly at the air–water boundary.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses entirely on a physics demonstration involving a glass tank, water, and a pencil. While a human hand might lower the pencil, no human facial identities are mentioned or expected to be on screen.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Non-Newtonian Fluid (Oobleck Punch)",
+    "prompt": "A large bowl filled with white cornstarch-and-water oobleck sits on a table, making wet squelching sounds as a hand stirs it. A fist punches straight down, hitting with a hard flat smack as the surface behaves like a solid, then the hand relaxes and slowly sinks in with sticky gurgling squishes as the mixture flows like a liquid around the fingers.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.9,
+      "rationale": "The prompt focuses exclusively on a close-up interaction of a hand and fist with a bowl of oobleck. No facial features or the presence of a face are described or expected in this tactile-focused shot.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "unseen person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand and fist are described as interacting with the mixture; the rest of the body/face is likely out of frame."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Newton's Cradle (Conservation of Momentum)",
+    "prompt": "A classic Newton's Cradle sits on a wooden desk in a quiet room. A hand pulls back exactly two metal spheres on the left and releases them; the impact produces a crisp synchronized clack, and on the right exactly two spheres swing out together, clicking in rhythm as the motion continues.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a hand interacting with an object (Newton's Cradle). The focus is on the physics of the object and the hand, suggesting a close-up or medium shot where the face is not visible.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "unseen person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand is mentioned as participating in the action; the face is expected to be off-screen."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Gyroscopic Precession",
+    "prompt": "In a physics lab, a heavy bicycle wheel is spun up rapidly, its bearings producing a steady high whir. A rope is attached to one handle and the demonstrator lets the other side go; instead of dropping flat with a bang, the wheel stays upright and slowly precesses around the rope while the whirring pitch subtly wobbles as the axis turns.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The prompt explicitly mentions a single 'demonstrator' who performs the physical actions of the experiment.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "demonstrator",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "The individual conducting the physics experiment; while framing might focus on the wheel, the demonstrator is the primary actor."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Prince Rupert's Drop",
+    "prompt": "A high-speed camera close-up shows a Prince Rupert's Drop under dramatic silence with only faint tool handling noises. Hydraulic pliers squeeze the bulbous head without breaking it, then snip the thin tail with a tiny sharp click, instantly triggering a violent crackling burst as the entire glass drop explosively disintegrates into fine dust.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a high-speed camera close-up of a scientific experiment involving a glass object and mechanical tools. No human actors or faces are mentioned or implied to be visible in the shot.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Prince Rupert's Drop",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The primary subject of the video, a glass object undergoing destruction."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Total Internal Reflection (Laser in Water Stream)",
+    "prompt": "In a darkened room, a plastic bottle drains a smooth stream of water into a bucket with a steady splashing sound. A green laser pointer shines into the bottle so the beam enters the exiting water, and the video shows the light bending and staying trapped inside the stream like a glowing fiber as the water continues to pour audibly.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.98,
+      "rationale": "The prompt describes a physics experiment involving inanimate objects (bottle, bucket, laser) in a darkened room with no human actors mentioned or implied to be on screen.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Bernoulli's Principle (Floating Ball)",
+    "prompt": "A home science video in a living room features a hair dryer roaring loudly as it blows straight upward. A hand places a ping-pong ball into the air jet, and when the hand lets go the ball hovers and wobbles in the rushing airflow, bobbing slightly while the loud blower sound stays constant.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up demonstration involving a 'hand'. In such science demonstration formats, the face of the demonstrator is typically not shown, focusing instead on the apparatus and action.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Demonstrator",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand is explicitly mentioned as interacting with the objects."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Meissner Effect (Quantum Levitation)",
+    "prompt": "A lab close-up shows a black ceramic superconductor disk cooled with liquid nitrogen, cold white vapor cascading off the sides with a soft hiss. A gloved hand lowers a small shiny magnet above the frosted disk, and when the hand releases it the magnet levitates silently a few millimeters in the air, drifting smoothly while nitrogen vapor continues to whisper around the setup.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a close-up shot focused on a superconductor disk and a gloved hand; the human's face is not expected to be visible in this framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "person with gloved hand",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a gloved hand is mentioned interacting with the objects in a close-up view."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Sympathetic Resonance (Tuning Forks)",
+    "prompt": "Two identical tuning forks on wooden resonance boxes sit a few feet apart in a quiet classroom. A rubber mallet strikes the first fork, producing a loud pure tone, and after two seconds a hand pinches the first fork to silence it instantly while the same note continues softly from the second fork, as if the sound has moved across the table.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a hand interacting with objects in a classroom setting; while a person is present to perform the action, the focus is on the hand and the tuning forks, making visible facial identities unlikely.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "demonstrator",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand is mentioned striking and pinching the tuning fork."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Slinky Drop (Tension vs Gravity)",
+    "prompt": "A slow-motion wide shot in a quiet gym shows a person on a ladder holding a fully stretched rainbow slinky. The top is released with a faint metallic jingle, and while the upper coils collapse downward the bottom end appears to hover nearly motionless for a moment before suddenly snapping down and hitting the floor with a quick rattling clatter.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly mentions 'a person' on a ladder as the sole primary actor in a quiet gym setting.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "person on ladder",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Positioned on a ladder in a wide shot; face should be visible as the primary actor."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Surface Tension (Pepper & Soap)",
+    "prompt": "A top-down kitchen shot shows a plate of water covered with black pepper flakes, with faint room sounds in the background. A soapy fingertip touches the center with a tiny tap, and instantly the pepper darts outward in a fast sweeping motion as the surface tension breaks, accompanied by a subtle sloshing ripple sound.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a top-down macro-style shot focusing on a plate of water and a fingertip; no faces are expected to be visible in this framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "individual with soapy fingertip",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a fingertip is mentioned in a top-down kitchen shot."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Gallium Melting Point",
+    "prompt": "A warm close-up shows a steaming cup of hot tea on a wooden saucer, and a metal spoon clinks against the ceramic as it stirs. The spoon is revealed to be gallium; as it stays submerged, the 'spoon' begins to slump and deform, wobbling and softening while the stirring sound changes from a firm clink to a duller, mushier scrape.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a close-up of a cup of tea and a spoon melting; no humans or faces are mentioned or expected to be visible in this framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Static Electricity (Water Bending)",
+    "prompt": "In a bathroom, a faucet runs a thin steady stream with constant water noise. A person rubs a plastic comb against dry hair, producing faint crackling, and as the charged comb approaches the falling stream the water audibly stays the same but visibly curves sideways toward the comb without being touched.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The prompt describes 'a person' performing actions with a comb and water. Only one primary actor is mentioned.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Main actor rubbing hair with a comb; the camera focus is likely on the hand/comb/water interaction, but the head/face is part of the primary identity."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Vacuum Chamber (Feather and Coin)",
+    "prompt": "A high-fidelity view into a glass vacuum chamber shows absolute silence with no air movement. A release mechanism drops a metal coin and a feather side-by-side, and they fall at the same rate and hit the floor together with a single sharp impact sound transmitted through the chamber's base rather than through air.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a scientific demonstration involving a coin and a feather in a vacuum chamber; no humans or primary characters with faces are mentioned.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "metal coin",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "An inanimate object used in the physics demonstration."
+      },
+      {
+        "name": "feather",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "An inanimate object used in the physics demonstration."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Polarization (Crossed Polarizers)",
+    "prompt": "A tabletop optics demo shows a bright phone flashlight shining through a first polarizing filter, with quiet room tone. A second polarizer is held in front and slowly rotated, the plastic making a faint rubbing sound between fingers; as it turns, the beam visibly dims smoothly to near-black at the crossed position and then brightens again as the rotation continues.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a close-up tabletop demonstration focusing on equipment and fingers; no human faces are mentioned or expected to be in frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "operator",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only fingers are mentioned as holding and rotating the polarizer filter."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Tuning Fork Splash",
+    "prompt": "A metal tuning fork is struck on a table with a sharp tap, producing a steady hum. The vibrating prongs are lowered to just touch a bowl of still water, and the moment the tips meet the surface they create rapid tiny splashes and ripples that buzz in sync with the audible vibration.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt focuses exclusively on inanimate objects (tuning fork, bowl of water, table) and physical phenomena (vibrations, ripples). While a hand might be implied to move the fork, no human facial identities are mentioned or expected in this macro/close-up scientific shot.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  }
+]

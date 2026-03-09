@@ -1,0 +1,82 @@
+[
+    {
+        "content": "First-Person Shooter: Reload Under Fire",
+        "prompt": "First-person view in a ruined hallway with distant gunfire and muffled explosions outside. The player sprints, footsteps thudding on concrete, then slides into cover as bullets ping off a metal pillar with sharp ricochets. The player reloads: the empty magazine drops with a clack, a fresh mag slaps in, and the bolt is pulled with a loud metallic snick exactly as the weapon returns to aim. A teammate voice in comms says, \"Reloading—cover me!\" and the player leans out to fire short bursts that echo in the corridor."
+    },
+    {
+        "content": "Battle Royale: Looting + Sudden Ambush",
+        "prompt": "Third-person gameplay in a small house with rain tapping on the roof and faint thunder outside. The player opens a chest that pops and chimes, spilling items with bright UI pings as they get picked up one by one. Footsteps and a door creak upstairs, and the player stops moving; the ambient sound holds for a tense beat. Suddenly, an enemy crashes through a window with a loud smash, and the player whips around, firing as the enemy’s shield crackles on hit."
+    },
+    {
+        "content": "Racing Game: Drift Through Hairpin",
+        "prompt": "Chase camera behind a rally car on a wet mountain road. The engine rises in pitch, then the player taps the brakes—tires squeal and the car throws water spray as it snaps into a drift. Gravel rattles against the undercarriage and the rear slides wide, then grips with a deep thump as the car exits the hairpin. The co-driver voice calls, \"Left hairpin, don’t cut!\" and the player shifts gears with a crisp mechanical click."
+    },
+    {
+        "content": "Platformer: Precision Jump Chain",
+        "prompt": "Side-scrolling platformer gameplay over a lava cavern where the background rumbles quietly. The character lands on a tiny platform with a light bop, then immediately jumps again; each landing produces a distinct tap timed exactly to the feet touching down. A spinning saw blade whirs loudly as it passes inches away, and the player wall-jumps—hands slap the wall, then kick off with a sharp whoosh. A checkpoint flag is hit with a bright chime, and the character exhales a quick relief sound."
+    },
+    {
+        "content": "MOBA: Teamfight Ult Combo",
+        "prompt": "Top-down MOBA gameplay near a river, with ambient water flow under the combat sounds. The player pings the map with a sharp beep and their character says, \"Engaging!\" A stun ability lands with a crackling snap exactly as the enemy freezes, followed by a large ultimate that slams down with a heavy impact and a bassy shockwave. Multiple abilities overlap: shield bubbles, sword swishes, and damage ticks, while the announcer declares, \"Double kill!\" right as two enemies fall."
+    },
+    {
+        "content": "Survival Craft: Chop Tree + Craft Tool",
+        "prompt": "First-person survival gameplay in a quiet forest with birds and wind in leaves. The player swings an axe into a tree; each hit lands with a woody thunk and falling chips, synced to the axe biting the trunk. The tree creaks, then collapses with a loud crack and a crashing rustle. The player opens the crafting menu with a soft UI swoop, assembles a simple tool with clicking sounds, and the character mutters, \"That should hold.\""
+    },
+    {
+        "content": "Horror Game: Door Creak + Jump Scare",
+        "prompt": "First-person horror gameplay in a dim corridor with a low electrical hum. The player slowly pushes a door; the hinges creak loudly and the handle clicks as it turns. A radio on the floor emits faint static, and the player picks it up with a small clunk. As the flashlight beam sweeps the room, there’s a sudden loud sting and a creature lunges into frame with a wet screech, perfectly synced to the on-screen impact shake."
+    },
+    {
+        "content": "Stealth Game: Takedown + Body Hide",
+        "prompt": "Third-person stealth gameplay in a museum at night with distant security fans humming. The player crouch-walks, footsteps soft on carpet, then stops as a guard’s radio crackles nearby. The player grabs the guard from behind; a muffled struggle and a quick thud happen as the guard goes limp, synced to the animation. The body is dragged, fabric scraping quietly, and hidden in a closet with a door latch click. The protagonist whispers, \"Stay asleep.\""
+    },
+    {
+        "content": "Fighting Game: Parry into Combo",
+        "prompt": "Side-view fighting game match in an arena with crowd roar and rhythmic announcer hype. An opponent throws a heavy punch; the player parries at the last instant, producing a sharp metallic clang and a brief slow-motion flash. Immediately the player launches a combo: rapid hits with distinct smacks and whooshes, ending in a super move that triggers a screen freeze and a booming impact. The announcer shouts, \"Perfect parry!\" exactly as the parry spark appears."
+    },
+    {
+        "content": "Puzzle Game: Switch Sequence + Door Unlock",
+        "prompt": "First-person puzzle gameplay in a stone temple with dripping water echoing. The player presses three wall switches in sequence; each press makes a heavy stone click, and glowing runes light up with a soft rising hum. A mechanism engages in the distance with grinding gears, and a massive door slowly opens with a deep rumble. The player steps forward, footsteps echoing, as a companion voice says, \"You got it—keep going.\""
+    },
+    {
+        "content": "Open-World RPG: Tavern Dialogue + Coin",
+        "prompt": "Third-person RPG gameplay in a warm tavern with chatter, clinking mugs, and a lute playing softly. The player approaches an NPC; the dialogue menu pops with a gentle UI sound. The NPC says, \"I can tell you—if you pay,\" and the player drops coins on the table with a bright jingle exactly as the payment animation plays. The NPC leans in, lowering their voice: \"Meet me at the bridge after dark.\""
+    },
+    {
+        "content": "Strategy/RTS: Base Under Attack Alarm",
+        "prompt": "Top-down RTS gameplay with a calm ambient hum until a warning siren blares and a red alert icon flashes. The player selects units with rapid UI clicks and commands them forward; small acknowledgements play: \"Moving!\" \"On it!\" Explosions bloom near a base wall with low booms, and turret fire rattles in steady bursts. The player slams a build command; construction hammers start tapping as a defensive tower rises."
+    },
+    {
+        "content": "Rhythm Game: Perfect Streak",
+        "prompt": "Front-facing rhythm game lane with an electronic track driving the beat. Notes stream toward the hit line; each successful hit triggers a crisp click and a bright sparkle sound exactly at the moment the note crosses the line. The player maintains a perfect streak; the combo counter pulses with a rising crowd-cheer layer. A sudden fast pattern arrives, and the player nails it, prompting the announcer voice to say, \"Perfect!\" synced to a large on-screen flash."
+    },
+    {
+        "content": "Flight Sim: Takeoff and Gear Up",
+        "prompt": "Cockpit view of a small plane on a runway with engine idle rumble. The throttle advances and the engine roar rises smoothly as the plane accelerates, runway bumps thudding rhythmically. The pilot voice says, \"Rotate,\" as the nose lifts and wind noise increases. The landing gear lever is pulled with a click, and the gear retracts with a mechanical whine timed to the indicator lights switching."
+    },
+    {
+        "content": "Fishing Game: Hookset + Reeling Tension",
+        "prompt": "First-person fishing gameplay on a quiet lake with birds and gentle water lapping. The bobber twitches, then plunges under with a small splash, and the player yanks the rod—line tightens with a sharp twang. The reel spins with a steady whir as the fish pulls, and the line creaks under tension. The character grunts, \"Come on…\" as the fish surfaces with a splash near the boat."
+    },
+    {
+        "content": "Soulslike: Boss Intro + First Clash",
+        "prompt": "Third-person action gameplay in a cavernous arena with echoing ambience and a low choir swell. A boss steps into view; a fog gate seals with a deep whoomp as the title of the boss appears with a heavy hit. The boss roars, shaking dust loose, and charges; the player rolls, armor clanking. Swords collide with a bright ringing clang timed to the exact moment blades meet, then the player lands a counter-hit with a wet impact."
+    },
+    {
+        "content": "Sandbox Physics: Building Collapse",
+        "prompt": "First-person sandbox gameplay on a sunny test map with light wind ambience. The player places explosive charges with small beeps, then steps back and triggers a detonator with a click. The explosion hits with a deep boom, and the structure buckles; metal beams screech and snap, bricks clatter and cascade, and dust billows with a soft rushing sound. The player says, \"Okay… that was bigger than I thought,\" as debris continues to settle."
+    },
+    {
+        "content": "Co-op Shooter: Revive Teammate",
+        "prompt": "First-person co-op shooter gameplay in a smoky street with distant sirens and gunfire. A teammate is down, calling weakly, \"I need help!\" The player slides over, bullets snapping past, and starts a revive; a progress sound pulses while the player’s hands apply a med kit with velcro ripping and a syringe cap click. The teammate gasps and stands as the revive completes with a bright chime, shouting, \"I’m up!\" right as the HUD confirms it."
+    },
+    {
+        "content": "Sports Game: Last-Second Buzzer Beater",
+        "prompt": "Basketball video game broadcast camera with crowd roar and sneaker squeaks. The clock ticks loudly as the player dribbles; each bounce lands in sync with the ball hitting the hardwood. A commentator says, \"Five seconds left!\" The player launches a long shot; the buzzer blares as the ball is mid-air, then the net snaps with a clean swish exactly as the ball drops through, and the crowd explodes while the commentator yells, \"It’s good!\""
+    },
+    {
+        "content": "Card/Deckbuilder: Critical Draw + Play",
+        "prompt": "Digital card game gameplay with a quiet ambient pad. The player draws a card; it slides into hand with a sharp whoosh and a bright ping, and the card glows subtly. The player hesitates, then slams it onto the board with a satisfying thump sound synced to the animation, triggering chained effects: sparks crackle, numbers pop with ticks, and an enemy health bar shatters with a glassy break. The narrator voice says, \"That changes everything.\""
+    }
+]

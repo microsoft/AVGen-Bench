@@ -1,0 +1,613 @@
+[
+  {
+    "content": "Dog Shake-Off After Bath",
+    "prompt": "In a bright bathroom, a wet golden retriever stands in a tub as a human turns off the faucet with a click and water drips steadily from the dog’s fur into the porcelain. The dog pauses, then shakes violently from head to tail, sending droplets splattering against the tile with rapid pattering sounds, while the human laughs and says, \"Okay, okay—shake it out,\" as the dog’s collar tag jingles with each snap of the body.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "One human is explicitly mentioned interacting with the dog, laughing, and speaking. While the focus is on the dog, the human is a primary narrative actor.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "human",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Operates the faucet, laughs, and speaks to the dog."
+      },
+      {
+        "name": "golden retriever",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The main subject of the scene, getting a bath and shaking off water."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Cat Kneading on a Blanket",
+    "prompt": "A cozy living-room close-up shows a cat climbing onto a thick knitted blanket and starting to knead with alternating paws. Each press compresses the fabric with faint soft thumps and tiny claw snags, and the cat purrs steadily as its shoulders rock in rhythm. A human hand briefly pets the cat’s head, and the cat’s purr grows louder while the blanket fibers shift under the paws.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a close-up of a cat and mentions only a 'human hand' entering the frame. There is no indication that the human's face will be visible in the shot.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cat",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main subject of the close-up."
+      },
+      {
+        "name": "human",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a hand is mentioned as entering the close-up frame."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Dog Fetch on Gravel Path",
+    "prompt": "A handheld outdoor shot shows a person tossing a tennis ball down a gravel path with a quick whoosh. A dog sprints after it, nails clicking rapidly on stones and gravel crunching underfoot, then the dog skids to a stop with a gritty scrape and clamps the ball with a squeaky bite. As the dog runs back, the collar jingles and the person calls, \"Bring it here!\" while the dog drops the ball at their feet with a soft plop.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.8,
+      "rationale": "One person is the primary actor, but the 'handheld' shot and focus on the dog and 'feet' suggest a POV or low-angle perspective where the person's face might not be visible.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "person",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Tosses the ball and calls the dog; visibility of the face is uncertain due to the handheld/POV style."
+      },
+      {
+        "name": "dog",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The central focus of the action, sprinting and retrieving the ball."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Cat vs. Laser Pointer",
+    "prompt": "A low-angle indoor shot shows a red laser dot darting across a wooden floor as a cat’s head tracks it silently. The dot stops abruptly; the cat pounces with a quick thud and claws scraping the wood, then slides slightly with a squeaky skid. The laser dot shoots away again and the cat’s rapid paw taps follow, while a human off-camera says, \"Ready… go!\" each time the dot changes direction.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The only human mentioned is explicitly described as 'off-camera'. The visual focus is on the cat and its interactions with the laser dot.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "cat",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The primary actor; the prompt mentions the cat's head tracking the laser."
+      },
+      {
+        "name": "human",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Explicitly stated to be off-camera."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Puppy Chewing a Squeaky Toy",
+    "prompt": "A close-up on a small puppy holding a rubber squeaky toy between its front paws on a carpet. The puppy bites down repeatedly, and each jaw squeeze triggers a sharp squeak exactly as the toy visibly compresses and rebounds. The puppy pauses to reposition the toy with little snuffles, then resumes chewing faster, making a mix of squeaks and wet mouth sounds while the human says, \"That’s your favorite one, huh?\"",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a close-up on a puppy. While a human speaks, they are off-camera, and no human faces are described as visible.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "puppy",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Central subject of the video."
+      },
+      {
+        "name": "human",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Provides off-screen dialogue."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Parrot Mimics a Phone Notification",
+    "prompt": "In a kitchen with faint appliance hum, a colorful parrot sits on a perch next to a phone. The phone plays a short notification chime, and the parrot immediately imitates it with a clear high-pitched whistle. The owner taps the perch lightly and says, \"Do it again,\" and the parrot repeats the same rhythm, bobbing its head in sync with the whistled notes.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.8,
+      "rationale": "The owner is a primary character who speaks and interacts, but the scene's focus on the parrot suggests the owner might only be partially visible (e.g., just a hand).",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "parrot",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The central subject performing the imitation and movement."
+      },
+      {
+        "name": "owner",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Main human actor providing dialogue and physical interaction; face may be off-screen."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Horse Hooves on Stable Floor",
+    "prompt": "A stable corridor shot shows a horse being led by a handler; the lead rope hardware clinks softly as the horse walks. Each hoof lands with a solid clop on packed dirt, then changes to a sharper ring as the horse steps onto a concrete section. The handler says, \"Easy,\" as the horse snorts and exhales, and the camera catches the shift in footstep sound with the change in surface.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "One human handler is explicitly mentioned as leading the horse and speaking dialogue, making them a primary character.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "handler",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Explicitly mentioned as leading the horse and speaking dialogue."
+      },
+      {
+        "name": "horse",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The primary subject of the video, but an animal."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Goat Eats Crunchy Leaves",
+    "prompt": "A farmyard close-up shows a goat grabbing a leafy branch from a human hand. The goat’s teeth tear leaves off with loud crunchy snaps, and its jaw chews in a steady rhythm while the branch rustles and bends. The human chuckles and says, \"You’re noisy,\" as the goat pauses to bleat once and then resumes chewing.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The prompt specifies a close-up of a goat and a human hand. While a human is a primary character who speaks, the visual description focuses on the goat's jaw and the hand, making it likely the human face is off-screen.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "goat",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Primary focus of the close-up, specifically the teeth and jaw."
+      },
+      {
+        "name": "human",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hand is explicitly mentioned as visible in the close-up shot."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Rabbit Thumps and Freezes",
+    "prompt": "A quiet garden shot shows a rabbit nibbling grass with tiny quick bites that make faint crunching sounds. A sudden distant noise makes the rabbit freeze, ears upright, then it thumps one hind foot sharply on the ground with a dull thud. After a brief still moment, it darts away through dry leaves that crackle rapidly as it disappears.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a rabbit as the sole subject; no human characters or faces are mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "rabbit",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main actor in the garden scene."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Squirrel Cracks a Nut on a Branch",
+    "prompt": "A telephoto shot of a squirrel perched on a tree branch in a park with soft wind and distant birds. The squirrel holds a nut between its paws and gnaws; the shell cracks with small sharp snaps, and flakes fall onto leaves below with faint patters. The squirrel pauses to look around, tail flicking with a soft brush sound, then resumes cracking and eating.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses exclusively on a squirrel in a natural setting; no humans are mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "squirrel",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The sole subject of the shot, performing various actions like eating and looking around."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Woodpecker Drumming",
+    "prompt": "A forest shot frames a woodpecker clinging to a tree trunk. The bird suddenly starts drumming, its beak striking the bark in a rapid staccato that sounds like a fast wooden tapping roll. Each burst matches the visible head vibration, and after a short pause the bird calls once, then drums again as bark chips fall.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses exclusively on a woodpecker in a natural forest setting; no human characters are mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "woodpecker",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The bird is the central focus, specifically its head and beak movements during drumming and calling."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Frog Chorus at Dusk",
+    "prompt": "A wide shot of a wetland at dusk shows still water with reeds swaying. As the camera pans slowly, a chorus of frogs fills the scene with overlapping croaks that rise and fall in waves. A single frog near the camera inflates its throat sac visibly with each call, and its louder croaks land exactly with the pulsing throat movement.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a nature scene featuring only frogs and a wetland environment; no humans are present.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "single frog",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main actor shown in a close-up inflating its throat sac."
+      },
+      {
+        "name": "chorus of frogs",
+        "type": "nonhuman",
+        "count": 5,
+        "face_visibility": "possible",
+        "notes": "A group of frogs described as providing the background audio and filling the scene."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Cicadas in Summer Heat",
+    "prompt": "A static shot of sunlit trees in a hot summer park shows leaves barely moving. The audio is dominated by a dense, continuous cicada buzz that swells and dips slightly as the camera tilts toward different branches. A cicada suddenly takes off near the lens with a brief wing flutter, then the steady buzzing resumes as background ambience.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a nature scene focused on trees and a cicada; there is no mention or implication of human characters.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cicada",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "An insect is the primary actor mentioned taking flight; no humans are present."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Owl Silent Flight and Landing",
+    "prompt": "A night-time woodland shot with faint wind and distant insects shows an owl gliding across frame almost silently. The owl lands on a wooden fence post, and the only sound is a soft feathered whoosh and a tiny claw scrape as it grips the wood. After a beat, the owl turns its head and releases a clear hoot that echoes lightly into the dark.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses exclusively on an owl in a natural setting; no human characters or faces are mentioned.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "owl",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The sole subject of the video, shown gliding, landing, and hooting."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Wolves Howling Response",
+    "prompt": "A wide twilight shot of a rocky ridge shows a pack of wolves standing still in silhouette. One wolf lifts its head and begins a long howl that carries across the open landscape, and a second and third wolf join in, their voices stacking and overlapping. The camera captures their chest expansion and muzzle angle aligning with the sustained howls before they fall quiet again.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The scene focuses exclusively on a pack of wolves at twilight; no humans are mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "wolves",
+        "type": "nonhuman",
+        "count": 3,
+        "face_visibility": "likely",
+        "notes": "A pack is mentioned, with three specific wolves singled out for the howling action."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Whale Blow at the Surface",
+    "prompt": "A boat-level ocean shot shows calm swells and distant seabirds. A whale surfaces near the camera, and its blowhole releases a sudden explosive breath with a powerful wet exhale sound and misty spray. The whale’s back rolls past with water sheeting off in a rushing cascade, then it slips under the surface as the ocean returns to gentle wave sounds.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a wildlife scene featuring a whale and seabirds. No humans or human-like faces are mentioned or implied to be visible.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "whale",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Main subject; the blowhole and back are the focus areas mentioned."
+      },
+      {
+        "name": "seabirds",
+        "type": "nonhuman",
+        "count": 2,
+        "face_visibility": "unlikely",
+        "notes": "Described as distant background elements."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Dolphins Breach and Splash",
+    "prompt": "A sunny sea shot shows two dolphins swimming fast, their dorsal fins cutting the surface with small splashes. One dolphin bursts out of the water in a clean arc, landing with a loud slap and spray, and a second follows a moment later with another splash. A person on the boat shouts, \"There!\" as the dolphins reappear and exhale quick puffs at the surface.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.8,
+      "rationale": "The prompt identifies one person on the boat who shouts dialogue, making them a primary character, although the visual focus is on the two dolphins.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "dolphins",
+        "type": "nonhuman",
+        "count": 2,
+        "face_visibility": "unlikely",
+        "notes": "Main visual focus of the scene, but are animals."
+      },
+      {
+        "name": "person on boat",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Shouts dialogue and acts as the observer."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Penguins Sliding on Ice (Colony Ambience)",
+    "prompt": "A wide shot of a penguin colony on a windy icy shoreline captures constant background calls and the low roar of wind. A penguin belly-slides across packed snow, making a soft scraping sound, then pops up to waddle with quick foot taps. Nearby penguins squawk and flap, and a chick peeps sharply while the sliding penguin shakes snow off with a faint rustle.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a colony of penguins and specifically mentions animal behaviors; no humans are present.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "sliding penguin",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main subject performing the belly-slide and waddle."
+      },
+      {
+        "name": "nearby penguins",
+        "type": "nonhuman",
+        "count": 2,
+        "face_visibility": "possible",
+        "notes": "Other adult penguins in the colony flapping and squawking."
+      },
+      {
+        "name": "penguin chick",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "A chick mentioned peeping sharply."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Elephants Dust Bath",
+    "prompt": "A savanna shot shows an elephant scooping dry earth with its trunk, the grains cascading with a dry sandy pour. The elephant blasts the dust over its back with a forceful trunk exhale, making a deep whoof as dust clouds billow. The elephant’s ears flap with heavy leathery slaps, and it rumbles softly while taking a slow step that thuds into the ground.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses exclusively on an elephant in a savanna; no humans are present or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "elephant",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The sole subject is an elephant engaging in natural behaviors."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Snake Slithers Through Dry Leaves",
+    "prompt": "A ground-level shot in a forest shows a snake moving smoothly through a bed of dry leaves. As its body pushes forward, the leaves crackle and rustle in a continuous whispery trail exactly where the scales pass. The snake pauses, tongue flicking silently, then resumes slithering as a twig snaps lightly under its weight.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses entirely on a snake moving through forest leaves; no humans are mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "snake",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The primary subject of the shot, including a mention of its tongue flicking."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  }
+]

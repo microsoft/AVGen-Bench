@@ -1,0 +1,599 @@
+[
+  {
+    "content": "Archaeology: Ancient Discovery",
+    "prompt": "A professional news segment starting with a female anchor in a bright studio, holding a paper and announcing a major historical find. Suddenly, the video cuts to shaky documentary-style footage inside a dusty cave, showing a gloved hand brushing dirt off a golden ancient artifact buried in the ground. The anchor's voiceover explains the significance of the discovery throughout the clip.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The prompt explicitly features one female news anchor. The secondary footage in the cave only specifies a 'gloved hand', making it unlikely for a second distinct facial identity to be a primary focus.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "female anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main narrator and actor in the studio segment."
+      },
+      {
+        "name": "archaeologist",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only a gloved hand is described in the documentary-style footage."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Cybersecurity: Data Breach",
+    "prompt": "A serious news report beginning with a male anchor in a suit sitting against a digital background of world maps. He looks grave while delivering a warning about internet safety. The scene then abruptly switches to B-roll footage of computer screens in a dark room displaying scrolling green binary code and 'ACCESS DENIED' pop-ups, symbolizing a cyber attack.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly describes one primary human character, a male news anchor, followed by B-roll footage of computer screens with no other people mentioned.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "male news anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main subject delivering the news report at the start."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Wildlife: Panda Cub",
+    "prompt": "A lighthearted news clip. A smiling anchor sits at the desk with a 'ZOO UPDATE' graphic behind her. She introduces a cute story. The video transitions to high-quality footage of a baby panda clumsily rolling around on green grass and chewing on a bamboo stick in a zoo enclosure. The audio includes the anchor's narration mixed with ambient nature sounds.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly features one human news anchor. The other primary subject is a baby panda, which is non-human.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "news anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Described as a smiling anchor sitting at a desk."
+      },
+      {
+        "name": "baby panda",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Shown in the second part of the clip rolling and chewing bamboo."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Economy: Factory Automation",
+    "prompt": "Business news coverage. The video starts with a financial reporter standing in a newsroom, pointing to a graph. He discusses manufacturing trends. The view then cuts to an industrial scene showing fast-moving robotic orange arms assembling car parts on a modern production line with sparks flying. The reporter's voice continues seamlessly over the industrial footage.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly describes one financial reporter as the primary human actor. The transition to the industrial scene focuses on machinery (robotic arms) without mentioning additional people.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "financial reporter",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Appears at the start of the video in a newsroom setting."
+      },
+      {
+        "name": "robotic orange arms",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Mechanical actors in the industrial sequence; no human faces expected."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Entertainment: Red Carpet",
+    "prompt": "Entertainment news update. A glamorous female host stands in a studio with purple lighting, talking excitedly about a movie premiere. The video cuts to a chaotic red carpet scene with bright camera flashes popping repeatedly, showing a blurry celebrity waving to a screaming crowd of fans. The audio shifts from the quiet studio to the roar of the crowd.",
+    "primary_faces": {
+      "min_ids": 2,
+      "max_ids": 2,
+      "confidence": 0.9,
+      "rationale": "The prompt identifies two specific primary human actors: a female news host and a celebrity on the red carpet. The fans are explicitly a crowd.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "female host",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Glamorous host in a studio setting."
+      },
+      {
+        "name": "celebrity",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Described as blurry but waving to the crowd on a red carpet."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Public Health: Vaccination Drive",
+    "prompt": "Health news segment. A serious anchor with glasses reads from a teleprompter about a new health initiative. The shot cuts to medical footage showing a close-up of a nurse's hands wearing blue latex gloves carefully preparing a syringe and a vaccine vial in a sterile hospital environment.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.95,
+      "rationale": "The news anchor is a primary character whose face is central to the segment. The nurse is described only by a close-up of their hands, making their face unlikely to be seen.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "news anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Serious individual with glasses reading from a teleprompter."
+      },
+      {
+        "name": "nurse",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Described via a close-up of hands wearing gloves; face is likely off-camera."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Consumer: Black Friday Sales",
+    "prompt": "Holiday shopping report. An anchor sits at the desk, gesturing towards a graphic of a shopping bag. He speaks about retail chaos. The scene immediately switches to footage of a large crowd of shoppers rushing through the automatic doors of a department store, grabbing boxes from shelves. The anchor's voiceover describes the record-breaking sales numbers.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.95,
+      "rationale": "There is one primary human anchor defined as the main actor. The crowd of shoppers in the B-roll footage are treated as a mass crowd and not individual primary characters.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main narrator sitting at a desk in a studio setting."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Travel: Airport Delays",
+    "prompt": "Breaking travel news. A reporter in a trench coat stands outside an airport terminal with planes visible in the distance. She speaks into a microphone about cancellations. The video cuts to an interior shot of a packed airport terminal, showing a departure board filled with red 'CANCELLED' text and tired passengers sleeping on their luggage.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The reporter is the only primary actor with specific focus and dialogue. The passengers in the packed terminal are treated as a group/crowd for visual context.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "reporter",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Female reporter in a trench coat speaking into a microphone."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Environment: Oil Spill Cleanup",
+    "prompt": "Environmental disaster report. A somber anchor sits in the studio with a blue background. He reports on a recent accident. The video transitions to aerial drone footage looking down at a beach, where black oil sludge is washing up on the white sand and waves are crashing. The sound of the ocean mixes with the serious tone of the news report.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly describes one news anchor in a studio setting. The subsequent scene is aerial drone footage of a beach where no people are mentioned.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "news anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Described as a somber anchor sitting in a studio."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Fashion: Runway Show",
+    "prompt": "Fashion week highlight. A stylish presenter stands in a studio, talking about the latest trends. The video cuts to a vibrant fashion runway show, featuring a model walking towards the camera in an avant-garde silver dress, with audience heads silhouetted in the foreground. Rhythmic electronic music plays faintly in the background of the report.",
+    "primary_faces": {
+      "min_ids": 2,
+      "max_ids": 2,
+      "confidence": 0.95,
+      "rationale": "The prompt identifies two distinct primary human figures: a studio presenter and a runway model. The audience is explicitly described as silhouetted, making them background elements.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "presenter",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Stylish presenter talking in a studio."
+      },
+      {
+        "name": "model",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Model walking towards camera in an avant-garde silver dress."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Crime: Police Investigation",
+    "prompt": "A breaking crime report. A serious-looking male anchor sits in a dimly lit studio, reading an urgent update from papers in his hand. The video abruptly cuts to night footage of a city street blocked off by yellow 'CRIME SCENE' tape, with red and blue police siren lights reflecting off wet pavement. The anchor's narration continues over the scene.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.95,
+      "rationale": "The prompt explicitly describes one primary human character: the male anchor. The rest of the video covers an environmental crime scene where no other specific individuals are highlighted.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "male anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Described as a serious-looking male sitting in a studio reading an update."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Real Estate: Housing Market Boom",
+    "prompt": "Real estate market update. A female financial reporter stands in a busy newsroom with blurred TV screens behind her. She smiles while discussing rising property values. The scene switches to a sunny outdoor shot of a modern suburban house with a manicured lawn, focusing on a real estate agent hammering a 'SOLD' sign into the grass.",
+    "primary_faces": {
+      "min_ids": 2,
+      "max_ids": 2,
+      "confidence": 0.95,
+      "rationale": "The prompt describes two distinct primary human figures: a female financial reporter and a real estate agent.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "female financial reporter",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Primary presenter in the first scene."
+      },
+      {
+        "name": "real estate agent",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Primary actor in the second scene."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Esports: Tournament Victory",
+    "prompt": "Gaming news segment. An energetic host with headphones sits in a neon-lit studio filled with gaming memorabilia. He shouts excitedly about a tournament win. The video cuts to a wide shot of a massive esports arena packed with thousands of cheering fans, watching a giant screen where a team lifts a trophy. The audio shifts to the roar of the stadium.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.95,
+      "rationale": "The host is the central primary character. The esports team appears on a secondary screen and the stadium audience is a crowd, both of which are excluded from the primary face count per the rules.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "gaming host",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Energetic host in a neon-lit studio."
+      },
+      {
+        "name": "esports team",
+        "type": "human",
+        "count": 5,
+        "face_visibility": "possible",
+        "notes": "Displayed on a giant screen in the arena; treated as graphic faces."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Automotive: EV Car Launch",
+    "prompt": "Auto industry news. A poised anchor sits at a glass desk with a futuristic city background. She introduces a new electric vehicle. The video transitions to cinematic B-roll of a sleek silver electric car driving silently along a winding coastal road at sunset, with the camera tracking its movement. The anchor's voiceover describes the battery range.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "One poised news anchor is explicitly described as the presenter. The remaining video consists of vehicle B-roll where no other humans are specified.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Introduces the segment from a news desk; the central human figure."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Crypto: Bitcoin Volatility",
+    "prompt": "Financial technology report. A reporter stands in front of a green screen showing a jagged red line graph plummeting downwards. He looks concerned. The view cuts to a close-up shot of a server room filled with rows of cryptocurrency mining rigs with blinking LED lights and spinning fans. The sound of humming cooling fans is audible under the report.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "A single reporter is explicitly mentioned as the main actor in the scene.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "reporter",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main presenter standing in front of a green screen."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Food: Restaurant Opening",
+    "prompt": "Lifestyle and culinary news. A cheerful female anchor sits in a bright morning show studio with a coffee mug. She announces a new viral restaurant. The scene cuts to a mouth-watering close-up slow-motion shot of a chef slicing into a juicy steak, with steam rising and sauce dripping. The anchor's voice describes the menu.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 2,
+      "confidence": 0.9,
+      "rationale": "The anchor is explicitly on-screen in a studio. The chef is a primary actor in the cutaway, though the shot is a close-up on the food, their face may or may not be visible.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "female anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main presenter in the morning show studio."
+      },
+      {
+        "name": "chef",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Primary actor in the b-roll footage slicing steak; face visibility depends on the framing of the close-up."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Energy: Solar Farm Expansion",
+    "prompt": "Green energy report. A male anchor wearing a green tie stands in a virtual studio with wind turbine graphics. He talks about renewable targets. The video switches to a high-angle drone shot flying over a massive field of blue solar panels stretching to the horizon under a bright sun. The anchor's narration explains the energy capacity.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly identifies one male anchor in a studio setting. No other individuals are mentioned or implied.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "male anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Shown in the virtual studio talking about renewable targets."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Astronomy: Meteor Shower",
+    "prompt": "Science update. A meteorologist points to a star map graphic. He encourages viewers to look up tonight. The video cuts to a beautiful time-lapse of a dark night sky, capturing streaks of light (meteors) flashing across the Milky Way. The audio features quiet, awe-inspiring ambient music mixed with the forecast.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly mentions one human primary character, a meteorologist. The second half of the video transitions to a time-lapse of the sky with no mentioned humans.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "meteorologist",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Described as pointing to a graphic and encouraging viewers, suggesting a standard news/science update framing."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Education: Digital Classroom",
+    "prompt": "Education reform news. An anchor sits professionally at the desk, clasping her hands. She reports on school technology. The scene transitions to a classroom shot where young students are wearing VR headsets and gesturing in the air, while a teacher watches. The anchor's voiceover discusses the future of learning.",
+    "primary_faces": {
+      "min_ids": 2,
+      "max_ids": 6,
+      "confidence": 0.9,
+      "rationale": "The prompt features an anchor and a teacher as primary visible individuals. Multiple students are also primary actors, though their faces are partially obscured by VR headsets.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Anchor",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Professional news anchor at a desk."
+      },
+      {
+        "name": "Teacher",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Watching the students in the classroom."
+      },
+      {
+        "name": "Students",
+        "type": "human",
+        "count": 3,
+        "face_visibility": "possible",
+        "notes": "Young students wearing VR headsets which may obscure facial identities."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Protest: Civil Unrest",
+    "prompt": "Live field report. A reporter in a flak jacket stands on a street corner, shouting into a handheld microphone to be heard over noise. The camera shakes slightly. The view cuts to a chaotic scene of a crowd of people holding protest signs and marching down a city street, chanting slogans. The audio is dominated by the chanting and street noise.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.95,
+      "rationale": "The prompt identifies a single primary reporter as the main actor. The crowd is described as a collective background element without specific individuals being singled out.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "reporter",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main subject speaking into a microphone in a flak jacket."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  }
+]

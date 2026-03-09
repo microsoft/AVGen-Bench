@@ -1,0 +1,529 @@
+[
+  {
+    "content": "Searing Steak in Cast Iron",
+    "prompt": "A close-up overhead shot of a thick steak being laid onto a preheated cast-iron skillet, immediately releasing a loud sizzling sound as wisps of steam rise. The cook presses the steak down with tongs, making a firm scrape against the pan, then flips it once with a quick slap so the new side hits the hot surface and the sizzle swells again. A knob of butter is added and foams with a rapid hiss while the cook tilts the pan and spoons the bubbling butter over the steak in rhythmic scoops, and the cook says, \"Listen to that crust.\"",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.9,
+      "rationale": "The prompt specifies a close-up overhead shot of a skillet; while the cook is a primary actor with dialogue, their face is expected to be off-camera due to the framing.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Hands and voice are present, but the overhead close-up angle of the steak excludes the face."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Garlic and Onion Sauté",
+    "prompt": "A medium shot of a cutting board where a knife chops an onion into quick dice with crisp tapping sounds, then the pieces are swept into a hot pan with a dry slide. The onion hits oil with a gentle sizzle that grows as the cook stirs with a wooden spatula, making a soft scraping rasp. Minced garlic is added and immediately becomes more fragrant-looking and louder, the sizzle tightening, and the cook says, \"Garlic goes in last—don’t let it burn,\" while the camera catches the edges turning translucent.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.85,
+      "rationale": "One cook is the primary actor and speaker, but the framing 'medium shot of a cutting board' suggests a focus on the hands and food, making it uncertain if the face will be visible.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "The primary actor performing the actions and speaking; visibility depends on whether the 'medium shot' includes the torso and head or just the hands/board."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Pancake Batter and First Flip",
+    "prompt": "A cozy kitchen shot shows pancake batter being whisked in a bowl, the whisk making wet rhythmic swishes, then the batter is poured onto a hot griddle with a thick glug. Tiny bubbles form and pop silently at first, then a faint frying hiss builds as the surface sets. A spatula slides under with a soft scrape and the pancake flips with a light slap, landing to a renewed sizzle; the cook laughs and says, \"Perfect—golden side down.\"",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The prompt identifies a single 'cook' who performs the actions, laughs, and speaks dialogue.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "the cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The individual whisking, flipping pancakes, and speaking."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Stir-Fry in a Wok (High Heat)",
+    "prompt": "A handheld close-up of a carbon-steel wok on a roaring burner, the flame whooshing audibly. Thin-sliced meat is tossed in and instantly crackles, and the cook stirs fast so the metal spatula clacks against the wok in sharp bursts. A handful of vegetables goes in with a loud hiss as moisture hits heat, and the cook flips the wok to send ingredients arcing up and slapping back down, then adds a quick pour of sauce that sputters and thickens while the cook says, \"Keep it moving—high heat.\"",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The prompt specifies a handheld close-up of a wok. While a cook is the primary actor and speaks, the tight framing on the cooking vessel and the action of stirring/flipping ingredients suggests the face will likely be off-camera, though one person is clearly the main subject.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The cook performs all actions and speaks dialogue, but the camera is directed at the wok and ingredients."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Boiling Pasta and Salting Water",
+    "prompt": "A pot of water boils hard on the stove with a rolling rumble and lid rattling lightly. The cook lifts the lid with a metallic clink and sprinkles in salt, the grains pattering onto the surface, then drops in dry pasta with a hollow clatter and a brief splash. As the cook stirs with a wooden spoon, the water sound settles back into a steady boil, and the cook says, \"Salt it like the sea,\" while steam fogs the camera briefly.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.8,
+      "rationale": "One cook is identified as the primary actor performing tasks and speaking dialogue, although the focus is primarily on the stove and pot.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "the cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "The cook performs the actions and speaks, but the camera focus is on the pot, suggesting hands or a partial view are likely."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Knife Skills: Julienne Carrot + Pan Toss",
+    "prompt": "A close shot shows a chef’s knife slicing carrots into neat matchsticks, each cut making a fast, precise knock against the board. The julienned carrots are scooped and poured into a hot pan, triggering a bright sizzle, and the cook shakes the pan so the pieces slide and tick across the metal. A pinch of pepper is ground over the pan with a gritty crunching sound, and the cook says, \"Same size cooks same time,\" as the carrots begin to soften and glisten.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.9,
+      "rationale": "The prompt specifies a close shot focused on a knife, carrots, and a pan. While a chef is performing the actions and speaking, the camera placement described excludes the face.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "chef",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The chef is the primary actor and speaks, but the shot is a close-up of the hands and cooking surface."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Cracking Eggs and Sunny-Side Fry",
+    "prompt": "A quiet morning kitchen scene: two eggs are cracked on the rim of a bowl with sharp taps, then opened with a wet plop. The eggs slide into a buttered pan, and the whites start to crackle softly at the edges as the butter sizzles. The cook tilts the pan and spoons hot butter over the whites with a gentle slosh, saying, \"Baste the tops, don’t flip,\" while the yolks remain glossy and intact.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "One cook is identified through actions and dialogue, but the sensory details (cracking eggs, sizzling butter) suggest a close-up or POV focus on the pan, making the face's presence on-screen uncertain.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Main actor performing all tasks and speaking; focus is primarily on their hands and the food."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Bacon in the Oven on a Tray",
+    "prompt": "A baking tray lined with foil is set down with a dull clang, and raw bacon strips are laid out one by one with sticky peeling sounds. The tray slides into the oven on rails with a metallic scrape, and through the oven window the bacon begins to render, bubbling and crackling more intensely as it curls. The cook points and says, \"Hear that? That’s the fat rendering,\" as grease pops lightly against the foil.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.85,
+      "rationale": "One human ('the cook') is a primary actor who points and speaks, though the camera may focus on the bacon or the cook's hands rather than their face.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "the cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Described as pointing and speaking, but the visual focus is heavily on the cooking tray and oven."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Dumplings: Pleating and Pan-Fry Steam",
+    "prompt": "A close-up of hands pleating dumpling wrappers, the dough making faint tacky smacks as each fold is pinched shut. The dumplings are placed into a hot pan with a soft sizzle as oil catches the bottoms, and after a moment the cook pours in water, which erupts into a loud steamy hiss and rapid bubbling. A lid is set on with a clink, trapping the steam, and the cook says, \"Fry, then steam,\" while condensation beads on the lid.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt explicitly describes a close-up of hands and culinary actions involving a pan and lid. Although a cook is mentioned and speaks, the framing is restricted to the hands and the food, making it highly unlikely for a face to appear.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Action is focused on the hands and the dumplings; the cook provides off-screen or out-of-frame dialogue."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Toasting Bread and Buttering",
+    "prompt": "Slices of bread are dropped into a toaster with a soft thump, and the lever clicks down. While the toaster hums, the cook unwraps butter with a papery crinkle and spreads it on a warm slice as it pops up with a sudden springy click. The knife scrapes lightly across the crust, and the cook says, \"Spread while it’s hot,\" as the butter melts and turns glossy.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The prompt features one primary human character (the cook) who performs actions and speaks. However, the descriptive focus on objects like the toaster, butter, and bread suggest a close-up or POV framing where the face might not be visible on screen.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "The cook is the actor performing the tasks and speaking, but the shot may be restricted to hands and tools."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Grinding Coffee and Pour-Over Brew",
+    "prompt": "A burr grinder starts with a low motor whirr, and coffee beans rattle and crunch as they grind. The grounds are poured into a paper filter with a soft sandy pour, then hot water is poured in a slow spiral, making a gentle trickling sound as the bloom rises and releases tiny bubbles. The kettle’s stream quiets as the cook pauses, and they say, \"Watch it bloom,\" while droplets continue to drip steadily into the carafe.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.8,
+      "rationale": "One primary character ('the cook') is mentioned as performing actions and speaking, but the focus on the coffee-making process suggests a high likelihood of a POV or close-up shot where the face is not visible.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "the cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Performs all actions and speaks the line 'Watch it bloom'; focus is likely on their hands and the coffee."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Making a Simple Vinaigrette (Shake in Jar)",
+    "prompt": "A small glass jar is filled in steps: oil pours in with a smooth glug, vinegar splashes in with a sharper slosh, and a spoon taps in mustard with a sticky plop. The lid screws on with quick plastic clicks, and the jar is shaken vigorously, liquids thudding and slapping inside. The cook opens it and says, \"Listen—when it goes quiet, it’s emulsified,\" as the mixture turns uniformly opaque.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The prompt describes one human actor ('the cook') who performs multiple actions and speaks directly, suggesting they are a primary on-screen character.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "the cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Performs all manual actions with the jar and speaks the final line of dialogue."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Roasting Vegetables: Tossing on Sheet Pan",
+    "prompt": "Chopped vegetables are dumped onto a metal sheet pan with a loud clatter, and oil is drizzled over them in a thin stream that patters on the pan. Salt is sprinkled, pepper is ground with crunchy twists, and the cook tosses everything by lifting and jerking the tray so the vegetables slide and knock together. The pan goes into the oven with a metallic rack scrape, and the cook says, \"Single layer for browning,\" as the door shuts with a soft thump.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "The prompt describes a sequence focused on the food and the pan. While a cook is the active participant and speaks, the actions (tossing, drizzling, sliding the pan into the oven) typically imply a close-up or POV shot where the face may not be visible.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "The primary actor who prepares the food and speaks, though the camera focus remains on the vegetables and oven."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Blender Soup (Hot and Steamy)",
+    "prompt": "A pot of cooked vegetables is poured into a blender jar with a wet slosh and steam rising. The lid is pressed down firmly, and the blender bursts on with a loud roar that smooths the mixture visibly from chunky to silky. The cook pauses, taps the lid, and says, \"Start low—hot liquid expands,\" then finishes with a final higher-speed blend before the motor winds down.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "A single cook is explicitly mentioned performing physical actions and speaking dialogue, indicating they are a primary character likely to be seen on screen.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "The cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Interacts with the blender and speaks directly."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Frying Temp Test: Breadcrumb Sizzle",
+    "prompt": "A close-up shows a pot of oil shimmering quietly as the cook holds a pinch of breadcrumbs over it. The crumbs drop in and immediately fizz with a tight crackling sizzle, and the cook says, \"That’s the sound you want,\" before lowering a breaded cutlet into the oil. The cutlet hits and the frying erupts louder, bubbles racing along the edges as the cook gently nudges it with tongs, metal clicking against the pot.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.9,
+      "rationale": "The prompt specifies a close-up focus on a pot of oil. While a cook is active and speaking, the tight framing on the cooking process and the pot typically excludes the facial identity of the person, focusing instead on hands and the food.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The cook's hands are visible and their voice is heard, but the close-up shot of the pot implies the face remains off-camera."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Making Omelet: Fold and Slide",
+    "prompt": "Eggs are whisked with fast wet swishes, then poured into a nonstick pan where they begin to set with a soft, even hiss. The cook shakes the pan to loosen the edges, and a spatula makes a smooth rubbery scrape as it pulls curds inward. With a quick wrist motion, the omelet is folded over itself with a muffled flap, then slid onto a plate with a soft glide, and the cook says, \"No browning—just tender.\"",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.85,
+      "rationale": "The prompt focuses on a cooking process with sensory details of the food and pan. While 'the cook' is a primary actor with dialogue, the descriptive focus on whisking, pouring, and folding suggests a high likelihood of a close-up or top-down shot showing only hands, though the face could be shown during the dialogue.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Main narrator and actor; focus is likely on hands/pan."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Sushi Rice: Fanning While Mixing",
+    "prompt": "A bowl of freshly cooked rice is turned out with a steamy thud, and seasoned vinegar is poured over it with a bright splash. The cook uses a wooden paddle to cut and fold the rice with crisp scraping strokes against the bowl, while another hand fans vigorously, the fan making a steady whooshing sound. The cook says, \"Cut—don’t mash,\" as the rice becomes glossy and individual grains separate.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.85,
+      "rationale": "The prompt describes a close-up sensory scene of rice preparation. While 'the cook' speaks and performs actions, the focus remains on the rice, bowl, and hands, making facial appearance possible but not guaranteed.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Main actor who speaks and uses the paddle; likely only hands visible."
+      },
+      {
+        "name": "assistant",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Identified by 'another hand' fanning the rice; likely only the hand is visible."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Caramelizing Sugar (Dry Caramel)",
+    "prompt": "Granulated sugar is poured into a stainless pan with a soft sand-like hiss, and the pan is gently shaken so the sugar levels out with a whispery slide. As heat builds, the sugar begins to liquefy at the edges, and the cook swirls the pan, making a faint syrupy slosh as the liquid spreads. The cook says, \"Don’t stir—just swirl,\" while the caramel darkens gradually and a tiny bubble crackle appears across the surface.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.85,
+      "rationale": "One cook is mentioned performing actions and speaking, but the descriptive focus is on a close-up of the pan and the sugar's transformation, which often implies a POV or hands-only shot.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "the cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "The cook performs the swirling and speaks, but the scene description suggests a macro focus on the caramelization process."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Making Guacamole: Smashing and Seasoning",
+    "prompt": "Avocados are halved with a knife twist and the pit pops free, then the flesh is scooped with a soft scrape into a bowl. A fork mashes the avocado with thick squelching sounds, and chopped onion and cilantro are sprinkled in, pattering lightly. Lime is squeezed with a wet spritz, and the cook says, \"Salt wakes it up,\" as they add salt and mix, the texture changing from chunky to creamy.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.8,
+      "rationale": "The prompt mentions a single 'cook' who performs actions and speaks dialogue, implying one primary human identity.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "the cook",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "The cook is the sole actor performing the food preparation and speaking a line of dialogue."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Plating: Sauce Swipe and Final Garnish",
+    "prompt": "A quiet kitchen pass: a spoon drops a dollop of sauce onto a ceramic plate with a wet plop, then the chef drags the spoon to make a clean swipe with a soft scrape. Sliced protein is placed precisely with tongs that click, and a small handful of herbs is sprinkled over with a faint rustle. The chef taps the plate once on the counter with a solid knock, saying softly, \"Clean edges,\" as the camera lingers on the glossy finish.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 1,
+      "confidence": 0.9,
+      "rationale": "A single chef is described performing actions and speaking, but the camera focus is specified as the plate at the kitchen pass, making face visibility possible but not guaranteed.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "chef",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "possible",
+        "notes": "Acts and speaks; focus is mainly on hands and the food on the plate."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  }
+]

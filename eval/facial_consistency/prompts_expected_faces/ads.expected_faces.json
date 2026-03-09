@@ -1,0 +1,553 @@
+[
+  {
+    "content": "Leave With A Cannonballer | Live There With Your Family | Vacation Rental Platform",
+    "prompt": "A young boy hits a beach ball as a group of children runs past him and jumps into a swimming pool with loud splashes, while a voiceover states, 'We went on vacation with a toe dipper.' The camera follows the kids underwater as bubbles roar and feet kick past the lens, and the voiceover finishes, 'and left with a cannonballer.' Finally, the view resurfaces to show a laughing girl in the water as on-screen text reads 'Book your family home now.'",
+    "primary_faces": {
+      "min_ids": 2,
+      "max_ids": 6,
+      "confidence": 0.9,
+      "rationale": "The prompt highlights a young boy at the beginning and a laughing girl at the end as specific focal points. A 'group of children' performs the main action of jumping into the pool and being seen underwater, contributing additional distinct faces.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "young boy",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Focal character at the start, described as the 'toe dipper'."
+      },
+      {
+        "name": "laughing girl",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Focal character at the end, resurfacing in the water."
+      },
+      {
+        "name": "group of children",
+        "type": "human",
+        "count": 4,
+        "face_visibility": "possible",
+        "notes": "A group that runs, jumps, and is followed underwater; their faces may be visible during the jump or resurface."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Pyramid Tea Bag Green Tea | Puppet Spot",
+    "prompt": "A close-up view of a knitted puppet hand repeatedly dipping a pyramid-shaped tea bag into a clear glass mug of hot water, the liquid sloshing softly as color diffuses. The camera pulls back to reveal a sock-monkey puppet in a plain white T-shirt holding the mug. The puppet lifts the glass to drink with an audible sip, then lowers it with a happy expression. The final shot shows a row of generic green tea boxes on a white surface with the text 'Keep it tea.' overlaid, as the puppet playfully peeks over the boxes. A calm voiceover states, 'A tasty cup of green tea... Delicious,' ending with a satisfied 'Mmm.'",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The only character is a sock-monkey puppet; there are no human actors or human faces mentioned.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "sock-monkey puppet",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The puppet shows expressions and peeks over boxes, but is explicitly a knitted object."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Caucus on Super Tuesday | Political Candidate Ad (Anonymized)",
+    "prompt": "Stylized text 'Want REAL' appears on a black background with a punchy whoosh. A title card reads 'the to GO' with star graphics. A top-down shot shows a white sneaker stepping on pavement with pink chalk letters, the footfall landing with a crisp step sound. A medium shot shows an older male political candidate smiling against a dark background. A graphic illustration flashes with hand emojis, the word 'the', and fire emojis. A male narrator says, 'Want real change? Go to the caucus. Vote for our candidate. Feel the burn,' with quick dramatic stingers on each text transition.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly mentions a medium shot of an older male political candidate smiling.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "older male political candidate",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Shown in a medium shot smiling against a dark background."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "SUV | Powerful Presence | 'Daddy' TVC (5 sec) (Anonymized)",
+    "prompt": "A silver SUV is shown in a dark industrial tunnel under overhead strip lights as a deep voiceover asks, 'Who's your daddy?' and the engine answers with a low growling rev. As the car is displayed with bold text overlays reading 'POWERFUL PRESENCE,' a rhythmic electronic beat plays. The scene cuts to a solid red background featuring a generic car brand logo and a short slogan, ending with a distinctive swooshing sound effect.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt specifies a vehicle in a tunnel and graphic overlays; no humans or faces are mentioned in the visual description.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Silver SUV",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The primary subject of the video is a vehicle."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Action Film Teaser (Anonymized)",
+    "prompt": "A man in a green tank top walks through a crowded outdoor market with distant chatter and wind. The text 'YOU KNOW' flashes on a black screen with a sharp hit sound. The man punches an opponent in the face with a loud thud. The text 'HIS NAME' flashes with another impact sting. A close-up of the man's serious face appears, followed by a final title card for a generic action movie and a release tag, punctuated by a dramatic musical sting at the end.",
+    "primary_faces": {
+      "min_ids": 2,
+      "max_ids": 2,
+      "confidence": 0.95,
+      "rationale": "The prompt explicitly features a main man in a green tank top and a specific opponent he punches in the face, both acting as primary subjects in the sequence.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "man in green tank top",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main protagonist, has a close-up of his serious face."
+      },
+      {
+        "name": "opponent",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Punched in the face, making his facial identity central to the action scene."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Glazed Donuts | Made Fresh Daily (Anonymized)",
+    "prompt": "Golden-brown donuts travel along a metal conveyor rack, the machinery humming softly. The donuts pass under a continuous curtain of white glaze, emerging fully coated and shiny as the glaze drips with wet pattering sounds onto the line. The scene cuts to rows of finished glazed donuts moving on a belt toward the camera, overlaid with a generic donut-shop logo and the text 'THE ORIGINAL GLAZED.' A circular 'Made Fresh' graphic animates onto the screen as fast-paced, high-energy orchestral music plays.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses exclusively on food production machinery, donuts, and motion graphics without any mention of human actors or personnel.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Rum Cola Cocktail | Responsible Drinking Disclaimer (Anonymized)",
+    "prompt": "A close-up top-down view of ice cubes settling into a glass with crisp clinks. A clear spirit pours over the ice with a steady liquid stream sound, then dark cola is poured in with louder fizzing. A wedge of lime drops into the drink, creating a sharp splash. A bottle of generic rum stands next to the finished cocktail with bold Spanish text on screen, while a quick voiceover delivers a short responsible-drinking disclaimer.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a macro product shot of a drink being prepared from a top-down perspective. No human characters or faces are mentioned or implied.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Hands-Free Parking Feature | Compact MPV (Anonymized)",
+    "prompt": "A man in a yellow car looks back while reversing as the engine idles. A close-up shows the rear alloy wheels rolling slowly over asphalt with a soft tire hiss. The driver watches the dashboard while the steering wheel turns automatically without his hands on it, the indicator clicking. The car smoothly parallel parks between two colorful vehicles as text overlays introduce 'Hands-Free Parking,' with an upbeat modern pop track playing throughout.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.95,
+      "rationale": "The prompt describes a single man/driver as the primary protagonist performing specific actions like looking back and watching the dashboard.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "man",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The driver of the yellow car, shown looking back and at the dashboard."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Energy Drink Bumper Ad | 'Feel the Burn' (Anonymized)",
+    "prompt": "A ball of fire roars against a black background with a deep whoosh. A close-up shows a young man drinking from a black-and-orange energy drink can, the gulp audible. A black boxing glove punches him in the face in slow motion against a split black-and-white background with a heavy cinematic thump, and flames erupt from the side of his head on impact with a fiery blast sound. The can appears alongside the text 'feel the burn' and a cheering crowd silhouette as energetic electronic music plays, ending with the sung line 'I'll make you burn.'",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 0.95,
+      "rationale": "One young man is explicitly featured in a close-up. A boxing glove implies a second person, but no facial identity is described for the puncher. The crowd is explicitly described as a silhouette.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "young man",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main subject shown in close-up drinking and reacting to a punch."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Healthy Heart Tip | Nuts PSA (Anonymized)",
+    "prompt": "The video opens with a close-up shot of various nuts like almonds and walnuts, and as text advises to consume nuts for a healthy heart, a rhythmic heartbeat sound plays in the background. The scene transitions to a clean white screen displaying a generic health clinic logo and website, with the heartbeat sound continuing steadily.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses exclusively on close-ups of nuts and a graphic screen with a logo and text; no human actors are mentioned.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Mystery Unboxing Teaser (Anonymized)",
+    "prompt": "A close-up view of a red takeout-style box with a generic fried-chicken logo printed in white on the side as the camera zooms in on the logo. The scene transitions to a black background featuring the centered white text 'UNBOXING 23RD FEBRUARY 2016' above a simple line drawing of a smiling mascot. A rhythmic, thumping heartbeat-like sound plays throughout to build suspense.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt focuses entirely on a takeout box, a graphic logo, and text. No human characters are mentioned or implied to be on screen.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "fried-chicken mascot",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Appears only as a printed logo and a line drawing mascot, not a human face."
+      },
+      {
+        "name": "takeout box",
+        "type": "nonhuman",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The primary subject of the shot."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "TATTOO | Platform Advertisers (Anonymized)",
+    "prompt": "Two men sit at a diner counter with soft ambient clatter, and one asks if the other is selling the boat. A clip shows a man sailing a boat as a voice asks, 'Are you selling my boat?' Back at the diner, the man asks how he can keep the memory of the boat. The video cuts to him screaming in a tattoo parlor as a buzzing tattoo machine etches a small sailboat onto his arm, the buzz rising and falling as the needle touches skin.",
+    "primary_faces": {
+      "min_ids": 2,
+      "max_ids": 2,
+      "confidence": 0.95,
+      "rationale": "The prompt explicitly describes two men at a diner counter having a conversation. One is the boat owner and the other is the inquirer. Both are central to the narrative across three locations (diner, boat clip, tattoo parlor).",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Diner Man 1",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "One of the two men talking at the counter."
+      },
+      {
+        "name": "Diner Man 2 (Boat Owner)",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "The man being asked about the boat, shown sailing and later getting a tattoo."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Superhero Movie Bumper Ad (Anonymized)",
+    "prompt": "A dark street scene shows a standoff between two groups with tense low rumble. A close-up of a man in a maroon helmet. A man in a wheelchair sits beside teenagers in superhero costumes. A subway train car is ripped apart by invisible forces with loud metal tearing and crashing, and soldiers tumble inside a moving structure amid heavy impacts. A fiery logo for a generic superhero film emerges from flames with a release date in Spanish, while two male voices trade urgent lines and intense cinematic music drives the destruction.",
+    "primary_faces": {
+      "min_ids": 4,
+      "max_ids": 6,
+      "confidence": 0.85,
+      "rationale": "The prompt identifies a man in a helmet, a man in a wheelchair, and a group of teenagers (plural, at least 2). Soldiers and 'groups' in a standoff suggest a crowd, but are not counted as primary unless singled out.",
+      "likely_on_screen": true,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "Man in maroon helmet",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Featured in a close-up."
+      },
+      {
+        "name": "Man in wheelchair",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main actor in a specific vignette."
+      },
+      {
+        "name": "Teenagers in costumes",
+        "type": "human",
+        "count": 2,
+        "face_visibility": "likely",
+        "notes": "Plural group mentioned as being next to the man in the wheelchair."
+      },
+      {
+        "name": "Soldiers",
+        "type": "human",
+        "count": 3,
+        "face_visibility": "possible",
+        "notes": "Generic group tumbling in a moving structure; potentially background/action crowd."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Survey Tool | From Questions to Answers (Anonymized)",
+    "prompt": "On a green background, a 3D segmented question mark rotates beside the text 'From questions,' accompanied by clean digital clicks. The shape fluidly transforms into a colorful donut chart with a soft pop, then scatters into a circle of small 3D icons representing data and feedback. The icons quickly converge to form a vertical exclamation mark next to the text 'to answers' with a sharp whoosh. The video ends on a white screen featuring a generic survey platform logo, a website address, and a yellow 'Try it free' button. Upbeat instrumental music plays throughout as a clear voiceover says, 'From questions... to answers.'",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a motion graphics animation featuring abstract 3D shapes, icons, and text with no human actors or faces.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "3D shapes and icons",
+        "type": "nonhuman",
+        "count": 0,
+        "face_visibility": "unlikely",
+        "notes": "Abstract geometric shapes (question mark, donut chart, exclamation mark) and data icons."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Do you know what customers are saying about you? (Anonymized)",
+    "prompt": "A single wind-up chattering teeth toy clacks continuously against a solid teal background. The scene cuts to a blue screen displaying the white text 'Your customers are talking,' abruptly followed by rows of multi-colored chattering teeth toys all moving at once, creating a loud chaotic mechanical clatter. A green screen appears with the text 'Are you listening?' before cutting to a generic product logo and a 'Try it free' button on a white background as the noise ceases.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes an animation involving mechanical wind-up toys and text screens; no human characters or human faces are featured.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": true
+    },
+    "primary_characters": [
+      {
+        "name": "Chattering teeth toys",
+        "type": "nonhuman",
+        "count": 10,
+        "face_visibility": "likely",
+        "notes": "Mechanical wind-up toys with teeth and often googly eyes; these are non-human anthropomorphic objects."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "The High Diver | Platform Advertisers (Anonymized)",
+    "prompt": "A time-lapse from a fixed angle overlooks a public swimming pool in a modern city, starting with bright sunshine, blue water, and lush trees, accompanied by an upbeat cheerful melody. As the timeline advances year by year, the scene stays vibrant at first, but later the environment decays into a grey wasteland with dead trees and a dried-up pool as the music distorts and fades. The final year shows a scorched ruin with only the desolate sound of wind.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt describes an environmental time-lapse of a location from a fixed angle. While the setting is a public pool where crowds may be present in the background, no primary human actors or specific identities are described.",
+      "likely_on_screen": false,
+      "crowd_possible": true,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Hamlet | Platform Advertisers (Anonymized)",
+    "prompt": "A computer screen displays a login window for a website with a generic suspicious-looking domain, and as a username is already filled, fast typing fills the password field with a flurry of keystrokes. The cursor clicks the 'Login' button with a single mouse click, then the screen transitions to a product page showing a red bottle labeled with generic 'LCD cleaning solution' text and a price tag. The cursor clicks a yellow 'Add to Cart' button once, pauses, then begins clicking it rapidly in a frantic series as the clicking noises accelerate.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 1.0,
+      "rationale": "The prompt describes a screen-capture style video focusing on a computer interface and a product image. No humans are present in the frame.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "Unseen User",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "The individual typing and clicking is off-screen; only their actions on the interface are visible."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Unskippable Elevator | Insurance Ad Parody (Anonymized)",
+    "prompt": "Two men in business suits stand in an elevator, talk, and shake hands as background elevator music plays. A large white text logo appears superimposed over them as they freeze mid-handshake with wide static smiles, holding perfectly still. A woman walks into the elevator and looks at them expectantly; when they don't move, she waves a hand in front of one man's face and presses a button on the panel with a loud click. The doors close with a mechanical slide and reopen to reveal the men still frozen; she squeezes past them and exits. Their dialogue plays naturally, and a voiceover explains that the ad can't be skipped because it's already over, ending with a generic insurance tagline and percentage savings claim.",
+    "primary_faces": {
+      "min_ids": 3,
+      "max_ids": 3,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly describes three distinct primary human actors: two men who freeze mid-handshake and one woman who enters and interacts with them.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "two men",
+        "type": "human",
+        "count": 2,
+        "face_visibility": "likely",
+        "notes": "Actors in business suits who freeze with wide static smiles."
+      },
+      {
+        "name": "woman",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Character who enters, waves a hand in front of a man's face, and exits."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Swag Box Packing (Anonymized)",
+    "prompt": "In a fast-paced top-down shot, a pair of hands rapidly packs a colorful box on a wooden surface: a patterned card lands with a papery slap, then a glass jar and wooden spoon are placed inside with soft clinks. A bright pamphlet is dropped on top, and tissue paper is folded over with a distinct crinkling noise, ending with the lid closing shut with a satisfying cardboard thud.",
+    "primary_faces": {
+      "min_ids": 0,
+      "max_ids": 0,
+      "confidence": 0.95,
+      "rationale": "The prompt specifies a top-down shot focusing exclusively on a pair of hands packing a box. No facial features are described or likely to appear in this camera angle.",
+      "likely_on_screen": false,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "packer",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "unlikely",
+        "notes": "Only the hands of the person are visible in the top-down perspective."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  },
+  {
+    "content": "Island Escape Review | Platform Advertisers (Anonymized)",
+    "prompt": "A soaking wet man in an orange life vest carrying a wooden oar bursts through a set of glass doors with a loud crash. He hurriedly opens a silver laptop on a wooden table, the hinge snapping open, and the screen shows a map zooming in on a remote island destination. A review pop-up appears and the cursor selects a one-star rating with a decisive mouse click.",
+    "primary_faces": {
+      "min_ids": 1,
+      "max_ids": 1,
+      "confidence": 1.0,
+      "rationale": "The prompt explicitly describes one main character ('a soaking wet man') performing a sequence of actions.",
+      "likely_on_screen": true,
+      "crowd_possible": false,
+      "non_human_or_graphic_face_possible": false
+    },
+    "primary_characters": [
+      {
+        "name": "soaking wet man in life vest",
+        "type": "human",
+        "count": 1,
+        "face_visibility": "likely",
+        "notes": "Main actor carrying an oar and interacting with a laptop."
+      }
+    ],
+    "constraints": {
+      "ignore_background_bystanders": true,
+      "ignore_posters_screens_faces": true
+    }
+  }
+]
