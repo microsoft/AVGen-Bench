@@ -390,6 +390,25 @@ export LTX2_SPATIAL_UPSAMPLER_PATH=/path/to/ltx-2.3-spatial-upscaler-x2-1.0.safe
 export LTX2_GEMMA_ROOT=/path/to/gemma-3-12b-it-qat-q4_0-unquantized
 ```
 
+Weights download script (supports LTX-2 and LTX-2.3):
+
+```bash
+# Download LTX-2.3 distilled + spatial upscaler + Gemma
+python scripts/download_ltx_weights.py \
+  --version 2.3 \
+  --models distilled \
+  --spatial-upscaler x2 \
+  --download-gemma \
+  --output-dir /path/to/ltx2_models
+
+# Download LTX-2 distilled + spatial upscaler (no Gemma)
+python scripts/download_ltx_weights.py \
+  --version 2 \
+  --models distilled \
+  --spatial-upscaler x2 \
+  --output-dir /path/to/ltx2_models
+```
+
 Run generation:
 
 ```bash
