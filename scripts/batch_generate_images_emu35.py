@@ -192,6 +192,7 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--task_type", type=str, default="t2i")
     ap.add_argument("--use_image", action="store_true", default=False)
     ap.add_argument("--aspect_ratio", type=str, default="default")
+    ap.add_argument("--size", type=str, default="1280x720")
     ap.add_argument("--hf_device", type=str, default="auto")
     ap.add_argument("--vq_device", type=str, default="cuda:0")
     ap.add_argument("--classifier_free_guidance", type=float, default=5.0)
@@ -220,6 +221,7 @@ def build_provider_kwargs(args: argparse.Namespace) -> Dict[str, Any]:
         "task_type": args.task_type,
         "use_image": args.use_image,
         "aspect_ratio": args.aspect_ratio,
+        "size": args.size,
         "hf_device": args.hf_device,
         "vq_device": args.vq_device,
         "classifier_free_guidance": args.classifier_free_guidance,

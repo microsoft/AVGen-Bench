@@ -32,6 +32,41 @@ def _format_for_ext(ext: str) -> str:
         return "WEBP"
     return "PNG"
 
+def _parse_size(size: str) -> Tuple[int, int]:
+    normalized = str(size).strip().lower().replace("*", "x")
+    parts = [p.strip() for p in normalized.split("x") if p.strip()]
+    if len(parts) != 2:
+        raise ValueError(f"Invalid size '{size}', expected format WIDTHxHEIGHT")
+    width = int(parts[0])
+    height = int(parts[1])
+    if width <= 0 or height <= 0:
+        raise ValueError(f"Invalid size '{size}', width/height must be positive")
+    return width, height
+
+
+def _aspect_ratio_for_size(width: int, height: int) -> str:
+    ratio = width / float(height)
+    candidates = {
+        "21:9": 21 / 9,
+        "16:9": 16 / 9,
+        "4:3": 4 / 3,
+        "3:2": 3 / 2,
+        "1:1": 1.0,
+        "3:4": 3 / 4,
+        "9:16": 9 / 16,
+        "2:3": 2 / 3,
+    }
+    best = None
+    best_diff = 1e9
+    for name, val in candidates.items():
+        diff = abs(ratio - val)
+        if diff < best_diff:
+            best = name
+            best_diff = diff
+    if best is None or best_diff > 0.02:
+        return "auto"
+    return best
+
 
 def _build_config_content(
     prompt: str,
@@ -281,6 +316,7 @@ class Emu35Client(BaseGenerationClient):
         image_cfg_scale: float = 1.0,
         seed: int = 6666,
         image_ext: Optional[str] = ".png",
+        size: Optional[str] = None,
         timeout_s: int = 7200,
         python_bin: Optional[str] = None,
         gpu_id: Optional[int] = None,
@@ -298,6 +334,10 @@ class Emu35Client(BaseGenerationClient):
         hf_device = hf_device or os.environ.get("EMU35_HF_DEVICE") or "auto"
         vq_device = vq_device or os.environ.get("EMU35_VQ_DEVICE") or "cuda:0"
         aspect_ratio = aspect_ratio or os.environ.get("EMU35_ASPECT_RATIO") or "default"
+        if size:
+            width, height = _parse_size(size)
+            image_area = int(width * height)
+            aspect_ratio = _aspect_ratio_for_size(width, height)
 
         tmp_dir = Path(tempfile.mkdtemp(prefix="emu35_gen_"))
         cfg_name = f"emu3p5_tmp_{uuid.uuid4().hex}"
