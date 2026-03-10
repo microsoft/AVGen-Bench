@@ -95,6 +95,8 @@ class OviClient(BaseGenerationClient):
         timeout_s: int,
         python_bin: Optional[str],
         torchrun_nproc: int,
+        gpu_id: Optional[str],
+        cuda_visible_devices: Optional[str],
     ) -> None:
         py = python_bin or os.environ.get("OVI_PYTHON_BIN") or sys.executable
         if torchrun_nproc and int(torchrun_nproc) > 1:
@@ -111,6 +113,12 @@ class OviClient(BaseGenerationClient):
         else:
             cmd = [py, str(self.inference_script), "--config-file", str(config_path)]
 
+        env = os.environ.copy()
+        if cuda_visible_devices is not None:
+            env["CUDA_VISIBLE_DEVICES"] = str(cuda_visible_devices)
+        elif gpu_id is not None:
+            env["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
+
         proc = subprocess.run(
             cmd,
             cwd=str(self.repo_dir),
@@ -118,6 +126,7 @@ class OviClient(BaseGenerationClient):
             stderr=subprocess.PIPE,
             text=True,
             timeout=int(timeout_s),
+            env=env,
         )
         if proc.returncode != 0:
             stderr_tail = (proc.stderr or "")[-2000:]
@@ -157,9 +166,14 @@ class OviClient(BaseGenerationClient):
         timeout_s: int = 7200,
         python_bin: Optional[str] = None,
         torchrun_nproc: int = 1,
+        gpu_id: Optional[str] = None,
+        cuda_visible_devices: Optional[str] = None,
         **kwargs,
     ) -> GenerationArtifact:
-        del kwargs
+        if "gpu_id" in kwargs and gpu_id is None:
+            gpu_id = kwargs.pop("gpu_id")
+        if "cuda_visible_devices" in kwargs and cuda_visible_devices is None:
+            cuda_visible_devices = kwargs.pop("cuda_visible_devices")
         tmp_dir = Path(tempfile.mkdtemp(prefix="ovi_gen_"))
         try:
             output_dir = tmp_dir / "outputs"
@@ -194,6 +208,8 @@ class OviClient(BaseGenerationClient):
                 timeout_s=timeout_s,
                 python_bin=python_bin,
                 torchrun_nproc=torchrun_nproc,
+                gpu_id=gpu_id,
+                cuda_visible_devices=cuda_visible_devices,
             )
             out_mp4 = self._pick_latest_mp4(output_dir)
             data = out_mp4.read_bytes()

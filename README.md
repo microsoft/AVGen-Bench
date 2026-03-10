@@ -283,6 +283,19 @@ generated_videos/sora2/
   ...
 ```
 
+Single-machine multi-GPU runs are supported. Provide `--gpu_ids` and set `--concurrency`
+to the number of GPUs you want to use; tasks are assigned round-robin per GPU.
+If `concurrency` exceeds the number of GPU IDs, some GPUs will run multiple tasks.
+
+```bash
+python batch_generate.py \
+  --provider ltx2 \
+  --prompts_dir ./prompts \
+  --out_dir ./generated_videos/ltx2 \
+  --concurrency 4 \
+  --gpu_ids 0,1,2,3
+```
+
 ### 2. Environment variables for `sora2`
 
 ```bash
@@ -347,8 +360,8 @@ python -m venv .venv-ltx2
 source .venv-ltx2/bin/activate
 
 # Install runtime dependencies required by vendored ltx-core + ltx-pipelines
-pip install "torch~=2.7" torchaudio einops numpy "transformers>=4.52" \
-  safetensors accelerate "scipy>=1.14" av tqdm pillow
+pip install "torch~=2.7" torchaudio einops numpy "transformers==4.53.3" \
+  "tokenizers>=0.20.3" safetensors accelerate "scipy>=1.14" av tqdm pillow
 
 # Optional performance extras
 pip install xformers
@@ -357,7 +370,7 @@ pip install xformers
 If you keep LTX-2 in a dedicated environment, point the runner to that Python binary:
 
 ```bash
-export LTX2_PYTHON_BIN="$(pwd)/.venv-ltx2/bin/python"
+export LTX2_PYTHON_BIN="$(which python)"
 ```
 
 Required weights for the current `ltx2` integration:
@@ -419,13 +432,14 @@ python batch_generate.py \
   --concurrency 1 \
   --ltx2_python_bin "$LTX2_PYTHON_BIN" \
   --ltx2_size 1280x704 \
-  --ltx2_num_frames 193
+  --ltx2_num_frames 241
 ```
 
 Notes:
 
 - `ltx2` currently supports `pipeline=distilled` only.
 - The default size is `1280x704`, not `1280x720`, because the two-stage LTX-2 pipeline requires width and height divisible by 64.
+- The default `ltx2_num_frames` is `241` (10s @ 24fps).
 - You can use `--ltx2_quantization fp8-cast` on supported setups to reduce memory pressure.
 
 #### `ovi`

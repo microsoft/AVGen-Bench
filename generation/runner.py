@@ -38,6 +38,24 @@ def load_json_list(path: str) -> List[Dict[str, Any]]:
     return data
 
 
+def parse_gpu_ids(value: str) -> List[str]:
+    if not value:
+        return []
+    parts = [p.strip() for p in value.split(",") if p.strip()]
+    ids: List[int] = []
+    for part in parts:
+        if "-" in part:
+            start_str, end_str = part.split("-", 1)
+            start = int(start_str.strip())
+            end = int(end_str.strip())
+            if end < start:
+                raise ValueError("Invalid GPU range '%s' (end < start)." % part)
+            ids.extend(range(start, end + 1))
+        else:
+            ids.append(int(part))
+    return [str(i) for i in ids]
+
+
 @dataclass
 class PromptTask:
     category: str
@@ -222,6 +240,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="If set, regenerate even when output already exists.",
     )
+    ap.add_argument(
+        "--gpu_ids",
+        type=str,
+        default="",
+        help="Comma-separated GPU ids for local inference (e.g., '0,1,2,3' or '0-3').",
+    )
     ap.add_argument("--kling_model_name", type=str, default="kling-v2-6")
     ap.add_argument("--kling_duration", type=str, default="10")
     ap.add_argument("--kling_aspect_ratio", type=str, default="16:9")
@@ -261,7 +285,7 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--ltx2_gemma_root", type=str, default=None)
     ap.add_argument("--ltx2_size", type=str, default="1280x704")
     ap.add_argument("--ltx2_seed", type=int, default=100)
-    ap.add_argument("--ltx2_num_frames", type=int, default=193)
+    ap.add_argument("--ltx2_num_frames", type=int, default=241)
     ap.add_argument("--ltx2_frame_rate", type=float, default=24.0)
     ap.add_argument("--ltx2_quantization", type=str, default=None)
     ap.add_argument("--ltx2_enhance_prompt", action="store_true", default=False)
@@ -405,6 +429,18 @@ def run(args: argparse.Namespace) -> int:
     total = len(tasks)
     if total == 0:
         raise RuntimeError("No valid prompt items loaded from %s" % prompts_dir.resolve())
+
+    gpu_ids = parse_gpu_ids(args.gpu_ids)
+    if gpu_ids:
+        if args.concurrency > len(gpu_ids):
+            print(
+                "Warning: concurrency=%s > gpu_ids=%s. Tasks will share GPUs."
+                % (args.concurrency, ",".join(gpu_ids))
+            )
+        for idx, task in enumerate(tasks):
+            if "gpu_id" in task.extra_kwargs or "cuda_visible_devices" in task.extra_kwargs:
+                continue
+            task.extra_kwargs["gpu_id"] = gpu_ids[idx % len(gpu_ids)]
 
     print(
         "Found %s prompts. provider=%s task_type=%s concurrency=%s rerun_existing=%s"

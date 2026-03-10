@@ -19,7 +19,7 @@ def main() -> None:
     ap.add_argument("--ltx2_gemma_root", type=str, default=None)
     ap.add_argument("--ltx2_size", type=str, default="1280x704")
     ap.add_argument("--ltx2_seed", type=int, default=100)
-    ap.add_argument("--ltx2_num_frames", type=int, default=193)
+    ap.add_argument("--ltx2_num_frames", type=int, default=241)
     ap.add_argument("--ltx2_frame_rate", type=float, default=24.0)
     ap.add_argument("--ltx2_quantization", type=str, default=None)
     ap.add_argument("--ltx2_enhance_prompt", action="store_true")
@@ -78,4 +78,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

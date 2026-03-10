@@ -72,12 +72,14 @@ class Ltx2Client(BaseGenerationClient):
         gemma_root: Optional[str] = None,
         size: str = "1280x704",
         seed: int = 100,
-        num_frames: int = 193,
+        num_frames: int = 241,
         frame_rate: float = 24.0,
         quantization: Optional[str] = None,
         enhance_prompt: bool = False,
         timeout_s: int = 7200,
         python_bin: Optional[str] = None,
+        gpu_id: Optional[int] = None,
+        cuda_visible_devices: Optional[str] = None,
         **kwargs,
     ) -> GenerationArtifact:
         if pipeline != "distilled":
@@ -156,6 +158,10 @@ class Ltx2Client(BaseGenerationClient):
 
             env = os.environ.copy()
             env["PYTHONPATH"] = self._pythonpath()
+            if cuda_visible_devices:
+                env["CUDA_VISIBLE_DEVICES"] = str(cuda_visible_devices)
+            elif gpu_id is not None:
+                env["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
             proc = subprocess.run(
                 cmd,
                 cwd=str(self.repo_dir),
