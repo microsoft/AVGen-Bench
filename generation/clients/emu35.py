@@ -295,7 +295,8 @@ class Emu35Client(BaseGenerationClient):
 
         tmp_dir = Path(tempfile.mkdtemp(prefix="emu35_gen_"))
         cfg_name = f"emu3p5_tmp_{uuid.uuid4().hex}"
-        cfg_path = self.repo_dir / "configs" / f"{cfg_name}.py"
+        cfg_rel_path = Path("configs") / f"{cfg_name}.py"
+        cfg_path = self.repo_dir / cfg_rel_path
         save_path = tmp_dir / "outputs"
         proto_dir = save_path / "proto"
         try:
@@ -323,7 +324,7 @@ class Emu35Client(BaseGenerationClient):
             for attempt in range(1, max_retries + 2):
                 try:
                     self._run_inference(
-                        config_path=cfg_path,
+                        config_path=cfg_rel_path,
                         timeout_s=timeout_s,
                         python_bin=python_bin,
                         gpu_id=gpu_id,
