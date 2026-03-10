@@ -8,6 +8,7 @@ __pycache__/
 eval/videophy/VIDEOPHY2/videophy_2_auto
 eval/Syncformer/logs/
 generated_videos/
+generated_images/
 avgenbench/
 Audio_video_benchmark_src/
 AVGen-Bench.code-workspace
