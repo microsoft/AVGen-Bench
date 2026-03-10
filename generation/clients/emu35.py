@@ -173,6 +173,7 @@ class Emu35Client(BaseGenerationClient):
         repo_dir = repo_dir or os.environ.get("EMU35_REPO_DIR") or str(default_repo_dir)
         self.repo_dir = Path(repo_dir).expanduser().resolve()
         self.inference_script = self.repo_dir / "inference.py"
+        self.inference_vllm_script = self.repo_dir / "inference_vllm.py"
         if not self.inference_script.exists():
             raise FileNotFoundError(
                 f"Emu3.5 inference script not found: {self.inference_script}. "
@@ -186,9 +187,13 @@ class Emu35Client(BaseGenerationClient):
         python_bin: Optional[str],
         gpu_id: Optional[int],
         cuda_visible_devices: Optional[str],
+        use_vllm: bool,
     ) -> None:
         py = python_bin or os.environ.get("EMU35_PYTHON_BIN") or sys.executable
-        cmd = [py, str(self.inference_script), "--cfg", str(config_path)]
+        script = self.inference_vllm_script if use_vllm else self.inference_script
+        if not script.exists():
+            raise FileNotFoundError(f"Emu3.5 inference script not found: {script}")
+        cmd = [py, str(script), "--cfg", str(config_path)]
         env = os.environ.copy()
         if cuda_visible_devices is not None:
             env["CUDA_VISIBLE_DEVICES"] = str(cuda_visible_devices)
@@ -280,6 +285,7 @@ class Emu35Client(BaseGenerationClient):
         python_bin: Optional[str] = None,
         gpu_id: Optional[int] = None,
         cuda_visible_devices: Optional[str] = None,
+        use_vllm: bool = False,
         max_retries: int = 1,
         retry_backoff_s: float = 2.0,
         **kwargs,
@@ -329,6 +335,7 @@ class Emu35Client(BaseGenerationClient):
                         python_bin=python_bin,
                         gpu_id=gpu_id,
                         cuda_visible_devices=cuda_visible_devices,
+                        use_vllm=use_vllm,
                     )
                     break
                 except Exception as e:

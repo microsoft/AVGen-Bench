@@ -202,6 +202,12 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--timeout_s", type=int, default=7200)
     ap.add_argument("--python_bin", type=str, default=None)
     ap.add_argument("--cuda_visible_devices", type=str, default=None)
+    ap.add_argument(
+        "--use_vllm",
+        action="store_true",
+        default=False,
+        help="Use Emu3.5 vLLM inference script (inference_vllm.py).",
+    )
     return ap.parse_args()
 
 
@@ -224,6 +230,7 @@ def build_provider_kwargs(args: argparse.Namespace) -> Dict[str, Any]:
         "timeout_s": args.timeout_s,
         "python_bin": args.python_bin,
         "cuda_visible_devices": args.cuda_visible_devices,
+        "use_vllm": args.use_vllm,
     }
 
 
