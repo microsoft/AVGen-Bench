@@ -1,0 +1,173 @@
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+from typing import Optional
+
+from .base import BaseGenerationClient, GenerationArtifact
+
+
+class MovaClient(BaseGenerationClient):
+    """
+    Local MOVA integration by invoking MOVA's official inference script:
+      torchrun --nproc_per_node=<cp_size> scripts/inference_single.py ...
+
+    Requirements:
+    - MOVA repo available locally (default: third_party/MOVA, override via MOVA_REPO_DIR).
+    - ckpt_path points to downloaded model weights (e.g., OpenMOSS-Team/MOVA-360p or MOVA-720p).
+    - ref_path is a local image path (first frame).
+    """
+
+    def __init__(self, repo_dir: Optional[str] = None) -> None:
+        default_repo_dir = Path(__file__).resolve().parents[2] / "third_party" / "MOVA"
+        repo_dir = repo_dir or os.environ.get("MOVA_REPO_DIR") or str(default_repo_dir)
+        self.repo_dir = Path(repo_dir).expanduser().resolve()
+        self.inference_script = self.repo_dir / "scripts" / "inference_single.py"
+        if not self.inference_script.exists():
+            raise FileNotFoundError(
+                f"MOVA inference script not found: {self.inference_script}. "
+                "Please clone MOVA into third_party/MOVA or set MOVA_REPO_DIR."
+            )
+
+    def video_generation(
+        self,
+        prompt: str,
+        ckpt_path: str,
+        ref_path: str,
+        output_ext: str = ".mp4",
+        negative_prompt: Optional[str] = None,
+        num_frames: int = 193,
+        fps: float = 24.0,
+        height: int = 720,
+        width: int = 1280,
+        seed: int = 42,
+        num_inference_steps: int = 50,
+        cfg_scale: float = 5.0,
+        sigma_shift: float = 5.0,
+        cp_size: int = 1,
+        attn_type: str = "fa",
+        offload: str = "none",
+        offload_to_disk_path: Optional[str] = None,
+        remove_video_dit: bool = False,
+        timeout_s: int = 7200,
+        python_bin: Optional[str] = None,
+        torchrun_bin: Optional[str] = None,
+        gpu_id: Optional[int] = None,
+        cuda_visible_devices: Optional[str] = None,
+        **kwargs,
+    ) -> GenerationArtifact:
+        del kwargs
+
+        if not ckpt_path:
+            raise ValueError("mova ckpt_path is required.")
+        if not ref_path:
+            raise ValueError("mova ref_path is required (first frame image path).")
+
+        ref_p = Path(ref_path).expanduser()
+        if not ref_p.exists():
+            raise FileNotFoundError(f"ref_path not found: {ref_p}")
+
+        tmp_dir = Path(tempfile.mkdtemp(prefix="mova_gen_"))
+        try:
+            out_path = tmp_dir / ("mova_output" + (output_ext if output_ext.startswith(".") else "." + output_ext))
+
+            # Use torchrun so LOCAL_RANK etc are set up correctly.
+            torchrun = torchrun_bin or os.environ.get("MOVA_TORCHRUN_BIN") or "torchrun"
+            cp = int(cp_size) if cp_size else 1
+            if cp < 1:
+                raise ValueError(f"cp_size must be >= 1, got {cp_size}")
+
+            cmd = [
+                torchrun,
+                "--nnodes",
+                "1",
+                "--nproc_per_node",
+                str(cp),
+            ]
+
+            # Allow users to override python when torchrun isn't available.
+            # Note: torchrun_bin can also be set to "python -m torch.distributed.run" by callers,
+            # but we keep it simple here.
+            if torchrun == "python" or torchrun.endswith("python") or torchrun.endswith("python3"):
+                cmd.extend(["-m", "torch.distributed.run", "--nproc_per_node", str(cp)])
+
+            cmd.extend(
+                [
+                    str(self.inference_script),
+                    "--ckpt_path",
+                    str(Path(ckpt_path).expanduser()),
+                    "--cp_size",
+                    str(cp),
+                    "--height",
+                    str(int(height)),
+                    "--width",
+                    str(int(width)),
+                    "--prompt",
+                    prompt,
+                    "--ref_path",
+                    str(ref_p),
+                    "--output_path",
+                    str(out_path),
+                    "--seed",
+                    str(int(seed)),
+                    "--num_frames",
+                    str(int(num_frames)),
+                    "--fps",
+                    str(float(fps)),
+                    "--num_inference_steps",
+                    str(int(num_inference_steps)),
+                    "--cfg_scale",
+                    str(float(cfg_scale)),
+                    "--sigma_shift",
+                    str(float(sigma_shift)),
+                    "--attn_type",
+                    str(attn_type),
+                    "--offload",
+                    str(offload),
+                ]
+            )
+            if negative_prompt:
+                cmd.extend(["--negative_prompt", negative_prompt])
+            if offload_to_disk_path:
+                cmd.extend(["--offload_to_disk_path", str(offload_to_disk_path)])
+            if remove_video_dit:
+                cmd.append("--remove_video_dit")
+
+            env = os.environ.copy()
+            # For single-GPU inference, allow selecting a single GPU.
+            # For multi-process (cp_size>1), users should set CUDA_VISIBLE_DEVICES explicitly.
+            if cuda_visible_devices is not None:
+                env["CUDA_VISIBLE_DEVICES"] = str(cuda_visible_devices)
+            elif gpu_id is not None and cp == 1:
+                env["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
+
+            # Some environments prefer explicit python for scripts in editable installs.
+            if python_bin:
+                env["MOVA_PYTHON_BIN"] = python_bin
+
+            proc = subprocess.run(
+                cmd,
+                cwd=str(self.repo_dir),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=int(timeout_s),
+                env=env,
+            )
+            if proc.returncode != 0:
+                stderr_tail = (proc.stderr or "")[-2000:]
+                stdout_tail = (proc.stdout or "")[-1200:]
+                raise RuntimeError(
+                    f"MOVA inference failed (exit={proc.returncode}).\n"
+                    f"stdout_tail:\n{stdout_tail}\n"
+                    f"stderr_tail:\n{stderr_tail}"
+                )
+
+            if not out_path.exists() or out_path.stat().st_size < 1024:
+                raise RuntimeError(f"MOVA did not produce a valid output file: {out_path}")
+            return GenerationArtifact(data=out_path.read_bytes(), extension=out_path.suffix)
+        finally:
+            shutil.rmtree(tmp_dir, ignore_errors=True)
+

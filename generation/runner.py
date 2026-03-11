@@ -103,8 +103,12 @@ def create_client(provider: str) -> BaseGenerationClient:
         from generation.clients.ovi import OviClient
 
         return OviClient()
+    if provider in ("mova",):
+        from generation.clients.mova import MovaClient
+
+        return MovaClient()
     raise ValueError(
-        "Unknown provider '%s'. Supported providers: sora2, kling26, wan26, seedance, ltx2, ovi."
+        "Unknown provider '%s'. Supported providers: sora2, kling26, wan26, seedance, ltx2, ovi, mova."
         % provider
     )
 
@@ -320,6 +324,37 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--ovi_timeout_s", type=int, default=7200)
     ap.add_argument("--ovi_python_bin", type=str, default=None)
     ap.add_argument("--ovi_torchrun_nproc", type=int, default=1)
+
+    ap.add_argument(
+        "--image_dir",
+        type=str,
+        default=None,
+        help="Root directory for first-frame images (used by TI2AV providers like mova).",
+    )
+
+    ap.add_argument(
+        "--mova_repo_dir",
+        type=str,
+        default=str(Path(__file__).resolve().parents[1] / "third_party" / "MOVA"),
+    )
+    ap.add_argument("--mova_ckpt_path", type=str, default=None)
+    ap.add_argument("--mova_negative_prompt", type=str, default=None)
+    ap.add_argument("--mova_num_frames", type=int, default=193)
+    ap.add_argument("--mova_fps", type=float, default=24.0)
+    ap.add_argument("--mova_height", type=int, default=720)
+    ap.add_argument("--mova_width", type=int, default=1280)
+    ap.add_argument("--mova_seed", type=int, default=42)
+    ap.add_argument("--mova_num_inference_steps", type=int, default=50)
+    ap.add_argument("--mova_cfg_scale", type=float, default=5.0)
+    ap.add_argument("--mova_sigma_shift", type=float, default=5.0)
+    ap.add_argument("--mova_cp_size", type=int, default=1)
+    ap.add_argument("--mova_attn_type", type=str, default="fa")
+    ap.add_argument("--mova_offload", type=str, default="none", choices=("none", "cpu", "group"))
+    ap.add_argument("--mova_offload_to_disk_path", type=str, default=None)
+    ap.add_argument("--mova_remove_video_dit", action="store_true", default=False)
+    ap.add_argument("--mova_timeout_s", type=int, default=7200)
+    ap.add_argument("--mova_torchrun_bin", type=str, default=None)
+    ap.add_argument("--mova_python_bin", type=str, default=None)
     return ap.parse_args()
 
 
@@ -399,6 +434,28 @@ def build_provider_kwargs(args: argparse.Namespace) -> Dict[str, Any]:
             "python_bin": args.ovi_python_bin,
             "torchrun_nproc": args.ovi_torchrun_nproc,
         }
+    if provider in ("mova",):
+        os.environ["MOVA_REPO_DIR"] = args.mova_repo_dir
+        return {
+            "ckpt_path": args.mova_ckpt_path,
+            "negative_prompt": args.mova_negative_prompt,
+            "num_frames": args.mova_num_frames,
+            "fps": args.mova_fps,
+            "height": args.mova_height,
+            "width": args.mova_width,
+            "seed": args.mova_seed,
+            "num_inference_steps": args.mova_num_inference_steps,
+            "cfg_scale": args.mova_cfg_scale,
+            "sigma_shift": args.mova_sigma_shift,
+            "cp_size": args.mova_cp_size,
+            "attn_type": args.mova_attn_type,
+            "offload": args.mova_offload,
+            "offload_to_disk_path": args.mova_offload_to_disk_path,
+            "remove_video_dit": args.mova_remove_video_dit,
+            "timeout_s": args.mova_timeout_s,
+            "torchrun_bin": args.mova_torchrun_bin,
+            "python_bin": args.mova_python_bin,
+        }
     return {}
 
 
@@ -418,6 +475,8 @@ def run(args: argparse.Namespace) -> int:
             if provider in ("ltx2", "ltx-2")
             else "ovi"
             if provider in ("ovi",)
+            else "mova"
+            if provider in ("mova",)
             else "sora2"
         )
         out_root = Path("./generated_videos") / normalized
@@ -437,10 +496,48 @@ def run(args: argparse.Namespace) -> int:
                 "Warning: concurrency=%s > gpu_ids=%s. Tasks will share GPUs."
                 % (args.concurrency, ",".join(gpu_ids))
             )
-        for idx, task in enumerate(tasks):
-            if "gpu_id" in task.extra_kwargs or "cuda_visible_devices" in task.extra_kwargs:
-                continue
-            task.extra_kwargs["gpu_id"] = gpu_ids[idx % len(gpu_ids)]
+        # For MOVA with cp_size>1, a single task spans multiple GPUs. Do not auto-assign a single gpu_id.
+        if provider in ("mova",) and int(getattr(args, "mova_cp_size", 1) or 1) > 1:
+            print("Warning: provider=mova with mova_cp_size>1 ignores --gpu_ids auto-assignment.")
+        else:
+            for idx, task in enumerate(tasks):
+                if "gpu_id" in task.extra_kwargs or "cuda_visible_devices" in task.extra_kwargs:
+                    continue
+                task.extra_kwargs["gpu_id"] = gpu_ids[idx % len(gpu_ids)]
+
+    if provider in ("mova",):
+        if not args.image_dir:
+            # Allow explicit per-task ref_path in JSON, but require a global image_dir otherwise.
+            missing = [t for t in tasks if "ref_path" not in t.extra_kwargs]
+            if missing:
+                raise ValueError(
+                    "provider=mova requires --image_dir (first-frame images root) unless each prompt item includes 'ref_path'."
+                )
+        else:
+            image_root = Path(args.image_dir).expanduser().resolve()
+            if not image_root.exists():
+                raise FileNotFoundError(f"--image_dir not found: {image_root}")
+
+            def _resolve_image(task: PromptTask) -> str:
+                # Match image generators that save as: <image_root>/<category>/<safe_filename(content)>.<ext>
+                base = safe_filename(task.content)
+                candidates = []
+                for ext in (".png", ".jpg", ".jpeg", ".webp", ".bmp"):
+                    candidates.append(image_root / task.category / f"{base}{ext}")
+                    candidates.append(image_root / f"{base}{ext}")
+                for p in candidates:
+                    if p.exists() and p.stat().st_size > 0:
+                        return str(p)
+                # Fallback: any file with matching stem under category.
+                cat_dir = image_root / task.category
+                if cat_dir.exists():
+                    for p in sorted(cat_dir.glob(base + ".*")):
+                        if p.is_file() and p.stat().st_size > 0:
+                            return str(p)
+                raise FileNotFoundError(f"First-frame image not found for '{task.category}/{task.content}' under {image_root}")
+
+            for task in tasks:
+                task.extra_kwargs.setdefault("ref_path", _resolve_image(task))
 
     print(
         "Found %s prompts. provider=%s task_type=%s concurrency=%s rerun_existing=%s"
