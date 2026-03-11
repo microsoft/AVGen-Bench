@@ -3,6 +3,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -142,22 +143,15 @@ class MovaClient(BaseGenerationClient):
             elif gpu_id is not None and cp == 1:
                 env["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
 
-            proc = subprocess.run(
-                cmd,
-                cwd=str(self.repo_dir),
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                timeout=int(timeout_s),
+            returncode, output_tail = self._run_command_with_streaming(
+                cmd=cmd,
                 env=env,
+                timeout_s=int(timeout_s),
             )
-            if proc.returncode != 0:
-                stderr_tail = (proc.stderr or "")[-2000:]
-                stdout_tail = (proc.stdout or "")[-1200:]
+            if returncode != 0:
                 raise RuntimeError(
-                    f"MOVA inference failed (exit={proc.returncode}).\n"
-                    f"stdout_tail:\n{stdout_tail}\n"
-                    f"stderr_tail:\n{stderr_tail}"
+                    f"MOVA inference failed (exit={returncode}).\n"
+                    f"output_tail:\n{output_tail[-3000:]}"
                 )
 
             if not out_path.exists() or out_path.stat().st_size < 1024:
@@ -165,3 +159,62 @@ class MovaClient(BaseGenerationClient):
             return GenerationArtifact(data=out_path.read_bytes(), extension=out_path.suffix)
         finally:
             shutil.rmtree(tmp_dir, ignore_errors=True)
+
+    def _run_command_with_streaming(
+        self,
+        cmd: list[str],
+        env: dict[str, str],
+        timeout_s: int,
+    ) -> tuple[int, str]:
+        """
+        Stream subprocess output live so upstream tqdm progress bars remain visible,
+        while keeping a bounded tail for failure diagnostics.
+        """
+        proc = subprocess.Popen(
+            cmd,
+            cwd=str(self.repo_dir),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            env=env,
+        )
+        assert proc.stdout is not None
+
+        deadline = time.time() + int(timeout_s)
+        tail = bytearray()
+        max_tail_bytes = 64 * 1024
+
+        try:
+            while True:
+                chunk = proc.stdout.read(1024)
+                if chunk:
+                    try:
+                        sys.stderr.buffer.write(chunk)
+                        sys.stderr.buffer.flush()
+                    except Exception:
+                        pass
+                    tail.extend(chunk)
+                    if len(tail) > max_tail_bytes:
+                        del tail[:-max_tail_bytes]
+
+                if proc.poll() is not None:
+                    # Drain any remaining buffered output.
+                    rest = proc.stdout.read()
+                    if rest:
+                        try:
+                            sys.stderr.buffer.write(rest)
+                            sys.stderr.buffer.flush()
+                        except Exception:
+                            pass
+                        tail.extend(rest)
+                        if len(tail) > max_tail_bytes:
+                            del tail[:-max_tail_bytes]
+                    return proc.returncode, tail.decode("utf-8", errors="replace")
+
+                if time.time() > deadline:
+                    proc.kill()
+                    raise TimeoutError(f"MOVA inference timed out after {timeout_s}s")
+        finally:
+            try:
+                proc.stdout.close()
+            except Exception:
+                pass
