@@ -73,67 +73,66 @@ class MovaClient(BaseGenerationClient):
         try:
             out_path = tmp_dir / ("mova_output" + (output_ext if output_ext.startswith(".") else "." + output_ext))
 
-            # Use torchrun so LOCAL_RANK etc are set up correctly.
-            torchrun = torchrun_bin or os.environ.get("MOVA_TORCHRUN_BIN") or "torchrun"
             cp = int(cp_size) if cp_size else 1
             if cp < 1:
                 raise ValueError(f"cp_size must be >= 1, got {cp_size}")
 
-            cmd = [
-                torchrun,
-                "--nnodes",
-                "1",
-                "--nproc_per_node",
+            script_args = [
+                str(self.inference_script),
+                "--ckpt_path",
+                str(Path(ckpt_path).expanduser()),
+                "--cp_size",
                 str(cp),
+                "--height",
+                str(int(height)),
+                "--width",
+                str(int(width)),
+                "--prompt",
+                prompt,
+                "--ref_path",
+                str(ref_p),
+                "--output_path",
+                str(out_path),
+                "--seed",
+                str(int(seed)),
+                "--num_frames",
+                str(int(num_frames)),
+                "--fps",
+                str(float(fps)),
+                "--num_inference_steps",
+                str(int(num_inference_steps)),
+                "--cfg_scale",
+                str(float(cfg_scale)),
+                "--sigma_shift",
+                str(float(sigma_shift)),
+                "--attn_type",
+                str(attn_type),
+                "--offload",
+                str(offload),
             ]
-
-            # Allow users to override python when torchrun isn't available.
-            # Note: torchrun_bin can also be set to "python -m torch.distributed.run" by callers,
-            # but we keep it simple here.
-            if torchrun == "python" or torchrun.endswith("python") or torchrun.endswith("python3"):
-                cmd.extend(["-m", "torch.distributed.run", "--nproc_per_node", str(cp)])
-
-            cmd.extend(
-                [
-                    str(self.inference_script),
-                    "--ckpt_path",
-                    str(Path(ckpt_path).expanduser()),
-                    "--cp_size",
-                    str(cp),
-                    "--height",
-                    str(int(height)),
-                    "--width",
-                    str(int(width)),
-                    "--prompt",
-                    prompt,
-                    "--ref_path",
-                    str(ref_p),
-                    "--output_path",
-                    str(out_path),
-                    "--seed",
-                    str(int(seed)),
-                    "--num_frames",
-                    str(int(num_frames)),
-                    "--fps",
-                    str(float(fps)),
-                    "--num_inference_steps",
-                    str(int(num_inference_steps)),
-                    "--cfg_scale",
-                    str(float(cfg_scale)),
-                    "--sigma_shift",
-                    str(float(sigma_shift)),
-                    "--attn_type",
-                    str(attn_type),
-                    "--offload",
-                    str(offload),
-                ]
-            )
             if negative_prompt:
-                cmd.extend(["--negative_prompt", negative_prompt])
+                script_args.extend(["--negative_prompt", negative_prompt])
             if offload_to_disk_path:
-                cmd.extend(["--offload_to_disk_path", str(offload_to_disk_path)])
+                script_args.extend(["--offload_to_disk_path", str(offload_to_disk_path)])
             if remove_video_dit:
-                cmd.append("--remove_video_dit")
+                script_args.append("--remove_video_dit")
+
+            py = python_bin or os.environ.get("MOVA_PYTHON_BIN") or sys.executable
+            if cp == 1:
+                cmd = [py, *script_args]
+            else:
+                # Use torchrun for multi-process context parallel only.
+                torchrun = torchrun_bin or os.environ.get("MOVA_TORCHRUN_BIN") or "torchrun"
+                cmd = [
+                    torchrun,
+                    "--nnodes",
+                    "1",
+                    "--nproc_per_node",
+                    str(cp),
+                ]
+                if torchrun == "python" or torchrun.endswith("python") or torchrun.endswith("python3"):
+                    cmd.extend(["-m", "torch.distributed.run", "--nproc_per_node", str(cp)])
+                cmd.extend(script_args)
 
             env = os.environ.copy()
             # For single-GPU inference, allow selecting a single GPU.
@@ -142,10 +141,6 @@ class MovaClient(BaseGenerationClient):
                 env["CUDA_VISIBLE_DEVICES"] = str(cuda_visible_devices)
             elif gpu_id is not None and cp == 1:
                 env["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
-
-            # Some environments prefer explicit python for scripts in editable installs.
-            if python_bin:
-                env["MOVA_PYTHON_BIN"] = python_bin
 
             proc = subprocess.run(
                 cmd,
@@ -170,4 +165,3 @@ class MovaClient(BaseGenerationClient):
             return GenerationArtifact(data=out_path.read_bytes(), extension=out_path.suffix)
         finally:
             shutil.rmtree(tmp_dir, ignore_errors=True)
-
