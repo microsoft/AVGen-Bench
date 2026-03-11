@@ -551,11 +551,15 @@ def run(args: argparse.Namespace) -> int:
     skipped = 0
     failed = 0
 
+    use_outer_progress_bar = provider not in ("mova",)
     pbar = None
-    if tqdm is not None:
+    if use_outer_progress_bar and tqdm is not None:
         pbar = tqdm(total=total, desc="Generating", dynamic_ncols=True)
     else:
-        print("Tip: pip install tqdm for a progress bar.")
+        if use_outer_progress_bar:
+            print("Tip: pip install tqdm for a progress bar.")
+        elif provider in ("mova",):
+            print("Outer progress bar disabled for provider=mova to keep per-step logs readable.")
 
     with ThreadPoolExecutor(max_workers=args.concurrency) as ex:
         futures = [
@@ -588,7 +592,12 @@ def run(args: argparse.Namespace) -> int:
                 tqdm.write(msg)
             else:
                 done = ok + skipped + failed
+                remaining = total - done
                 print("[%s/%s] %s" % (done, total, msg))
+                print(
+                    "Progress: generated=%s skipped=%s failed=%s remaining=%s"
+                    % (ok, skipped, failed, remaining)
+                )
 
     if pbar is not None:
         pbar.close()
