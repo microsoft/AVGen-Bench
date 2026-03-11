@@ -1,4 +1,5 @@
 import os
+import socket
 import shutil
 import subprocess
 import sys
@@ -136,6 +137,13 @@ class MovaClient(BaseGenerationClient):
                 cmd.extend(script_args)
 
             env = os.environ.copy()
+            master_addr, master_port = self._reserve_master_endpoint()
+            env.setdefault("MASTER_ADDR", master_addr)
+            env["MASTER_PORT"] = str(master_port)
+            if cp == 1:
+                env["RANK"] = "0"
+                env["WORLD_SIZE"] = "1"
+                env["LOCAL_RANK"] = "0"
             # For single-GPU inference, allow selecting a single GPU.
             # For multi-process (cp_size>1), users should set CUDA_VISIBLE_DEVICES explicitly.
             if cuda_visible_devices is not None:
@@ -159,6 +167,17 @@ class MovaClient(BaseGenerationClient):
             return GenerationArtifact(data=out_path.read_bytes(), extension=out_path.suffix)
         finally:
             shutil.rmtree(tmp_dir, ignore_errors=True)
+
+    def _reserve_master_endpoint(self) -> tuple[str, int]:
+        """
+        Pick an available localhost port for torch.distributed rendezvous.
+        This avoids EADDRINUSE when multiple MOVA jobs start concurrently.
+        """
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.bind(("127.0.0.1", 0))
+            sock.listen(1)
+            addr, port = sock.getsockname()
+            return str(addr), int(port)
 
     def _run_command_with_streaming(
         self,
