@@ -259,7 +259,7 @@ This repo now includes a prompt-driven generation framework:
 - Core runner: `generation/runner.py`
 - Client interface: `generation/clients/base.py`
 - Built-in provider: `generation/clients/sora2.py`
-- Additional providers: `generation/clients/kling26.py`, `generation/clients/wan26.py`, `generation/clients/seedance.py`, `generation/clients/ovi.py`
+- Additional providers: `generation/clients/kling26.py`, `generation/clients/wan26.py`, `generation/clients/seedance.py`, `generation/clients/ltx2.py`, `generation/clients/ovi.py`, `generation/clients/mova.py`
 
 ### 1. Generate videos from `prompts/*.json`
 
@@ -515,6 +515,52 @@ python batch_generate.py \
 ```
 
 The vendored Ovi helper for downloading weights is available at `third_party/Ovi/download_weights.py`.
+
+#### `mova` (TI2AV)
+
+`mova` provider integrates the open-source [OpenMOSS/MOVA](https://github.com/OpenMOSS/MOVA) model for **TI2AV** (first-frame image + prompt -> audio-video).
+
+Notes:
+
+- MOVA is not vendored in this repo. Clone it (or use a submodule) under `third_party/MOVA`, or set `MOVA_REPO_DIR` to point to your local clone.
+- You need to download MOVA checkpoints (e.g. `OpenMOSS-Team/MOVA-360p` or `OpenMOSS-Team/MOVA-720p`) separately.
+- `mova` requires a first-frame image per prompt. This repo passes a `ref_path` image into MOVA's official `scripts/inference_single.py`.
+
+Installation (recommended in a dedicated environment):
+
+```bash
+git clone https://github.com/OpenMOSS/MOVA third_party/MOVA
+cd third_party/MOVA
+
+# Follow MOVA upstream README for exact environment requirements.
+# Minimal: install MOVA package and its dependencies in the active env.
+pip install -e .
+```
+
+Run batch generation with first-frame images:
+
+```bash
+python batch_generate.py \
+  --provider mova \
+  --prompts_dir ./prompts \
+  --out_dir ./generated_videos/mova \
+  --concurrency 1 \
+  --image_dir ./generated_images/nanobanana2 \
+  --mova_ckpt_path /path/to/MOVA-720p \
+  --mova_cp_size 1 \
+  --mova_height 720 \
+  --mova_width 1280
+```
+
+The `--image_dir` should contain first-frame images saved as:
+
+```text
+<image_dir>/<category>/<safe_filename(content)>.png
+```
+
+Accepted extensions are `.png`, `.jpg`, `.jpeg`, `.webp`, `.bmp`. If you already have per-item image paths, you can also put `ref_path` into the prompt JSON items to bypass `--image_dir` mapping.
+
+If you want to use multiple GPUs for one video via MOVA context parallel, set `--mova_cp_size` and keep `--concurrency 1`. In that case, set `CUDA_VISIBLE_DEVICES` explicitly instead of relying on `--gpu_ids`.
 
 
 
