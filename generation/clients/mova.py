@@ -1,4 +1,7 @@
+import errno
 import os
+import pty
+import select
 import socket
 import shutil
 import subprocess
@@ -183,20 +186,23 @@ class MovaClient(BaseGenerationClient):
         self,
         cmd: list[str],
         env: dict[str, str],
-        timeout_s: int,
+    timeout_s: int,
     ) -> tuple[int, str]:
         """
-        Stream subprocess output live so upstream tqdm progress bars remain visible,
-        while keeping a bounded tail for failure diagnostics.
+        Stream subprocess output through a PTY so tqdm-style carriage-return updates
+        behave like a real terminal instead of block-buffered pipes.
         """
+        master_fd, slave_fd = pty.openpty()
         proc = subprocess.Popen(
             cmd,
             cwd=str(self.repo_dir),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
+            stdin=subprocess.DEVNULL,
+            stdout=slave_fd,
+            stderr=slave_fd,
             env=env,
+            close_fds=True,
         )
-        assert proc.stdout is not None
+        os.close(slave_fd)
 
         deadline = time.time() + int(timeout_s)
         tail = bytearray()
@@ -204,7 +210,24 @@ class MovaClient(BaseGenerationClient):
 
         try:
             while True:
-                chunk = proc.stdout.read(1024)
+                if time.time() > deadline:
+                    proc.kill()
+                    raise TimeoutError(f"MOVA inference timed out after {timeout_s}s")
+
+                ready, _, _ = select.select([master_fd], [], [], 0.2)
+                if not ready:
+                    if proc.poll() is not None:
+                        return proc.returncode, tail.decode("utf-8", errors="replace")
+                    continue
+
+                try:
+                    chunk = os.read(master_fd, 4096)
+                except OSError as e:
+                    # PTY returns EIO on EOF on many Unix systems.
+                    if e.errno != errno.EIO:
+                        raise
+                    chunk = b""
+
                 if chunk:
                     try:
                         sys.stderr.buffer.write(chunk)
@@ -215,25 +238,10 @@ class MovaClient(BaseGenerationClient):
                     if len(tail) > max_tail_bytes:
                         del tail[:-max_tail_bytes]
 
-                if proc.poll() is not None:
-                    # Drain any remaining buffered output.
-                    rest = proc.stdout.read()
-                    if rest:
-                        try:
-                            sys.stderr.buffer.write(rest)
-                            sys.stderr.buffer.flush()
-                        except Exception:
-                            pass
-                        tail.extend(rest)
-                        if len(tail) > max_tail_bytes:
-                            del tail[:-max_tail_bytes]
+                if proc.poll() is not None and not chunk:
                     return proc.returncode, tail.decode("utf-8", errors="replace")
-
-                if time.time() > deadline:
-                    proc.kill()
-                    raise TimeoutError(f"MOVA inference timed out after {timeout_s}s")
         finally:
             try:
-                proc.stdout.close()
+                os.close(master_fd)
             except Exception:
                 pass
