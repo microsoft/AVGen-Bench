@@ -537,6 +537,41 @@ cd third_party/MOVA
 pip install -e .
 ```
 
+Checkpoint download:
+
+```bash
+# Install Hugging Face CLI if needed
+pip install -U "huggingface_hub[cli]"
+
+# Login first if the repo requires authentication in your environment
+huggingface-cli login
+
+# Download the 720p checkpoint
+hf download OpenMOSS-Team/MOVA-720p --local-dir /path/to/MOVA-720p
+
+# Or download the 360p checkpoint
+hf download OpenMOSS-Team/MOVA-360p --local-dir /path/to/MOVA-360p
+```
+
+Recommended local layout:
+
+```text
+/path/to/checkpoints/
+  MOVA-360p/
+  MOVA-720p/
+```
+
+Then pass the checkpoint directory with `--mova_ckpt_path`. For example:
+
+```bash
+--mova_ckpt_path /path/to/checkpoints/MOVA-720p
+```
+
+Resolution guidance:
+
+- `MOVA-360p` is the lighter checkpoint and typically pairs with `--mova_height 352 --mova_width 640`
+- `MOVA-720p` is the higher-resolution checkpoint and pairs with `--mova_height 720 --mova_width 1280`
+
 Run batch generation with first-frame images:
 
 ```bash
