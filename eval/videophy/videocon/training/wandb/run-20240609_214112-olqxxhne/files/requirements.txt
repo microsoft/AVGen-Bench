@@ -54,7 +54,7 @@ google-auth-oauthlib==1.0.0
 google-auth==2.22.0
 gpustat==1.1.1
 gradio-client==0.4.0
-gradio==3.40.1
+gradio==6.7.0
 grpcio==1.57.0
 h11==0.14.0
 h5py==3.9.0
