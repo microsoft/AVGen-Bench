@@ -4,6 +4,12 @@ AVGen-Bench is a **task-driven benchmark** for multi-granular evaluation of Text
 
 🔗 **Project Page:** [AVGen-Bench Homepage](index.html)
 
+## Repository Information
+
+- Support: see [SUPPORT.md](SUPPORT.md) for bug reports, usage questions, and issue filing guidance.
+- Security: see [SECURITY.md](SECURITY.md) for responsible vulnerability reporting instructions.
+- Code of Conduct: see [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community participation expectations.
+
 
 
 <p align="center">
@@ -16,14 +22,21 @@ fine-grained multi-dimensional assessment, and more complex task-oriented prompt
 
 ## Benchmark Results
 
-<p align="center">
-  <img src="assets/avgenbench_test_results.png" alt="AVGen-Bench main quantitative results" width="100%" />
-</p>
-<p align="center"><em>
-Main quantitative results on AVGen-Bench across 10 metrics.
-</em></p>
-
 Metric direction: higher is better for `Vis`, `Aud (PQ)`, `Text`, `Face`, `Music`, `Speech`, `Lo-Phy`, `Hi-Phy`, and `Holistic`; lower is better for `AV` and `Lip`.
+
+Best scores are in **bold**. Second-best scores are in *italics*.
+
+| Model | Group | Vis | Aud (PQ) | AV | Lip | Text | Face | Music | Speech | Lo-Phy | Hi-Phy | Holistic | Total |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Sora-2 | Proprietary | 0.848 | 5.91 | 0.25 | 4.50 | 74.84 | 51.17 | *7.81* | 88.63 | **4.05** | **78.95** | **88.89** | 64.16 |
+| Veo 3.1-fast | Proprietary | *0.960* | 6.64 | **0.21** | *2.39* | 75.10 | 52.77 | 3.13 | *94.53* | 3.68 | 67.43 | *86.27* | **67.87** |
+| Veo 3.1-quality | Proprietary | 0.954 | 6.77 | 0.24 | 3.59 | *76.53* | 52.90 | 5.00 | **96.09** | 3.74 | *68.53* | 84.10 | *66.28* |
+| Kling-V2.6 | Proprietary | 0.906 | 6.93 | **0.21** | **2.30** | 14.52 | **57.33** | 5.00 | 89.62 | 3.84 | 63.92 | 76.74 | 61.82 |
+| Wan2.6 | Proprietary | 0.959 | *7.15* | 0.30 | 4.32 | **76.95** | 49.27 | 1.75 | 89.33 | 3.69 | 66.92 | 80.98 | 62.97 |
+| Seedance-1.5 Pro | Proprietary | **0.970** | **7.48** | 0.26 | 3.43 | 38.28 | *54.42* | 1.88 | 93.45 | 3.72 | 66.88 | 77.38 | 62.55 |
+| LTX-2 | Open-source | 0.828 | 6.84 | *0.23* | 4.76 | 24.76 | 48.53 | 5.75 | 87.07 | **4.05** | 60.20 | 66.59 | 56.62 |
+| Ovi | Open-source | 0.839 | 6.31 | 0.37 | 5.40 | 41.36 | 49.05 | **11.25** | 76.49 | *3.93* | 52.92 | 57.45 | 52.02 |
+| Wan2.2+HunyuanVideo-Foley | Open-source | 0.936 | 6.60 | *0.23* | 5.38 | 48.46 | 36.23 | 3.44 | 53.40 | 3.90 | 54.11 | 60.63 | 53.29 |
 
 ## Failure Demo Videos
 
