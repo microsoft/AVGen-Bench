@@ -189,7 +189,7 @@ uvicorn==0.23.2
 wandb==0.15.8
 wcwidth==0.2.13
 websockets==11.0.3
-werkzeug==2.3.7
+werkzeug==3.1.6
 wheel==0.38.4
 xformers==0.0.26.post1
 xxhash==3.4.1
