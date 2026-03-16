@@ -229,6 +229,27 @@ Activate the corresponding environment before running each module:
 conda activate <env_name>
 ```
 
+Module-specific extra setup:
+
+- `syncnet`: after creating and activating the `syncnet` environment, download the pretrained SyncNet weights before evaluation:
+
+```bash
+conda activate syncnet
+cd eval/syncnet_python
+bash download_model.sh
+```
+
+This script downloads `data/syncnet_v2.model`, which is required by the lip-sync evaluation pipeline.
+
+- `videophy`: the VideoPhy-2 auto-rater checkpoint `videophy_2_auto` must be downloaded into `eval/videophy/VIDEOPHY2/videophy_2_auto/` before running evaluation. This matches the command used later in this README:
+
+```bash
+git lfs install
+git clone https://huggingface.co/videophysics/videophy_2_auto eval/videophy/VIDEOPHY2/videophy_2_auto
+```
+
+If you store the checkpoint elsewhere, replace `--checkpoint videophy_2_auto` with the corresponding local path when running `eval/videophy/VIDEOPHY2/batch_eval.py`.
+
 ### 4. (Optional) Create all environments in batch
 
 ```bash
