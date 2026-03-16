@@ -9,6 +9,118 @@
       content="AVGen-Bench is a task-driven benchmark for multi-granular evaluation of Text-to-Audio-Video generation."
     />
     <link rel="stylesheet" href="assets/site.css" />
+    
+    <!-- 表格专属优化样式 -->
+    <style>
+      /* 表格外部容器，增加阴影和圆角以提升现代感 */
+      .results-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        margin: 32px 0 20px 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        border-radius: 8px;
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+      }
+
+      /* 表格基础设置 */
+      .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15px;
+        white-space: nowrap; /* 防止内容折行 */
+      }
+
+      /* 单元格间距与下划线 */
+      .results-table th,
+      .results-table td {
+        padding: 14px 12px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      /* 去除最后一行的底边框 */
+      .results-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* 表头样式：粘性定位、浅灰背景 */
+      .results-table th {
+        font-weight: 700;
+        color: #111827;
+        background-color: #f8fafc;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      /* 排版优化：前两列（名称/组件）左对齐，后续指标居中并使用等宽数字对齐小数点 */
+      .results-table th:nth-child(1),
+      .results-table td:nth-child(1),
+      .results-table th:nth-child(2),
+      .results-table td:nth-child(2) {
+        text-align: left;
+        padding-left: 20px;
+      }
+
+      .results-table th:nth-child(n+3),
+      .results-table td:nth-child(n+3) {
+        text-align: center;
+        font-variant-numeric: tabular-nums; 
+      }
+
+      /* 交互优化：鼠标悬停整行浅灰高亮，防止视线串行 */
+      .results-table tbody tr {
+        transition: background-color 0.15s ease;
+      }
+      .results-table tbody tr:hover {
+        background-color: #f1f5f9; 
+      }
+
+      .results-table strong {
+        font-weight: 700;
+        color: #000;
+      }
+      
+      .results-table em {
+        font-style: italic;
+        color: #374151;
+      }
+
+      /* --- 胶囊状标签 (Badges) 样式 --- */
+      .comp-tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-right: 6px;
+        margin-bottom: 2px;
+        letter-spacing: 0.02em;
+      }
+
+      /* 专有组件（橙色系） */
+      .comp-tag.proprietary {
+        background-color: #ffedd5;
+        color: #c2410c;
+        border: 1px solid #fed7aa;
+      }
+
+      /* 开源组件（蓝色系） */
+      .comp-tag.open-source {
+        background-color: #e0f2fe;
+        color: #0369a1;
+        border: 1px solid #bae6fd;
+      }
+
+      /* 表格底部的注脚文字 */
+      p.note {
+        font-size: 14px;
+        color: #64748b;
+        margin-top: 12px;
+        margin-bottom: 8px;
+        line-height: 1.5;
+      }
+    </style>
   </head>
   <body>
     <header class="hero">
