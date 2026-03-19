@@ -48,7 +48,7 @@ Component labels in this README use text markers instead of color backgrounds.
 ## Failure Demo Videos
 
 The following demos are selected from Appendix A failure cases.  
-For repository portability, all showcased clips are stored in `assets/failure_demos/`.
+Preview images remain in `assets/failure_demos/`, while showcased videos are hosted through GitHub attachments to keep the repository lightweight.
 
 <details open>
 <summary><strong>Case 1: Prompted Text Rendering ("Your customers are talking")</strong></summary>
