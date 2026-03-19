@@ -166,20 +166,37 @@ https://github.com/user-attachments/assets/259b07ee-ce60-4716-abcd-45f832c8cef2
 A high-speed time-lapse shows a beaker on a magnetic stirrer, the stir plate motor making a steady whir as a stir bar spins. The beaker contains a Briggs-Rauscher mixture (hydrogen peroxide, potassium iodate, malonic acid, and a metal-ion catalyst with starch indicator). While the vortex turns, the liquid repeatedly cycles through several distinct visible states in a rhythmic pattern, switching abruptly and then returning again and again as the stirring continues.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/physics_briggs/veo3_1_fast.jpg)](assets/failure_demos/physics_briggs/veo3_1_fast.mp4?raw=1)
-[Open MP4](assets/failure_demos/physics_briggs/veo3_1_fast.mp4?raw=1)
+
+
+https://github.com/user-attachments/assets/33ae200f-f2e5-43d8-9163-e2ec32c81c0d
+
+
 
 #### Ovi
-[![Preview](assets/failure_demos/physics_briggs/ovi.jpg)](assets/failure_demos/physics_briggs/ovi.mp4?raw=1)
-[Open MP4](assets/failure_demos/physics_briggs/ovi.mp4?raw=1)
+
+
+https://github.com/user-attachments/assets/8f7f9608-2e19-4a49-acf5-b56219453259
+
+
+
 
 #### LTX-2
-[![Preview](assets/failure_demos/physics_briggs/ltx2.jpg)](assets/failure_demos/physics_briggs/ltx2.mp4?raw=1)
-[Open MP4](assets/failure_demos/physics_briggs/ltx2.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/5eb1d704-4644-4677-9877-4871f8b4e18d
+
+
+
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/physics_briggs/kling26.jpg)](assets/failure_demos/physics_briggs/kling26.mp4?raw=1)
-[Open MP4](assets/failure_demos/physics_briggs/kling26.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/eaf93b2a-da33-425d-ab25-0a209706cf7a
+
+
+
 
 </details>
 
@@ -190,20 +207,37 @@ A high-speed time-lapse shows a beaker on a magnetic stirrer, the stir plate mot
 A young boy hits a beach ball as a group of children runs past him and jumps into a swimming pool with loud splashes, while a voiceover states, 'We went on vacation with a toe dipper.' The camera follows the kids underwater as bubbles roar and feet kick past the lens, and the voiceover finishes, 'and left with a cannonballer.' Finally, the view resurfaces to show a laughing girl in the water as on-screen text reads 'Book your family home now.'
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/semantic_vacation/veo3_1_fast.jpg)](assets/failure_demos/semantic_vacation/veo3_1_fast.mp4?raw=1)
-[Open MP4](assets/failure_demos/semantic_vacation/veo3_1_fast.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/0c6840c3-3d31-4cac-83fd-7eb905207744
+
+
 
 #### Ovi
-[![Preview](assets/failure_demos/semantic_vacation/ovi.jpg)](assets/failure_demos/semantic_vacation/ovi.mp4?raw=1)
-[Open MP4](assets/failure_demos/semantic_vacation/ovi.mp4?raw=1)
+
+
+https://github.com/user-attachments/assets/e5445f47-7d15-4a70-b4e0-eca101d3ffbf
+
+
+
 
 #### LTX-2
-[![Preview](assets/failure_demos/semantic_vacation/ltx2.jpg)](assets/failure_demos/semantic_vacation/ltx2.mp4?raw=1)
-[Open MP4](assets/failure_demos/semantic_vacation/ltx2.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/09aeb6db-c209-41a5-b49e-0d166d05e46e
+
+
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/semantic_vacation/kling26.jpg)](assets/failure_demos/semantic_vacation/kling26.mp4?raw=1)
-[Open MP4](assets/failure_demos/semantic_vacation/kling26.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/a37f3668-1282-4f27-9a1d-bf09ff3a4d41
+
+
+
 
 </details>
 
@@ -214,20 +248,38 @@ A young boy hits a beach ball as a group of children runs past him and jumps int
 A zoomed-in tutorial shot of a clean-tone electric guitar fretboard and picking hand. The player frets a single note A4 and plucks it four times with even timing, letting each note ring briefly. The pitch stays stable (no bend, no vibrato), and no other strings ring.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/music_a4/veo3_1_fast.jpg)](assets/failure_demos/music_a4/veo3_1_fast.mp4?raw=1)
-[Open MP4](assets/failure_demos/music_a4/veo3_1_fast.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/ac201eca-4ef2-4199-994c-8fbdb179ea1e
+
+
 
 #### Ovi
-[![Preview](assets/failure_demos/music_a4/ovi.jpg)](assets/failure_demos/music_a4/ovi.mp4?raw=1)
-[Open MP4](assets/failure_demos/music_a4/ovi.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/40c2bd3a-ff91-4e7e-922b-34f8822708ea
+
+
+
 
 #### LTX-2
-[![Preview](assets/failure_demos/music_a4/ltx2.jpg)](assets/failure_demos/music_a4/ltx2.mp4?raw=1)
-[Open MP4](assets/failure_demos/music_a4/ltx2.mp4?raw=1)
+
+
+
+
+https://github.com/user-attachments/assets/8ad286df-a751-4c42-9f4d-3d70c80f3e89
+
+
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/music_a4/kling26.jpg)](assets/failure_demos/music_a4/kling26.mp4?raw=1)
-[Open MP4](assets/failure_demos/music_a4/kling26.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/b9200272-3f13-4a7a-9a9a-caa83350e45f
+
+
 
 </details>
 
