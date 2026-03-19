@@ -283,8 +283,6 @@ https://github.com/user-attachments/assets/b9200272-3f13-4a7a-9a9a-caa83350e45f
 
 </details>
 
-This README uses repository-relative media links so it remains portable across forks and mirrors. MP4 links append `?raw=1` so GitHub opens the raw file instead of the repository `blob` page.
-
 
 ## Installation
 
