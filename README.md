@@ -57,20 +57,20 @@ For repository portability, all showcased clips are stored in `assets/failure_de
 A single wind-up chattering teeth toy clacks continuously against a solid teal background. The scene cuts to a blue screen displaying the white text 'Your customers are talking,' abruptly followed by rows of multi-colored chattering teeth toys all moving at once, creating a loud chaotic mechanical clatter. A green screen appears with the text 'Are you listening?' before cutting to a generic product logo and a 'Try it free' button on a white background as the noise ceases.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/text_customers/veo3_1_fast.jpg)](assets/failure_demos/text_customers/veo3_1_fast.mp4)
-[Open MP4](assets/failure_demos/text_customers/veo3_1_fast.mp4)
+[![Preview](assets/failure_demos/text_customers/veo3_1_fast.jpg)](assets/failure_demos/text_customers/veo3_1_fast.mp4?raw=1)
+[Open MP4](assets/failure_demos/text_customers/veo3_1_fast.mp4?raw=1)
 
 #### Ovi
-[![Preview](assets/failure_demos/text_customers/ovi.jpg)](assets/failure_demos/text_customers/ovi.mp4)
-[Open MP4](assets/failure_demos/text_customers/ovi.mp4)
+[![Preview](assets/failure_demos/text_customers/ovi.jpg)](assets/failure_demos/text_customers/ovi.mp4?raw=1)
+[Open MP4](assets/failure_demos/text_customers/ovi.mp4?raw=1)
 
 #### LTX-2
-[![Preview](assets/failure_demos/text_customers/ltx2.jpg)](assets/failure_demos/text_customers/ltx2.mp4)
-[Open MP4](assets/failure_demos/text_customers/ltx2.mp4)
+[![Preview](assets/failure_demos/text_customers/ltx2.jpg)](assets/failure_demos/text_customers/ltx2.mp4?raw=1)
+[Open MP4](assets/failure_demos/text_customers/ltx2.mp4?raw=1)
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/text_customers/kling26.jpg)](assets/failure_demos/text_customers/kling26.mp4)
-[Open MP4](assets/failure_demos/text_customers/kling26.mp4)
+[![Preview](assets/failure_demos/text_customers/kling26.jpg)](assets/failure_demos/text_customers/kling26.mp4?raw=1)
+[Open MP4](assets/failure_demos/text_customers/kling26.mp4?raw=1)
 
 </details>
 
@@ -81,20 +81,20 @@ A single wind-up chattering teeth toy clacks continuously against a solid teal b
 Four-shot high-tempo teaser with clean sync hits. Shot 1: Inside a bank vault, fluorescent hum and distant alarms; a timer on a device beeps faster as a thief whispers, "Eighty-seven seconds, move." Shot 2: Close-up of a glass cutter scoring a pane with a sharp scratch, then a suction cup pops as the circle lifts free, landing on a bass hit. Shot 3: Smash cut to a getaway car; engine revs, tires chirp, and the car fishtails out of a tight alley with gravel spraying and rattling off the chassis. Shot 4: A final slow-motion shot of a duffel bag hitting the pavement with a heavy thud as sirens surge; the title EIGHTY-SEVEN SECONDS slams onto black with a metallic logo sting.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.jpg)](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.mp4)
-[Open MP4](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.mp4)
+[![Preview](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.jpg)](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.mp4?raw=1)
+[Open MP4](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.mp4?raw=1)
 
 #### Ovi
-[![Preview](assets/failure_demos/text_eighty_seven_seconds/ovi.jpg)](assets/failure_demos/text_eighty_seven_seconds/ovi.mp4)
-[Open MP4](assets/failure_demos/text_eighty_seven_seconds/ovi.mp4)
+[![Preview](assets/failure_demos/text_eighty_seven_seconds/ovi.jpg)](assets/failure_demos/text_eighty_seven_seconds/ovi.mp4?raw=1)
+[Open MP4](assets/failure_demos/text_eighty_seven_seconds/ovi.mp4?raw=1)
 
 #### LTX-2
-[![Preview](assets/failure_demos/text_eighty_seven_seconds/ltx2.jpg)](assets/failure_demos/text_eighty_seven_seconds/ltx2.mp4)
-[Open MP4](assets/failure_demos/text_eighty_seven_seconds/ltx2.mp4)
+[![Preview](assets/failure_demos/text_eighty_seven_seconds/ltx2.jpg)](assets/failure_demos/text_eighty_seven_seconds/ltx2.mp4?raw=1)
+[Open MP4](assets/failure_demos/text_eighty_seven_seconds/ltx2.mp4?raw=1)
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/text_eighty_seven_seconds/kling26.jpg)](assets/failure_demos/text_eighty_seven_seconds/kling26.mp4)
-[Open MP4](assets/failure_demos/text_eighty_seven_seconds/kling26.mp4)
+[![Preview](assets/failure_demos/text_eighty_seven_seconds/kling26.jpg)](assets/failure_demos/text_eighty_seven_seconds/kling26.mp4?raw=1)
+[Open MP4](assets/failure_demos/text_eighty_seven_seconds/kling26.mp4?raw=1)
 
 </details>
 
@@ -105,20 +105,20 @@ Four-shot high-tempo teaser with clean sync hits. Shot 1: Inside a bank vault, f
 A top-down view of a black square metal plate sprinkled evenly with fine white sand as a tone generator plays a pure sine wave that sweeps upward in pitch. As the plate begins to vibrate, the rising tone makes the sand suddenly jitter and chatter across the metal, then fall quiet as grains slide into crisp geometric nodal lines that sharpen and rearrange each time the pitch crosses a new resonance.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/physics_chladni/veo3_1_fast.jpg)](assets/failure_demos/physics_chladni/veo3_1_fast.mp4)
-[Open MP4](assets/failure_demos/physics_chladni/veo3_1_fast.mp4)
+[![Preview](assets/failure_demos/physics_chladni/veo3_1_fast.jpg)](assets/failure_demos/physics_chladni/veo3_1_fast.mp4?raw=1)
+[Open MP4](assets/failure_demos/physics_chladni/veo3_1_fast.mp4?raw=1)
 
 #### Ovi
-[![Preview](assets/failure_demos/physics_chladni/ovi.jpg)](assets/failure_demos/physics_chladni/ovi.mp4)
-[Open MP4](assets/failure_demos/physics_chladni/ovi.mp4)
+[![Preview](assets/failure_demos/physics_chladni/ovi.jpg)](assets/failure_demos/physics_chladni/ovi.mp4?raw=1)
+[Open MP4](assets/failure_demos/physics_chladni/ovi.mp4?raw=1)
 
 #### LTX-2
-[![Preview](assets/failure_demos/physics_chladni/ltx2.jpg)](assets/failure_demos/physics_chladni/ltx2.mp4)
-[Open MP4](assets/failure_demos/physics_chladni/ltx2.mp4)
+[![Preview](assets/failure_demos/physics_chladni/ltx2.jpg)](assets/failure_demos/physics_chladni/ltx2.mp4?raw=1)
+[Open MP4](assets/failure_demos/physics_chladni/ltx2.mp4?raw=1)
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/physics_chladni/kling26.jpg)](assets/failure_demos/physics_chladni/kling26.mp4)
-[Open MP4](assets/failure_demos/physics_chladni/kling26.mp4)
+[![Preview](assets/failure_demos/physics_chladni/kling26.jpg)](assets/failure_demos/physics_chladni/kling26.mp4?raw=1)
+[Open MP4](assets/failure_demos/physics_chladni/kling26.mp4?raw=1)
 
 </details>
 
@@ -129,20 +129,20 @@ A top-down view of a black square metal plate sprinkled evenly with fine white s
 A high-speed time-lapse shows a beaker on a magnetic stirrer, the stir plate motor making a steady whir as a stir bar spins. The beaker contains a Briggs-Rauscher mixture (hydrogen peroxide, potassium iodate, malonic acid, and a metal-ion catalyst with starch indicator). While the vortex turns, the liquid repeatedly cycles through several distinct visible states in a rhythmic pattern, switching abruptly and then returning again and again as the stirring continues.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/physics_briggs/veo3_1_fast.jpg)](assets/failure_demos/physics_briggs/veo3_1_fast.mp4)
-[Open MP4](assets/failure_demos/physics_briggs/veo3_1_fast.mp4)
+[![Preview](assets/failure_demos/physics_briggs/veo3_1_fast.jpg)](assets/failure_demos/physics_briggs/veo3_1_fast.mp4?raw=1)
+[Open MP4](assets/failure_demos/physics_briggs/veo3_1_fast.mp4?raw=1)
 
 #### Ovi
-[![Preview](assets/failure_demos/physics_briggs/ovi.jpg)](assets/failure_demos/physics_briggs/ovi.mp4)
-[Open MP4](assets/failure_demos/physics_briggs/ovi.mp4)
+[![Preview](assets/failure_demos/physics_briggs/ovi.jpg)](assets/failure_demos/physics_briggs/ovi.mp4?raw=1)
+[Open MP4](assets/failure_demos/physics_briggs/ovi.mp4?raw=1)
 
 #### LTX-2
-[![Preview](assets/failure_demos/physics_briggs/ltx2.jpg)](assets/failure_demos/physics_briggs/ltx2.mp4)
-[Open MP4](assets/failure_demos/physics_briggs/ltx2.mp4)
+[![Preview](assets/failure_demos/physics_briggs/ltx2.jpg)](assets/failure_demos/physics_briggs/ltx2.mp4?raw=1)
+[Open MP4](assets/failure_demos/physics_briggs/ltx2.mp4?raw=1)
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/physics_briggs/kling26.jpg)](assets/failure_demos/physics_briggs/kling26.mp4)
-[Open MP4](assets/failure_demos/physics_briggs/kling26.mp4)
+[![Preview](assets/failure_demos/physics_briggs/kling26.jpg)](assets/failure_demos/physics_briggs/kling26.mp4?raw=1)
+[Open MP4](assets/failure_demos/physics_briggs/kling26.mp4?raw=1)
 
 </details>
 
@@ -153,20 +153,20 @@ A high-speed time-lapse shows a beaker on a magnetic stirrer, the stir plate mot
 A young boy hits a beach ball as a group of children runs past him and jumps into a swimming pool with loud splashes, while a voiceover states, 'We went on vacation with a toe dipper.' The camera follows the kids underwater as bubbles roar and feet kick past the lens, and the voiceover finishes, 'and left with a cannonballer.' Finally, the view resurfaces to show a laughing girl in the water as on-screen text reads 'Book your family home now.'
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/semantic_vacation/veo3_1_fast.jpg)](assets/failure_demos/semantic_vacation/veo3_1_fast.mp4)
-[Open MP4](assets/failure_demos/semantic_vacation/veo3_1_fast.mp4)
+[![Preview](assets/failure_demos/semantic_vacation/veo3_1_fast.jpg)](assets/failure_demos/semantic_vacation/veo3_1_fast.mp4?raw=1)
+[Open MP4](assets/failure_demos/semantic_vacation/veo3_1_fast.mp4?raw=1)
 
 #### Ovi
-[![Preview](assets/failure_demos/semantic_vacation/ovi.jpg)](assets/failure_demos/semantic_vacation/ovi.mp4)
-[Open MP4](assets/failure_demos/semantic_vacation/ovi.mp4)
+[![Preview](assets/failure_demos/semantic_vacation/ovi.jpg)](assets/failure_demos/semantic_vacation/ovi.mp4?raw=1)
+[Open MP4](assets/failure_demos/semantic_vacation/ovi.mp4?raw=1)
 
 #### LTX-2
-[![Preview](assets/failure_demos/semantic_vacation/ltx2.jpg)](assets/failure_demos/semantic_vacation/ltx2.mp4)
-[Open MP4](assets/failure_demos/semantic_vacation/ltx2.mp4)
+[![Preview](assets/failure_demos/semantic_vacation/ltx2.jpg)](assets/failure_demos/semantic_vacation/ltx2.mp4?raw=1)
+[Open MP4](assets/failure_demos/semantic_vacation/ltx2.mp4?raw=1)
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/semantic_vacation/kling26.jpg)](assets/failure_demos/semantic_vacation/kling26.mp4)
-[Open MP4](assets/failure_demos/semantic_vacation/kling26.mp4)
+[![Preview](assets/failure_demos/semantic_vacation/kling26.jpg)](assets/failure_demos/semantic_vacation/kling26.mp4?raw=1)
+[Open MP4](assets/failure_demos/semantic_vacation/kling26.mp4?raw=1)
 
 </details>
 
@@ -177,24 +177,24 @@ A young boy hits a beach ball as a group of children runs past him and jumps int
 A zoomed-in tutorial shot of a clean-tone electric guitar fretboard and picking hand. The player frets a single note A4 and plucks it four times with even timing, letting each note ring briefly. The pitch stays stable (no bend, no vibrato), and no other strings ring.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/music_a4/veo3_1_fast.jpg)](assets/failure_demos/music_a4/veo3_1_fast.mp4)
-[Open MP4](assets/failure_demos/music_a4/veo3_1_fast.mp4)
+[![Preview](assets/failure_demos/music_a4/veo3_1_fast.jpg)](assets/failure_demos/music_a4/veo3_1_fast.mp4?raw=1)
+[Open MP4](assets/failure_demos/music_a4/veo3_1_fast.mp4?raw=1)
 
 #### Ovi
-[![Preview](assets/failure_demos/music_a4/ovi.jpg)](assets/failure_demos/music_a4/ovi.mp4)
-[Open MP4](assets/failure_demos/music_a4/ovi.mp4)
+[![Preview](assets/failure_demos/music_a4/ovi.jpg)](assets/failure_demos/music_a4/ovi.mp4?raw=1)
+[Open MP4](assets/failure_demos/music_a4/ovi.mp4?raw=1)
 
 #### LTX-2
-[![Preview](assets/failure_demos/music_a4/ltx2.jpg)](assets/failure_demos/music_a4/ltx2.mp4)
-[Open MP4](assets/failure_demos/music_a4/ltx2.mp4)
+[![Preview](assets/failure_demos/music_a4/ltx2.jpg)](assets/failure_demos/music_a4/ltx2.mp4?raw=1)
+[Open MP4](assets/failure_demos/music_a4/ltx2.mp4?raw=1)
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/music_a4/kling26.jpg)](assets/failure_demos/music_a4/kling26.mp4)
-[Open MP4](assets/failure_demos/music_a4/kling26.mp4)
+[![Preview](assets/failure_demos/music_a4/kling26.jpg)](assets/failure_demos/music_a4/kling26.mp4?raw=1)
+[Open MP4](assets/failure_demos/music_a4/kling26.mp4?raw=1)
 
 </details>
 
-This README uses repository-relative media links so it remains portable across forks and mirrors. GitHub may still open repository MP4 files on a separate file page rather than playing them inline inside the README.
+This README uses repository-relative media links so it remains portable across forks and mirrors. MP4 links append `?raw=1` so GitHub opens the raw file instead of the repository `blob` page.
 
 
 ## Installation
