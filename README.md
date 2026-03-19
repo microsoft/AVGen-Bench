@@ -57,20 +57,31 @@ For repository portability, all showcased clips are stored in `assets/failure_de
 A single wind-up chattering teeth toy clacks continuously against a solid teal background. The scene cuts to a blue screen displaying the white text 'Your customers are talking,' abruptly followed by rows of multi-colored chattering teeth toys all moving at once, creating a loud chaotic mechanical clatter. A green screen appears with the text 'Are you listening?' before cutting to a generic product logo and a 'Try it free' button on a white background as the noise ceases.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/text_customers/veo3_1_fast.jpg)](assets/failure_demos/text_customers/veo3_1_fast.mp4?raw=1)
-[Open MP4](assets/failure_demos/text_customers/veo3_1_fast.mp4?raw=1)
+
+https://github.com/user-attachments/assets/ce5bbd62-95d2-49f7-9066-3d4ee1d8b478
+
+
 
 #### Ovi
-[![Preview](assets/failure_demos/text_customers/ovi.jpg)](assets/failure_demos/text_customers/ovi.mp4?raw=1)
-[Open MP4](assets/failure_demos/text_customers/ovi.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/53e83129-116c-4a35-b6de-3ca03b6151ce
+
 
 #### LTX-2
-[![Preview](assets/failure_demos/text_customers/ltx2.jpg)](assets/failure_demos/text_customers/ltx2.mp4?raw=1)
-[Open MP4](assets/failure_demos/text_customers/ltx2.mp4?raw=1)
+
+
+https://github.com/user-attachments/assets/5e9dd440-682f-4bfe-b066-f3555c776968
+
+
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/text_customers/kling26.jpg)](assets/failure_demos/text_customers/kling26.mp4?raw=1)
-[Open MP4](assets/failure_demos/text_customers/kling26.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/c14fdae7-cdb1-42fa-8288-024556692a59
+
 
 </details>
 
@@ -81,20 +92,32 @@ A single wind-up chattering teeth toy clacks continuously against a solid teal b
 Four-shot high-tempo teaser with clean sync hits. Shot 1: Inside a bank vault, fluorescent hum and distant alarms; a timer on a device beeps faster as a thief whispers, "Eighty-seven seconds, move." Shot 2: Close-up of a glass cutter scoring a pane with a sharp scratch, then a suction cup pops as the circle lifts free, landing on a bass hit. Shot 3: Smash cut to a getaway car; engine revs, tires chirp, and the car fishtails out of a tight alley with gravel spraying and rattling off the chassis. Shot 4: A final slow-motion shot of a duffel bag hitting the pavement with a heavy thud as sirens surge; the title EIGHTY-SEVEN SECONDS slams onto black with a metallic logo sting.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.jpg)](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.mp4?raw=1)
-[Open MP4](assets/failure_demos/text_eighty_seven_seconds/veo3_1_fast.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/b63866bd-4e41-4064-b39f-fff363c505f4
+
 
 #### Ovi
-[![Preview](assets/failure_demos/text_eighty_seven_seconds/ovi.jpg)](assets/failure_demos/text_eighty_seven_seconds/ovi.mp4?raw=1)
-[Open MP4](assets/failure_demos/text_eighty_seven_seconds/ovi.mp4?raw=1)
+
+
+https://github.com/user-attachments/assets/6cb1b7c5-18b7-4244-9329-0a3545fd5ffd
+
+
 
 #### LTX-2
-[![Preview](assets/failure_demos/text_eighty_seven_seconds/ltx2.jpg)](assets/failure_demos/text_eighty_seven_seconds/ltx2.mp4?raw=1)
-[Open MP4](assets/failure_demos/text_eighty_seven_seconds/ltx2.mp4?raw=1)
+
+
+https://github.com/user-attachments/assets/be4e461e-5484-4c67-a0e0-dff966a35f48
+
+
+
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/text_eighty_seven_seconds/kling26.jpg)](assets/failure_demos/text_eighty_seven_seconds/kling26.mp4?raw=1)
-[Open MP4](assets/failure_demos/text_eighty_seven_seconds/kling26.mp4?raw=1)
+
+https://github.com/user-attachments/assets/68a00231-16cb-42de-b4bd-90d15a096e16
+
+
 
 </details>
 
@@ -105,22 +128,36 @@ Four-shot high-tempo teaser with clean sync hits. Shot 1: Inside a bank vault, f
 A top-down view of a black square metal plate sprinkled evenly with fine white sand as a tone generator plays a pure sine wave that sweeps upward in pitch. As the plate begins to vibrate, the rising tone makes the sand suddenly jitter and chatter across the metal, then fall quiet as grains slide into crisp geometric nodal lines that sharpen and rearrange each time the pitch crosses a new resonance.
 
 #### Veo 3.1 Fast
-[![Preview](assets/failure_demos/physics_chladni/veo3_1_fast.jpg)](assets/failure_demos/physics_chladni/veo3_1_fast.mp4?raw=1)
-[Open MP4](assets/failure_demos/physics_chladni/veo3_1_fast.mp4?raw=1)
+
+
+https://github.com/user-attachments/assets/5619e526-0bcc-48a5-ae94-c33651c22935
+
+
 
 #### Ovi
-[![Preview](assets/failure_demos/physics_chladni/ovi.jpg)](assets/failure_demos/physics_chladni/ovi.mp4?raw=1)
-[Open MP4](assets/failure_demos/physics_chladni/ovi.mp4?raw=1)
+
+
+
+https://github.com/user-attachments/assets/903aa4ab-fb5d-45e8-869d-839548068d3f
+
+
 
 #### LTX-2
-[![Preview](assets/failure_demos/physics_chladni/ltx2.jpg)](assets/failure_demos/physics_chladni/ltx2.mp4?raw=1)
-[Open MP4](assets/failure_demos/physics_chladni/ltx2.mp4?raw=1)
+
+
+https://github.com/user-attachments/assets/30e206e6-5ee0-4cf7-9036-e5ab139eccd5
+
+
+
 
 #### Kling 2.6
-[![Preview](assets/failure_demos/physics_chladni/kling26.jpg)](assets/failure_demos/physics_chladni/kling26.mp4?raw=1)
-[Open MP4](assets/failure_demos/physics_chladni/kling26.mp4?raw=1)
+https://github.com/user-attachments/assets/259b07ee-ce60-4716-abcd-45f832c8cef2
 
 </details>
+
+
+
+
 
 <details>
 <summary><strong>Case 4: Physical Plausibility (Briggs-Rauscher)</strong></summary>
