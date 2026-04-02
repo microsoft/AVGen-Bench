@@ -65,13 +65,21 @@ body {
 }
 
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   border: 1px solid #b4c9f6;
   color: #e8f1ff;
   text-decoration: none;
   border-radius: 999px;
   padding: 8px 14px;
   font-weight: 600;
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
 }
 
 .btn.primary {
