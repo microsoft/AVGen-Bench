@@ -2,9 +2,8 @@
 
 AVGen-Bench is a **task-driven benchmark** for multi-granular evaluation of Text-to-Audio-Video (T2AV) generation.
 
-🔗 **Project Page:** [AVGen-Bench Homepage](http://aka.ms/avgenbench)
-
-🎬 **Videos Repository:** [AVGen-Bench Videos on Hugging Face](https://huggingface.co/datasets/microsoft/AVGen-Bench)
+[![Project Page](https://img.shields.io/badge/Project%20Page-AVGenBench-8dbb3c?style=for-the-badge&labelColor=4c4c4c)](http://aka.ms/avgenbench)
+[![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-d4af37?style=for-the-badge)](https://huggingface.co/datasets/microsoft/AVGen-Bench)
 
 ## Repository Information
 
