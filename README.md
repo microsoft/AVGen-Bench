@@ -981,3 +981,19 @@ We gratefully acknowledge the open-source projects and toolkits that power AVGen
 - [`Gemini API (Python)`](https://ai.google.dev/gemini-api/docs/python) via `google-generativeai` (used in `eval/gemini_phy/`, `eval/plot_matching/`, `eval/speech/`, `eval/music_check/`, and `eval/Ocr/`) for MLLM-based reasoning modules.
 
 Please refer to the original repositories, papers, and licenses of these projects for attribution, usage terms, and model-specific restrictions.
+
+## Citation
+
+If you find AVGen-Bench useful, please cite:
+
+```bibtex
+@misc{zhou2026avgenbenchtaskdrivenbenchmarkmultigranular,
+      title={AVGen-Bench: A Task-Driven Benchmark for Multi-Granular Evaluation of Text-to-Audio-Video Generation}, 
+      author={Ziwei Zhou and Zeyuan Lai and Rui Wang and Yifan Yang and Zhen Xing and Yuqing Yang and Qi Dai and Lili Qiu and Chong Luo},
+      year={2026},
+      eprint={2604.08540},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2604.08540}, 
+}
+```
