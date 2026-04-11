@@ -110,7 +110,7 @@ open-clip-torch==2.24.0
 openai==1.14.1
 opencv-python-headless==4.9.0.80
 opencv-python==4.8.0.76
-orjson==3.9.5
+orjson==3.11.6
 packaging==23.1
 pandas==2.0.3
 pathtools==0.1.2
