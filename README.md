@@ -4,6 +4,7 @@ AVGen-Bench is a **task-driven benchmark** for multi-granular evaluation of Text
 
 [![Project Page](https://img.shields.io/badge/Project%20Page-AVGenBench-8dbb3c?style=for-the-badge&labelColor=4c4c4c)](http://aka.ms/avgenbench)
 [![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b?style=for-the-badge&labelColor=4c4c4c)](https://arxiv.org/abs/2604.08540)
+[![Hugging Face Paper](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Paper-f59e0b?style=for-the-badge)](https://huggingface.co/papers/2604.08540)
 [![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-d4af37?style=for-the-badge)](https://huggingface.co/datasets/microsoft/AVGen-Bench)
 
 ## Repository Information
