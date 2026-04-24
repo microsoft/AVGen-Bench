@@ -116,7 +116,7 @@ pandas==2.0.3
 pathtools==0.1.2
 peft==0.5.0
 pillow==9.4.0
-pip==23.2.1
+pip==26.0.1
 platformdirs==4.1.0
 proglog==0.1.10
 protobuf==3.20.1
