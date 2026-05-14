@@ -14,6 +14,12 @@ GROUP_WEIGHTS: Dict[str, float] = {
     "fine": 0.6,
 }
 
+GROUP_DIMENSIONS: Dict[str, Tuple[str, ...]] = {
+    "basic": ("Vis", "Aud"),
+    "cross": ("AV", "Lip"),
+    "fine": ("Text", "Face", "Music", "Speech", "Lo-Phy", "Hi-Phy", "Holistic"),
+}
+
 GROUP_ORDER = ["basic", "cross", "fine"]
 GROUP_DISPLAY = {
     "basic": "Basic Uni-modal",
@@ -92,6 +98,26 @@ def _read_all_numeric_from_csv_col(path: Path, col: str) -> List[float]:
     return vals
 
 
+def _read_filtered_text_ocr_scores(path: Path) -> List[float]:
+    vals: List[float] = []
+    if not path.exists():
+        return vals
+    try:
+        with path.open("r", encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                score = _to_float(row.get("overall_text_quality_score"))
+                if score is None:
+                    continue
+                prompt_requires = str(row.get("prompt_requires_visible_text", "")).strip().lower() == "true"
+                text_presence = str(row.get("text_presence", "none") or "none").strip().lower()
+                if prompt_requires or text_presence == "incidental":
+                    vals.append(score)
+    except Exception:
+        return []
+    return vals
+
+
 def _norm_higher_identity_100(x: float) -> float:
     return _clamp(x, 0.0, 100.0)
 
@@ -163,13 +189,38 @@ def _read_lip_sync(root: Path, run_tag: str) -> Tuple[Optional[float], str]:
 
 
 def _read_text_ocr(root: Path, run_tag: str) -> Tuple[Optional[float], str]:
-    candidates = []
+    json_candidates = []
+    csv_candidates = []
+    raw_csv_candidates = []
     if run_tag:
-        candidates.append(root / "ocr" / run_tag / "results_text_quality.csv")
-    candidates.append(root / "ocr" / "results_text_quality.csv")
-    p = _pick_existing_path(candidates)
-    vals = _read_all_numeric_from_csv_col(p, "overall_text_quality_score")
-    return _safe_mean(vals), str(p)
+        json_candidates.append(root / "ocr" / run_tag / "summary.json")
+        csv_candidates.append(root / "ocr" / run_tag / "summary.csv")
+        raw_csv_candidates.append(root / "ocr" / run_tag / "results_text_quality.csv")
+    json_candidates.append(root / "ocr" / "summary.json")
+    csv_candidates.append(root / "ocr" / "summary.csv")
+    raw_csv_candidates.append(root / "ocr" / "results_text_quality.csv")
+
+    p_json = _pick_existing_path(json_candidates)
+    data = _read_json(p_json)
+    if data:
+        v = _to_float(data.get("mean_score"))
+        if v is None:
+            v = _to_float(data.get("avg_score"))
+        if v is not None:
+            return v, str(p_json)
+
+    p_csv = _pick_existing_path(csv_candidates)
+    row = _read_csv_row_by_key(p_csv, "folder", "__ALL__")
+    if row:
+        v = _to_float(row.get("mean_score"))
+        if v is not None:
+            return v, str(p_csv)
+
+    p_raw = _pick_existing_path(raw_csv_candidates)
+    vals = _read_filtered_text_ocr_scores(p_raw)
+    if not vals:
+        vals = _read_all_numeric_from_csv_col(p_raw, "overall_text_quality_score")
+    return _safe_mean(vals), str(p_raw)
 
 
 def _read_face(root: Path, run_tag: str) -> Tuple[Optional[float], str]:
@@ -275,23 +326,29 @@ def main() -> int:
             "read": _read_lip_sync,
             "norm": lambda x: _norm_low_better_linear(x, args.lip_threshold_frames),
         },
-        {"name": "Text", "group": "fine", "read": _read_text_ocr, "norm": _norm_higher_identity_100},
-        {"name": "Face", "group": "fine", "read": _read_face, "norm": _norm_higher_identity_100},
-        {"name": "Music", "group": "fine", "read": _read_music, "norm": _norm_higher_identity_100},
-        {"name": "Speech", "group": "fine", "read": _read_speech, "norm": _norm_higher_identity_100},
-        {"name": "Lo-Phy", "group": "fine", "read": _read_lophy, "norm": _norm_lophy},
-        {"name": "Hi-Phy", "group": "fine", "read": _read_hiphy, "norm": _norm_higher_identity_100},
-        {"name": "Holistic", "group": "fine", "read": _read_holistic, "norm": _norm_higher_identity_100},
+        {"name": "Text", "group": "fine", "dimension": "Text", "read": _read_text_ocr, "norm": _norm_higher_identity_100},
+        {"name": "Face", "group": "fine", "dimension": "Face", "read": _read_face, "norm": _norm_higher_identity_100},
+        {"name": "Music", "group": "fine", "dimension": "Music", "read": _read_music, "norm": _norm_higher_identity_100},
+        {"name": "Speech", "group": "fine", "dimension": "Speech", "read": _read_speech, "norm": _norm_higher_identity_100},
+        {"name": "Lo-Phy", "group": "fine", "dimension": "Lo-Phy", "read": _read_lophy, "norm": _norm_lophy},
+        {"name": "Hi-Phy", "group": "fine", "dimension": "Hi-Phy", "read": _read_hiphy, "norm": _norm_higher_identity_100},
+        {"name": "Holistic", "group": "fine", "dimension": "Holistic", "read": _read_holistic, "norm": _norm_higher_identity_100},
     ]
 
-    n_by_group: Dict[str, int] = {g: 0 for g in GROUP_WEIGHTS}
     for m in metric_defs:
-        n_by_group[m["group"]] += 1
+        m.setdefault("dimension", m["name"])
+
+    n_by_dimension: Dict[Tuple[str, str], int] = {}
+    for m in metric_defs:
+        key = (m["group"], m["dimension"])
+        n_by_dimension[key] = n_by_dimension.get(key, 0) + 1
 
     metrics_out: List[Dict[str, Any]] = []
     weighted_num = 0.0
     weighted_den = 0.0
-    group_norm_values: Dict[str, List[float]] = {g: [] for g in GROUP_WEIGHTS}
+    group_dimension_values: Dict[str, Dict[str, List[float]]] = {
+        g: {d: [] for d in dims} for g, dims in GROUP_DIMENSIONS.items()
+    }
 
     for m in metric_defs:
         raw, source = m["read"](output_dir, args.run_tag)
@@ -303,19 +360,25 @@ def main() -> int:
                 norm = None
 
         g = m["group"]
-        global_w = GROUP_WEIGHTS[g] / float(n_by_group[g]) if n_by_group[g] > 0 else 0.0
+        dimension = m["dimension"]
+        n_group_dimensions = len(GROUP_DIMENSIONS[g])
+        n_dimension_metrics = n_by_dimension[(g, dimension)]
+        dimension_weight = GROUP_WEIGHTS[g] / float(n_group_dimensions)
+        global_w = dimension_weight / float(n_dimension_metrics)
         available = norm is not None
         if available:
             weighted_num += global_w * float(norm)
             weighted_den += global_w
-            group_norm_values[g].append(float(norm))
+            group_dimension_values[g][dimension].append(float(norm))
 
         metrics_out.append(
             {
                 "name": m["name"],
                 "group": g,
+                "dimension": dimension,
                 "raw_value": raw,
                 "normalized_0_100": norm,
+                "dimension_weight": dimension_weight,
                 "global_weight": global_w,
                 "available": available,
                 "source": source,
@@ -324,7 +387,10 @@ def main() -> int:
 
     group_scores: Dict[str, Optional[float]] = {}
     for g in GROUP_ORDER:
-        group_scores[g] = _safe_mean(group_norm_values[g])
+        dimension_scores = [
+            _safe_mean(vals) for vals in group_dimension_values[g].values() if vals
+        ]
+        group_scores[g] = _safe_mean([x for x in dimension_scores if x is not None])
 
     total_score = (weighted_num / weighted_den) if weighted_den > 0 else None
     coverage = weighted_den  # total global weight sums to 1.0
@@ -336,6 +402,7 @@ def main() -> int:
         "scheme": "Scheme-2",
         "formula": {
             "group_weights": GROUP_WEIGHTS,
+            "group_dimensions": {k: list(v) for k, v in GROUP_DIMENSIONS.items()},
             "metric_weighting": "equal weight per metric within each group",
             "normalization": {
                 "Vis": "Vis * 100",
@@ -361,7 +428,8 @@ def main() -> int:
             raw_s = "N/A" if m["raw_value"] is None else f"{float(m['raw_value']):.6f}"
             norm_s = "N/A" if m["normalized_0_100"] is None else f"{float(m['normalized_0_100']):.2f}"
             print(
-                f"  - {m['name']:<8s} raw={raw_s:<10s} norm={norm_s:<7s} w={m['global_weight']:.4f}"
+                f"  - {m['name']:<8s} raw={raw_s:<10s} norm={norm_s:<7s} "
+                f"dim={m['dimension']:<8s} w={m['global_weight']:.4f}"
             )
         gs = group_scores[g]
         gs_s = "N/A" if gs is None else f"{gs:.2f}"

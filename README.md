@@ -22,7 +22,7 @@ fine-grained multi-dimensional assessment, and more complex task-oriented prompt
 
 ## Benchmark Results
 
-Following the paper's `10-dimension` narrative, `AV`/`Lip` are complementary measurements for synchronization, and `Lo-Phy`/`Hi-Phy` are complementary measurements for physical plausibility.
+Following the paper's reporting narrative, `AV`/`Lip` are complementary measurements for synchronization, while `Lo-Phy` and `Hi-Phy` are weighted as separate fine-grained dimensions.
 
 Metric direction: higher is better for `Vis`, `Aud (PQ)`, `Text`, `Face`, `Music`, `Speech`, `Lo-Phy`, `Hi-Phy`, and `Holistic`; lower is better for `AV` and `Lip`.
 
@@ -32,18 +32,18 @@ Component labels in this README use text markers instead of color backgrounds.
 
 | Model | Components | Vis | Aud (PQ) | AV | Lip | Text | Face | Music | Speech | Lo-Phy | Hi-Phy | Holistic | Total |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Veo 3.1-fast | Veo 3.1-fast (Proprietary) | *0.960* | 6.64 | **0.21** | *2.39* | 75.10 | 52.77 | 3.13 | *94.53* | 3.68 | 67.43 | *86.27* | **67.87** |
-| Veo 3.1-quality | Veo 3.1-quality (Proprietary) | 0.954 | 6.77 | 0.24 | 3.59 | *76.53* | 52.90 | 5.00 | **96.09** | 3.74 | *68.53* | 84.10 | *66.28* |
-| Sora-2 | Sora-2 (Proprietary) | 0.848 | 5.91 | 0.25 | 4.50 | 74.84 | 51.17 | *7.81* | 88.63 | **4.05** | **78.95** | **88.89** | 64.16 |
-| Wan2.6 | Wan2.6 (Proprietary) | 0.959 | *7.15* | 0.30 | 4.32 | **76.95** | 49.27 | 1.75 | 89.33 | 3.69 | 66.92 | 80.98 | 62.97 |
-| Seedance-1.5 Pro | Seedance-1.5 Pro (Proprietary) | **0.970** | **7.48** | 0.26 | 3.43 | 38.28 | *54.42* | 1.88 | 93.45 | 3.72 | 66.88 | 77.38 | 62.55 |
-| Kling-V2.6 | Kling-V2.6 (Proprietary) | 0.906 | 6.93 | **0.21** | **2.30** | 14.52 | **57.33** | 5.00 | 89.62 | 3.84 | 63.92 | 76.74 | 61.82 |
+| Seedance-2 | Seedance-2 (Proprietary) | 0.945 | **7.15** | **0.15** | 4.14 | 74.83 | **60.95** | **28.12** | 94.09 | 3.89 | **83.16** | **89.61** | **72.07** |
+| Veo 3.1-fast | Veo 3.1-fast (Proprietary) | **0.960** | 6.64 | *0.21* | 2.39 | 75.10 | 52.77 | 3.13 | *94.53* | 3.68 | 67.43 | 86.27 | *67.87* |
+| Veo 3.1-quality | Veo 3.1-quality (Proprietary) | 0.954 | 6.77 | 0.24 | 3.59 | *76.53* | 52.90 | 5.00 | **96.09** | 3.74 | 68.53 | 84.10 | 66.28 |
+| Sora-2 | Sora-2 (Proprietary) | 0.848 | 5.91 | 0.25 | 4.50 | 74.84 | 51.17 | 7.81 | 88.63 | **4.05** | *78.95* | *88.89* | 64.16 |
+| Wan2.6 | Wan2.6 (Proprietary) | *0.959* | *7.15* | 0.30 | 4.32 | **76.95** | 49.27 | 1.75 | 89.33 | 3.69 | 66.92 | 80.98 | 62.97 |
+| Kling-V2.6 | Kling-V2.6 (Proprietary) | 0.906 | 6.93 | *0.21* | *2.30* | 14.52 | *57.33* | 5.00 | 89.62 | 3.84 | 63.92 | 76.74 | 61.82 |
 | LTX-2.3 | LTX-2.3 (Open-source) | 0.858 | 7.11 | 0.36 | **2.00** | 54.17 | 45.06 | 1.38 | 86.66 | *3.99* | 64.31 | 65.22 | 59.97 |
 | NanoBanana2 + MOVA | NanoBanana2 (Proprietary) + MOVA (Open-source) | 0.890 | 6.71 | 0.44 | 2.70 | 68.26 | 41.33 | 0.59 | 82.45 | 3.91 | 60.95 | 72.48 | 58.10 |
-| LTX-2 | LTX-2 (Open-source) | 0.828 | 6.84 | *0.23* | 4.76 | 24.76 | 48.53 | 5.75 | 87.07 | **4.05** | 60.20 | 66.59 | 56.62 |
+| LTX-2 | LTX-2 (Open-source) | 0.828 | 6.84 | 0.23 | 4.76 | 24.76 | 48.53 | 5.75 | 87.07 | **4.05** | 60.20 | 66.59 | 56.62 |
 | Emu3.5 + MOVA | Emu3.5 (Open-source) + MOVA (Open-source) | 0.911 | 6.80 | 0.38 | 4.83 | 64.72 | 48.44 | 0.62 | 81.74 | 3.89 | 55.85 | 66.55 | 56.12 |
-| Wan2.2 + HunyuanVideo-Foley | Wan2.2 (Open-source) + HunyuanVideo-Foley (Open-source) | 0.936 | 6.60 | *0.23* | 5.38 | 48.46 | 36.23 | 3.44 | 53.40 | 3.90 | 54.11 | 60.63 | 53.29 |
-| Ovi | Ovi (Open-source) | 0.839 | 6.31 | 0.37 | 5.40 | 41.36 | 49.05 | **11.25** | 76.49 | *3.93* | 52.92 | 57.45 | 52.02 |
+| Wan2.2 + HunyuanVideo-Foley | Wan2.2 (Open-source) + HunyuanVideo-Foley (Open-source) | 0.936 | 6.60 | 0.23 | 5.38 | 48.46 | 36.23 | 3.44 | 53.40 | 3.90 | 54.11 | 60.63 | 53.29 |
+| Ovi | Ovi (Open-source) | 0.839 | 6.31 | 0.37 | 5.40 | 41.36 | 49.05 | *11.25* | 76.49 | 3.93 | 52.92 | 57.45 | 52.02 |
 
 ## Failure Demo Videos
 
@@ -287,6 +287,7 @@ https://github.com/user-attachments/assets/b9200272-3f13-4a7a-9a9a-caa83350e45f
 ## Installation
 
 To ensure reproducibility and minimize dependency conflicts, each evaluation module uses a dedicated Conda environment defined in `environments/*.yml`.
+
 
 ### 1. Prerequisites
 
@@ -806,7 +807,7 @@ Notes:
 ### Aggregate Total Score (Scheme 2)
 
 AVGen-Bench provides an aggregate score computed from 3 groups:
-For paper-level reporting, we keep the "10 dimensions" narrative, where cross-modal synchronization is one dimension with `AV`/`Lip` as complementary measurements, and physical plausibility is one dimension with `Lo-Phy`/`Hi-Phy` as complementary measurements.
+For paper-level reporting, we use equal per-metric weighting within each group.
 
 - `Basic Uni-modal`: `Vis`, `Aud(PQ)`
 - `Basic Cross-modal`: one synchronization dimension reported by two complementary indicators (`AV`, `Lip`)
@@ -827,7 +828,7 @@ Metric normalization to `0-100`:
 - `LoPhy_n = Lo-Phy * 20`
 - `Text/Face/Music/Speech/Hi-Phy/Holistic` are already in `0-100`
 
-By default, per-metric weights are equal inside each group.
+By default, per-metric weights are equal inside each group. Under this scheme, each fine-grained metric receives weight `0.6 / 7`.
 
 You can run aggregation separately:
 
