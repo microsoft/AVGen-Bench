@@ -5,6 +5,7 @@ import importlib
 import subprocess
 from multiprocessing import Pool
 from pathlib import Path
+import zipfile
 
 import requests
 from omegaconf import OmegaConf
@@ -47,23 +48,68 @@ FNAME2LINK = {
 }
 
 
-def check_if_file_exists_else_download(path, fname2link=FNAME2LINK, chunk_size=1024):
-    '''Checks if file exists, if not downloads it from the link to the path'''
-    path = Path(path)
-    if not path.exists():
-        path.parent.mkdir(exist_ok=True, parents=True)
-        link = fname2link.get(path.name, None)
-        if link is None:
-            raise ValueError(f'Cant find the checkpoint file: {path}.',
-                             f'Please download it manually and ensure the path exists.')
-        with requests.get(fname2link[path.name], stream=True) as r:
+def _looks_like_valid_zip_checkpoint(path: Path) -> bool:
+    try:
+        with path.open('rb') as f:
+            header = f.read(4)
+        if header != b'PK\x03\x04':
+            return True
+        with zipfile.ZipFile(path) as zf:
+            return zf.testzip() is None
+    except Exception:
+        return False
+
+
+def _is_valid_download(path: Path) -> bool:
+    if not path.exists() or path.stat().st_size == 0:
+        return False
+    if path.suffix == '.pt':
+        return _looks_like_valid_zip_checkpoint(path)
+    return True
+
+
+def _download_to_path(path: Path, link: str, chunk_size: int = 1024) -> None:
+    tmp_path = path.with_suffix(path.suffix + '.tmp')
+    try:
+        with requests.get(link, stream=True, timeout=60) as r:
+            r.raise_for_status()
             total_size = int(r.headers.get('content-length', 0))
             with tqdm(total=total_size, unit='B', unit_scale=True) as pbar:
-                with open(path, 'wb') as f:
+                with open(tmp_path, 'wb') as f:
                     for data in r.iter_content(chunk_size=chunk_size):
                         if data:
                             f.write(data)
-                            pbar.update(chunk_size)
+                            pbar.update(len(data))
+        if not _is_valid_download(tmp_path):
+            raise RuntimeError(f'Downloaded file looks corrupted: {tmp_path}')
+        tmp_path.replace(path)
+    finally:
+        if tmp_path.exists():
+            tmp_path.unlink()
+
+
+def check_if_file_exists_else_download(path, fname2link=FNAME2LINK, chunk_size=1024):
+    '''Checks if file exists and is readable, otherwise downloads it from the link to the path'''
+    path = Path(path)
+    path.parent.mkdir(exist_ok=True, parents=True)
+
+    link = fname2link.get(path.name, None)
+    if link is None and not path.exists():
+        raise ValueError(f'Cant find the checkpoint file: {path}.',
+                         f'Please download it manually and ensure the path exists.')
+
+    if path.exists() and _is_valid_download(path):
+        return
+
+    if path.exists():
+        logging.warning('Found corrupted or incomplete file at %s. Re-downloading it.', path)
+        path.unlink()
+
+    if link is None:
+        raise ValueError(f'Cant find the checkpoint file: {path}.',
+                         f'Please download it manually and ensure the path exists.')
+
+    _download_to_path(path, link, chunk_size=chunk_size)
 
 
 def which_ffmpeg() -> str:

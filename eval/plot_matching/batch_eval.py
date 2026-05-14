@@ -21,7 +21,7 @@
 # - optionally caches raw Gemini results per video to allow resume.
 #
 # Install:
-#   pip install google-generativeai
+#   no special Gemini SDK required; requests go through the shared DMX HTTP client
 #
 # Env:
 #   export GEMINI_API_KEY="..."
@@ -32,7 +32,7 @@
 #   python batch_eval.py --prompts_dir prompts --root_videos sora2_generated --out_json plot_eval_results.json
 #
 # Notes:
-# - This script uploads each video to Gemini File API. Expect cost/latency.
+# - This script sends each video inline to the DMX Gemini-compatible API.
 # - Concurrency is supported; keep workers small to avoid 429.
 # - Resume: if cache exists for a video key, it will not re-judge unless --force.
 from collections import defaultdict
@@ -43,11 +43,16 @@ import json
 import random
 import argparse
 import hashlib
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-import google.generativeai as genai
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from dmx_gemini_client import generate_content_text, inline_file_part, resolve_api_key
 
 
 # ----------------------------
@@ -230,52 +235,42 @@ def sha1(s: str) -> str:
 # ----------------------------
 # Gemini call
 # ----------------------------
-def upload_video(video_path: str):
-    video_file = genai.upload_file(path=video_path)
-    while video_file.state.name == "PROCESSING":
-        time.sleep(2)
-        video_file = genai.get_file(video_file.name)
-    if video_file.state.name == "FAILED":
-        raise RuntimeError("Video processing failed on Gemini File API.")
-    return video_file
-
-def judge_plot_matching(video_path: str, prompt_text: str, model_name: str, timeout_s: int) -> Dict[str, Any]:
-    video_file = upload_video(video_path)
-
-    model = genai.GenerativeModel(
+def judge_plot_matching(
+    video_path: str,
+    prompt_text: str,
+    model_name: str,
+    timeout_s: int,
+    api_key: str,
+) -> Dict[str, Any]:
+    raw_text = generate_content_text(
         model_name=model_name,
+        user_parts=[
+            inline_file_part(video_path, mime_type="video/mp4"),
+            PLOT_JUDGE_USER_TEMPLATE.format(prompt_text=prompt_text),
+        ],
+        api_key=api_key,
+        timeout_s=timeout_s,
         system_instruction=PLOT_JUDGE_SYSTEM,
     )
+    data = json.loads(_extract_json(raw_text))
 
-    try:
-        resp = model.generate_content(
-            [video_file, PLOT_JUDGE_USER_TEMPLATE.format(prompt_text=prompt_text)],
-            request_options={"timeout": timeout_s},
-        )
-        data = json.loads(_extract_json(resp.text))
+    # Clamp scores/confidence
+    data["plot_alignment_score"] = _clamp_int_0_100(data.get("plot_alignment_score", 0))
+    subs = data.get("subscores", {}) or {}
+    data["subscores"] = {
+        "narrative_alignment": _clamp_int_0_100(subs.get("narrative_alignment", 0)),
+        "shot_alignment": _clamp_int_0_100(subs.get("shot_alignment", 0)),
+        "visual_attribute_alignment": _clamp_int_0_100(subs.get("visual_attribute_alignment", 0)),
+        "audio_alignment": _clamp_int_0_100(subs.get("audio_alignment", 0)),
+    }
+    data["confidence"] = _clamp_float_0_1(data.get("confidence", 0.0))
 
-        # Clamp scores/confidence
-        data["plot_alignment_score"] = _clamp_int_0_100(data.get("plot_alignment_score", 0))
-        subs = data.get("subscores", {}) or {}
-        data["subscores"] = {
-            "narrative_alignment": _clamp_int_0_100(subs.get("narrative_alignment", 0)),
-            "shot_alignment": _clamp_int_0_100(subs.get("shot_alignment", 0)),
-            "visual_attribute_alignment": _clamp_int_0_100(subs.get("visual_attribute_alignment", 0)),
-            "audio_alignment": _clamp_int_0_100(subs.get("audio_alignment", 0)),
-        }
-        data["confidence"] = _clamp_float_0_1(data.get("confidence", 0.0))
-
-        data["_input"] = {
-            "video_path": video_path,
-            "prompt_text": prompt_text,
-            "model": model_name,
-        }
-        return data
-    finally:
-        try:
-            genai.delete_file(video_file.name)
-        except Exception:
-            pass
+    data["_input"] = {
+        "video_path": video_path,
+        "prompt_text": prompt_text,
+        "model": model_name,
+    }
+    return data
 
 
 # ----------------------------
@@ -326,11 +321,12 @@ def worker_task(task: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
     model_name = task["model_name"]
     timeout_s = task["timeout_s"]
     max_retries = task["max_retries"]
+    api_key = task["api_key"]
 
     last_err = None
     for attempt in range(max_retries):
         try:
-            result = judge_plot_matching(video_path, prompt_text, model_name, timeout_s)
+            result = judge_plot_matching(video_path, prompt_text, model_name, timeout_s, api_key)
             record = {
                 "status": "ok",
                 "result": result,
@@ -355,7 +351,7 @@ def main():
 
     ap.add_argument("--model", type=str, default=os.getenv("GEMINI_MODEL", "gemini-3-flash-preview"))
     ap.add_argument("--timeout_s", type=int, default=int(os.getenv("GEMINI_TIMEOUT_S", "900")))
-    ap.add_argument("--api_key", type=str, default=os.getenv("GEMINI_API_KEY", ""))
+    ap.add_argument("--api_key", type=str, default=resolve_api_key(required=False) or "")
 
     ap.add_argument("--workers", type=int, default=32, help="Parallel Gemini requests ")
     ap.add_argument("--max_retries", type=int, default=4)
@@ -366,9 +362,7 @@ def main():
     args = ap.parse_args()
 
     if not args.api_key:
-        raise SystemExit("Missing GEMINI_API_KEY. Set env GEMINI_API_KEY or pass --api_key")
-
-    genai.configure(api_key=args.api_key)
+        raise SystemExit("Missing DMX/Gemini API key. Set DMX_API_KEY/GEMINI_API_KEY or pass --api_key")
 
     cache = load_cache(args.cache_json) if (args.cache_json and not args.force) else {}
 
@@ -418,6 +412,7 @@ def main():
                 "model_name": args.model,
                 "timeout_s": args.timeout_s,
                 "max_retries": args.max_retries,
+                "api_key": args.api_key,
             })
 
     # Run parallel judgments

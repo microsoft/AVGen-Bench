@@ -3,20 +3,29 @@ import re
 import json
 import time
 import math
+import sys
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import cv2
+import paddle
 from paddleocr import PaddleOCR
-import google.generativeai as genai
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from dmx_gemini_client import generate_content_text, resolve_api_key
 
 
 # =========================
 # Env / Config
 # =========================
-MODEL_NAME = "gemini-3-pro-preview"
+MODEL_NAME = os.getenv("OCR_GEMINI_MODEL", "gemini-3-flash-preview")
 TIMEOUT_S = int(os.getenv("GEMINI_TIMEOUT_S", "300"))
+PROMPT_VARIANT = os.getenv("OCR_PROMPT_VARIANT", "original").strip().lower()
 
 # OCR sampling (speed vs accuracy)
 STRIDE = int(os.getenv("OCR_STRIDE", "3"))          # run OCR every N frames
@@ -38,12 +47,39 @@ MIN_OCR_CONF = float(os.getenv("OCR_MIN_CONF", "0.2"))
 # Text segmentation
 TEXT_SIM_THRESH = float(os.getenv("OCR_TEXT_SIM_THRESH", "0.75"))
 
+# OCR device selection
+OCR_DEVICE = os.getenv(
+    "OCR_DEVICE",
+    "gpu:0" if paddle.is_compiled_with_cuda() else "cpu",
+).strip()
+try:
+    paddle.device.set_device(OCR_DEVICE)
+except Exception:
+    OCR_DEVICE = "cpu"
+    paddle.device.set_device(OCR_DEVICE)
+
+OCR_BATCH_SIZE = max(
+    1,
+    int(os.getenv("OCR_BATCH_SIZE", "16" if OCR_DEVICE.startswith("gpu") else "1")),
+)
+OCR_TEXT_RECOGNITION_BATCH_SIZE = max(
+    1,
+    int(os.getenv("OCR_TEXT_RECOGNITION_BATCH_SIZE", str(OCR_BATCH_SIZE))),
+)
+
 # OCR init (match your earlier settings)
 OCR_ENGINE = PaddleOCR(
     use_doc_orientation_classify=False,
     use_doc_unwarping=False,
-    use_textline_orientation=False
+    use_textline_orientation=False,
+    text_recognition_batch_size=OCR_TEXT_RECOGNITION_BATCH_SIZE,
+    device=OCR_DEVICE,
 )
+try:
+    OCR_ENGINE._merged_paddlex_config["batch_size"] = OCR_BATCH_SIZE
+    OCR_ENGINE.paddlex_pipeline.batch_sampler.batch_size = OCR_BATCH_SIZE
+except Exception:
+    pass
 
 
 # =========================
@@ -110,6 +146,119 @@ Output STRICT JSON (ALL score fields must be integer 0-100; confidence must be f
 }}
 """.strip()
 
+GEMINI_SYSTEM_V1 = """
+You are a strict judge for generated-video text quality (OCR-based evaluation).
+
+## IMPORTANT SCORING RULE
+- ALL scores are integers in the range [0, 100].
+- This includes overall_text_quality_score and every subscores field.
+- Do NOT output percentages with '%' sign; output plain integers.
+
+## Input
+- Prompt text for audio-video generation
+- Tracked text regions ("text tracks") summarized across frames:
+  Each track includes normalized bbox, duration, confidence stats, and text-change segments.
+
+## Task: Evaluate VISIBLE on-screen text generation quality (OCR-based)
+- Legibility/accuracy
+- Temporal stability
+- Spatial stability
+- Completeness
+- Prompt match (ONLY if the prompt explicitly requires visible on-screen text such as subtitles/captions/titles/signs/UI/labels.
+Do NOT treat spoken dialogue/voiceover/quotes in the prompt as a requirement for on-screen text unless subtitles/captions are explicitly requested.)
+- Noise handling: If the prompt does NOT require on-screen text, treat obvious OCR false-positives as noise (e.g., single-character like "O/0/I" caused by circular patterns, reflections, textures, or edges; huge/fullscreen boxes; very short-lived tracks). Do not penalize overall score for such noise; instead report them in issues as false_positive/noise.
+
+## Rules
+- Use only the provided track summaries as evidence.
+- Output STRICT JSON only (no markdown, no code fences).
+""".strip()
+
+GEMINI_USER_TEMPLATE_V1 = """
+## PROMPT_TEXT
+{prompt_text}
+
+## VIDEO_TEXT_TRACKS_JSON
+{tracks_json}
+
+## Output STRICT JSON
+ALL score fields must be integer 0-100; confidence must be float 0-1.
+
+{{
+  "overall_text_quality_score": 0,
+  "subscores": {{
+    "legibility_accuracy": 0,
+    "temporal_stability": 0,
+    "spatial_stability": 0,
+    "completeness": 0,
+    "prompt_text_match": null
+  }},
+  "confidence": 0.0,
+  "top_issues": [
+    {{
+      "track_id": "T1",
+      "issue_type": "flicker|character_drift|bbox_jitter|missing|nonsense_text|low_confidence|other",
+      "severity": 1,
+      "evidence": "cite segments and stats from the track"
+    }}
+  ],
+  "good_tracks": ["T3","T7"],
+  "summary": "short assessment"
+}}
+""".strip()
+
+GEMINI_SYSTEM_V2 = """
+You are a strict judge for generated-video text quality (OCR-based evaluation).
+
+Important scoring rule: ALL scores are integers in the range [0, 100]. This includes overall_text_quality_score and every subscores field. Do NOT output percentages with '%' sign; output plain integers.
+
+Input: prompt text for audio-video generation, and tracked text regions ("text tracks") summarized across frames. Each track includes normalized bbox, duration, confidence stats, and text-change segments.
+
+Task: evaluate VISIBLE on-screen text generation quality (OCR-based). Judge legibility/accuracy, temporal stability, spatial stability, completeness, and prompt match only if the prompt explicitly requires visible on-screen text such as subtitles/captions/titles/signs/UI/labels. Do NOT treat spoken dialogue/voiceover/quotes in the prompt as a requirement for on-screen text unless subtitles/captions are explicitly requested. If the prompt does NOT require on-screen text, treat obvious OCR false-positives as noise, for example single-character like "O/0/I" caused by circular patterns, reflections, textures, or edges, huge/fullscreen boxes, and very short-lived tracks. Do not penalize overall score for such noise; instead report them in issues as false_positive/noise.
+
+Rules: use only the provided track summaries as evidence. Output STRICT JSON only (no markdown, no code fences).
+""".strip()
+
+GEMINI_USER_TEMPLATE_V2 = """
+Prompt text:
+{prompt_text}
+
+Video text tracks JSON:
+{tracks_json}
+
+Return STRICT JSON only. All score fields must be integer 0-100, and confidence must be float 0-1.
+
+{{
+  "overall_text_quality_score": 0,
+  "subscores": {{
+    "legibility_accuracy": 0,
+    "temporal_stability": 0,
+    "spatial_stability": 0,
+    "completeness": 0,
+    "prompt_text_match": null
+  }},
+  "confidence": 0.0,
+  "top_issues": [
+    {{
+      "track_id": "T1",
+      "issue_type": "flicker|character_drift|bbox_jitter|missing|nonsense_text|low_confidence|other",
+      "severity": 1,
+      "evidence": "cite segments and stats from the track"
+    }}
+  ],
+  "good_tracks": ["T3","T7"],
+  "summary": "short assessment"
+}}
+""".strip()
+
+PROMPT_VARIANTS = {
+    "original": (GEMINI_SYSTEM, GEMINI_USER_TEMPLATE),
+    "v1": (GEMINI_SYSTEM_V1, GEMINI_USER_TEMPLATE_V1),
+    "v2": (GEMINI_SYSTEM_V2, GEMINI_USER_TEMPLATE_V2),
+}
+
+if PROMPT_VARIANT not in PROMPT_VARIANTS:
+    raise ValueError(f"Unsupported OCR_PROMPT_VARIANT: {PROMPT_VARIANT}")
+
 
 
 # =========================
@@ -130,12 +279,7 @@ def _extract_json(text: str) -> str:
 
 
 def _get_gemini_api_key() -> str:
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        api_key = os.getenv("GOOGLE_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("Missing GEMINI_API_KEY or GOOGLE_API_KEY")
-    return api_key
+    return resolve_api_key()
 
 def clamp01(x: Any) -> float:
     try:
@@ -234,33 +378,37 @@ class Track:
 # =========================
 # OCR per frame
 # =========================
-def ocr_frame(frame_img: np.ndarray) -> List[Tuple[List[List[float]], str, float]]:
-    """
-    Returns list of (poly_points, text, conf).
-    Compatible with PaddleOCR predict output variants.
-    """
-    result = OCR_ENGINE.predict(input=frame_img)
+def _parse_ocr_result(res: Any) -> List[Tuple[List[List[float]], str, float]]:
     out = []
 
-    for res in result:
-        # PaddleX style dict
-        if isinstance(res, dict) and "rec_texts" in res and "rec_scores" in res:
-            texts = res.get("rec_texts", [])
-            scores = res.get("rec_scores", [])
-            polys = res.get("dt_polys", []) or []
-            for text, score, poly in zip(texts, scores, polys):
-                poly = poly.tolist() if hasattr(poly, "tolist") else poly
-                out.append((poly, str(text), float(score)))
-        # Older list style [[poly, (text, score)], ...]
-        elif isinstance(res, list):
-            for line in res:
-                poly = line[0]
-                text = line[1][0]
-                score = line[1][1]
-                poly = poly.tolist() if hasattr(poly, "tolist") else poly
-                out.append((poly, str(text), float(score)))
+    if isinstance(res, dict) and "rec_texts" in res and "rec_scores" in res:
+        texts = res.get("rec_texts", [])
+        scores = res.get("rec_scores", [])
+        polys = res.get("dt_polys", []) or []
+        for text, score, poly in zip(texts, scores, polys):
+            poly = poly.tolist() if hasattr(poly, "tolist") else poly
+            out.append((poly, str(text), float(score)))
+    elif isinstance(res, list):
+        for line in res:
+            poly = line[0]
+            text = line[1][0]
+            score = line[1][1]
+            poly = poly.tolist() if hasattr(poly, "tolist") else poly
+            out.append((poly, str(text), float(score)))
 
     return out
+
+
+def ocr_frames(frame_imgs: List[np.ndarray]) -> List[List[Tuple[List[List[float]], str, float]]]:
+    if not frame_imgs:
+        return []
+    result = OCR_ENGINE.predict(input=frame_imgs)
+    return [_parse_ocr_result(res) for res in result]
+
+
+def ocr_frame(frame_img: np.ndarray) -> List[Tuple[List[List[float]], str, float]]:
+    outs = ocr_frames([frame_img])
+    return outs[0] if outs else []
 
 
 # =========================
@@ -478,15 +626,19 @@ def summarize_tracks(tracks: List[Track]) -> List[Dict[str, Any]]:
 # Gemini judge
 # =========================
 def gemini_judge(prompt_text: str, payload: Dict[str, Any]) -> Dict[str, Any]:
-    genai.configure(api_key=_get_gemini_api_key())
-    model = genai.GenerativeModel(model_name=MODEL_NAME, system_instruction=GEMINI_SYSTEM)
-
-    user_text = GEMINI_USER_TEMPLATE.format(
+    system_instruction, user_template = PROMPT_VARIANTS[PROMPT_VARIANT]
+    user_text = user_template.format(
         prompt_text=prompt_text,
         tracks_json=json.dumps(payload, ensure_ascii=False),
     )
-    resp = model.generate_content(user_text, request_options={"timeout": TIMEOUT_S})
-    data = json.loads(_extract_json(resp.text))
+    raw_text = generate_content_text(
+        model_name=MODEL_NAME,
+        user_parts=[user_text],
+        api_key=_get_gemini_api_key(),
+        timeout_s=TIMEOUT_S,
+        system_instruction=system_instruction,
+    )
+    data = json.loads(_extract_json(raw_text))
 
     data["overall_text_quality_score"] = clamp100(data.get("overall_text_quality_score", 0))
     subs = data.get("subscores", {}) or {}
@@ -520,6 +672,54 @@ def run(video_path: str, prompt_text: str, out_path: str) -> Dict[str, Any]:
 
     frame_idx = 0
     processed = 0
+    pending_frames: List[np.ndarray] = []
+    pending_meta: List[Tuple[int, float]] = []
+
+    def flush_pending() -> None:
+        if not pending_frames:
+            return
+
+        try:
+            batch_outs = ocr_frames(pending_frames)
+        except Exception:
+            batch_outs = []
+            for frame in pending_frames:
+                try:
+                    batch_outs.append(ocr_frame(frame))
+                except Exception:
+                    batch_outs.append([])
+
+        for (sampled_frame_idx, sampled_t), ocr_out in zip(pending_meta, batch_outs):
+            frame_dets: List[Det] = []
+            for poly, text, conf in ocr_out:
+                try:
+                    conf = float(conf)
+                    if conf < MIN_OCR_CONF:
+                        continue
+
+                    poly = [[float(p[0]), float(p[1])] for p in poly]
+                    aabb = poly_to_aabb(poly)
+                    aabb_n = normalize_aabb(aabb, w, h)
+                    frame_dets.append(
+                        Det(
+                            frame=sampled_frame_idx,
+                            t=sampled_t,
+                            text=str(text),
+                            conf=conf,
+                            poly=poly,
+                            aabb=aabb,
+                            aabb_norm=aabb_n,
+                        )
+                    )
+                except Exception:
+                    continue
+
+            frame_merged = merge_dets_in_frame(frame_dets)
+            dets_all.extend(frame_merged)
+
+        pending_frames.clear()
+        pending_meta.clear()
+
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -537,40 +737,18 @@ def run(video_path: str, prompt_text: str, out_path: str) -> Dict[str, Any]:
             continue
 
         t = frame_idx / fps if fps > 0 else 0.0
-
-        try:
-            ocr_out = ocr_frame(frame)
-        except Exception as e:
-            frame_idx += 1
-            processed += 1
-            continue
-
-        # convert OCR outputs to Det
-        frame_dets: List[Det] = []
-        for poly, text, conf in ocr_out:
-            try:
-                conf = float(conf)
-                if conf < MIN_OCR_CONF:
-                    continue
-
-                poly = [[float(p[0]), float(p[1])] for p in poly]
-                aabb = poly_to_aabb(poly)
-                aabb_n = normalize_aabb(aabb, w, h)
-                frame_dets.append(Det(frame=frame_idx, t=t, text=str(text), conf=conf, poly=poly, aabb=aabb, aabb_norm=aabb_n))
-            except Exception:
-                continue
-
-
-        # same-frame merge BEFORE tracking
-        frame_merged = merge_dets_in_frame(frame_dets)
-        dets_all.extend(frame_merged)
+        pending_frames.append(frame)
+        pending_meta.append((frame_idx, t))
 
         if processed % 50 == 0:
             print(f"Processed frames (sampled): {processed}, current frame={frame_idx}/{total}")
 
         frame_idx += 1
         processed += 1
+        if len(pending_frames) >= OCR_BATCH_SIZE:
+            flush_pending()
 
+    flush_pending()
     cap.release()
 
     # tracking

@@ -3,13 +3,21 @@ import re
 import json
 import time
 import math
+import sys
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import cv2
+import paddle
 from paddleocr import PaddleOCR
-import google.generativeai as genai
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from dmx_gemini_client import generate_content_text, resolve_api_key
 
 
 # =========================
@@ -17,6 +25,7 @@ import google.generativeai as genai
 # =========================
 MODEL_NAME = "gemini-3-flash-preview"
 TIMEOUT_S = int(os.getenv("GEMINI_TIMEOUT_S", "300"))
+PROMPT_VARIANT = os.getenv("OCR_PROMPT_VARIANT", "original").strip().lower()
 
 # OCR sampling (speed vs accuracy)
 STRIDE = int(os.getenv("OCR_STRIDE", "3"))          # run OCR every N frames
@@ -38,12 +47,39 @@ MIN_OCR_CONF = float(os.getenv("OCR_MIN_CONF", "0.2"))
 # Text segmentation
 TEXT_SIM_THRESH = float(os.getenv("OCR_TEXT_SIM_THRESH", "0.75"))
 
+# OCR device selection
+OCR_DEVICE = os.getenv(
+    "OCR_DEVICE",
+    "gpu:0" if paddle.is_compiled_with_cuda() else "cpu",
+).strip()
+try:
+    paddle.device.set_device(OCR_DEVICE)
+except Exception:
+    OCR_DEVICE = "cpu"
+    paddle.device.set_device(OCR_DEVICE)
+
+OCR_BATCH_SIZE = max(
+    1,
+    int(os.getenv("OCR_BATCH_SIZE", "16" if OCR_DEVICE.startswith("gpu") else "1")),
+)
+OCR_TEXT_RECOGNITION_BATCH_SIZE = max(
+    1,
+    int(os.getenv("OCR_TEXT_RECOGNITION_BATCH_SIZE", str(OCR_BATCH_SIZE))),
+)
+
 # OCR init (match your earlier settings)
 OCR_ENGINE = PaddleOCR(
     use_doc_orientation_classify=False,
     use_doc_unwarping=False,
-    use_textline_orientation=False
+    use_textline_orientation=False,
+    text_recognition_batch_size=OCR_TEXT_RECOGNITION_BATCH_SIZE,
+    device=OCR_DEVICE,
 )
+try:
+    OCR_ENGINE._merged_paddlex_config["batch_size"] = OCR_BATCH_SIZE
+    OCR_ENGINE.paddlex_pipeline.batch_sampler.batch_size = OCR_BATCH_SIZE
+except Exception:
+    pass
 
 
 # =========================
@@ -134,6 +170,150 @@ Output STRICT JSON (ALL score fields must be integer 0-100; confidence must be f
 }}
 """.strip()
 
+GEMINI_SYSTEM_V1 = """
+You are a strict judge for generated-video text quality (OCR-based evaluation).
+
+## IMPORTANT SCORING RULE
+- ALL scores are integers in the range [0, 100].
+- This includes overall_text_quality_score and every subscores field.
+- Do NOT output percentages with '%' sign; output plain integers.
+
+## Input
+- Prompt text for audio-video generation
+- Tracked text regions ("text tracks") summarized across frames
+  Each track includes normalized bbox, duration, confidence stats, and text-change segments.
+
+## Task: Evaluate VISIBLE on-screen text generation quality (OCR-based)
+
+### ADDITIONAL REQUIRED OUTPUT FIELDS (classification; not scores)
+- prompt_requires_visible_text (boolean):
+  True ONLY if the prompt explicitly requires visible on-screen text (e.g., subtitles/captions, title card, on-screen labels, UI text, signs to read).
+  False if text is not explicitly required. Spoken dialogue/quotes/voiceover do NOT imply visible text unless subtitles/captions are explicitly requested.
+- text_presence ("none" | "noise" | "incidental" | "required"):
+  Use ONLY the provided track summaries as evidence.
+  "none": No credible visible text tracks.
+  "noise": Only obvious OCR false positives / noise (e.g.a, single-character like "O/0/I", random fragments from textures/reflections/edges, huge/fullscreen boxes, very short-lived tracks) and no credible readable text.
+  "incidental": Credible readable visible text exists, but the prompt does NOT explicitly require visible text (e.g., natural signs, packaging, UI elements that fit the scene).
+  "required": Credible readable visible text exists AND the prompt explicitly requires visible text.
+- missing_required_text (boolean):
+  True if prompt_requires_visible_text is True but text_presence is "none" or "noise" (i.e., required visible text is missing).
+  False otherwise.
+- incidental_text_is_contextual (boolean or null):
+  If text_presence is "incidental", set True if the incidental text is plausible/contextual and not distracting; set False if it is nonsensical/out-of-place.
+  If text_presence is "none" or "noise" or "required", set this to null.
+
+Then evaluate visible on-screen text generation quality (OCR-based):
+- Legibility/accuracy
+- Temporal stability
+- Spatial stability
+- Completeness
+- Prompt match (ONLY if the prompt explicitly requires visible on-screen text such as subtitles/captions/titles/signs/UI/labels.
+Do NOT treat spoken dialogue/voiceover/quotes in the prompt as a requirement for on-screen text unless subtitles/captions are explicitly requested.)
+- Noise handling: If the prompt does NOT require on-screen text, treat obvious OCR false-positives as noise (e.g., single-character like "O/0/I" caused by circular patterns, reflections, textures, or edges; huge/fullscreen boxes; very short-lived tracks). Do not penalize overall score for such noise; instead report them in issues as false_positive/noise.
+
+## Rules
+- Use only the provided track summaries as evidence.
+- Output STRICT JSON only (no markdown, no code fences).
+""".strip()
+
+GEMINI_USER_TEMPLATE_V1 = """
+PROMPT_TEXT:
+{prompt_text}
+
+VIDEO_TEXT_TRACKS_JSON:
+{tracks_json}
+
+## Output STRICT JSON
+ALL score fields must be integer 0-100; confidence must be float 0-1.
+
+{{
+  "prompt_requires_visible_text": false,
+  "text_presence": "none",
+  "missing_required_text": false,
+  "incidental_text_is_contextual": null,
+  "overall_text_quality_score": 0,
+  "subscores": {{
+    "legibility_accuracy": 0,
+    "temporal_stability": 0,
+    "spatial_stability": 0,
+    "completeness": 0,
+    "prompt_text_match": null
+  }},
+  "confidence": 0.0,
+  "top_issues": [
+    {{
+      "track_id": "T1",
+      "issue_type": "flicker|character_drift|bbox_jitter|missing|nonsense_text|low_confidence|false_positive|noise|other",
+      "severity": 1,
+      "evidence": "cite segments and stats from the track"
+    }}
+  ],
+  "good_tracks": ["T3", "T7"],
+  "summary": "short assessment"
+}}
+""".strip()
+
+GEMINI_SYSTEM_V2 = """
+You are a strict judge for generated-video text quality (OCR-based evaluation).
+
+Important scoring rule: ALL scores are integers in the range [0, 100]. This includes overall_text_quality_score and every subscores field. Do NOT output percentages with '%' sign; output plain integers.
+
+Input: prompt text for audio-video generation, and tracked text regions ("text tracks") summarized across frames. Each track includes normalized bbox, duration, confidence stats, and text-change segments.
+
+Task: evaluate VISIBLE on-screen text generation quality (OCR-based).
+
+Additional required output fields (classification; not scores): prompt_requires_visible_text must be true ONLY if the prompt explicitly requires visible on-screen text (e.g., subtitles/captions, title card, on-screen labels, UI text, signs to read), and false if text is not explicitly required. Spoken dialogue/quotes/voiceover do NOT imply visible text unless subtitles/captions are explicitly requested. text_presence must be one of "none", "noise", "incidental", or "required" and must use ONLY the provided track summaries as evidence. "none" means no credible visible text tracks. "noise" means only obvious OCR false positives / noise (e.g.a, single-character like "O/0/I", random fragments from textures/reflections/edges, huge/fullscreen boxes, very short-lived tracks) and no credible readable text. "incidental" means credible readable visible text exists, but the prompt does NOT explicitly require visible text (e.g., natural signs, packaging, UI elements that fit the scene). "required" means credible readable visible text exists AND the prompt explicitly requires visible text. missing_required_text must be true if prompt_requires_visible_text is true but text_presence is "none" or "noise" (i.e., required visible text is missing), and false otherwise. incidental_text_is_contextual must be true or false only when text_presence is "incidental"; set it to true if the incidental text is plausible/contextual and not distracting, false if it is nonsensical/out-of-place, and null if text_presence is "none", "noise", or "required".
+
+Then evaluate visible on-screen text generation quality (OCR-based): legibility/accuracy, temporal stability, spatial stability, completeness, and prompt match only if the prompt explicitly requires visible on-screen text such as subtitles/captions/titles/signs/UI/labels. Do NOT treat spoken dialogue/voiceover/quotes in the prompt as a requirement for on-screen text unless subtitles/captions are explicitly requested. If the prompt does NOT require on-screen text, treat obvious OCR false-positives as noise (e.g., single-character like "O/0/I" caused by circular patterns, reflections, textures, or edges; huge/fullscreen boxes; very short-lived tracks). Do not penalize overall score for such noise; instead report them in issues as false_positive/noise.
+
+Rules: use only the provided track summaries as evidence. Output STRICT JSON only (no markdown, no code fences).
+""".strip()
+
+GEMINI_USER_TEMPLATE_V2 = """
+Prompt text:
+{prompt_text}
+
+Video text tracks JSON:
+{tracks_json}
+
+Return STRICT JSON only. All score fields must be integer 0-100, and confidence must be float 0-1.
+
+{{
+  "prompt_requires_visible_text": false,
+  "text_presence": "none",
+  "missing_required_text": false,
+  "incidental_text_is_contextual": null,
+  "overall_text_quality_score": 0,
+  "subscores": {{
+    "legibility_accuracy": 0,
+    "temporal_stability": 0,
+    "spatial_stability": 0,
+    "completeness": 0,
+    "prompt_text_match": null
+  }},
+  "confidence": 0.0,
+  "top_issues": [
+    {{
+      "track_id": "T1",
+      "issue_type": "flicker|character_drift|bbox_jitter|missing|nonsense_text|low_confidence|false_positive|noise|other",
+      "severity": 1,
+      "evidence": "cite segments and stats from the track"
+    }}
+  ],
+  "good_tracks": ["T3", "T7"],
+  "summary": "short assessment"
+}}
+""".strip()
+
+PROMPT_VARIANTS = {
+    "original": (GEMINI_SYSTEM, GEMINI_USER_TEMPLATE),
+    "v1": (GEMINI_SYSTEM_V1, GEMINI_USER_TEMPLATE_V1),
+    "v2": (GEMINI_SYSTEM_V2, GEMINI_USER_TEMPLATE_V2),
+}
+
+if PROMPT_VARIANT not in PROMPT_VARIANTS:
+    raise ValueError(f"Unsupported OCR_PROMPT_VARIANT: {PROMPT_VARIANT}")
+
 
 
 
@@ -166,6 +346,11 @@ def clamp100(x: Any) -> int:
     except Exception:
         v = 0
     return max(0, min(100, v))
+
+def safe_mean(vals: List[float]) -> Optional[float]:
+    if not vals:
+        return None
+    return float(sum(vals) / len(vals))
 
 def poly_to_aabb(poly: List[List[float]]) -> Tuple[float,float,float,float]:
     xs = [p[0] for p in poly]
@@ -250,33 +435,43 @@ class Track:
 # =========================
 # OCR per frame
 # =========================
-def ocr_frame(frame_img: np.ndarray) -> List[Tuple[List[List[float]], str, float]]:
-    """
-    Returns list of (poly_points, text, conf).
-    Compatible with PaddleOCR predict output variants.
-    """
-    result = OCR_ENGINE.predict(input=frame_img)
+def _parse_ocr_result(res: Any) -> List[Tuple[List[List[float]], str, float]]:
     out = []
 
-    for res in result:
-        # PaddleX style dict
-        if isinstance(res, dict) and "rec_texts" in res and "rec_scores" in res:
-            texts = res.get("rec_texts", [])
-            scores = res.get("rec_scores", [])
-            polys = res.get("dt_polys", []) or []
-            for text, score, poly in zip(texts, scores, polys):
-                poly = poly.tolist() if hasattr(poly, "tolist") else poly
-                out.append((poly, str(text), float(score)))
-        # Older list style [[poly, (text, score)], ...]
-        elif isinstance(res, list):
-            for line in res:
-                poly = line[0]
-                text = line[1][0]
-                score = line[1][1]
-                poly = poly.tolist() if hasattr(poly, "tolist") else poly
-                out.append((poly, str(text), float(score)))
+    # PaddleX style dict
+    if isinstance(res, dict) and "rec_texts" in res and "rec_scores" in res:
+        texts = res.get("rec_texts", [])
+        scores = res.get("rec_scores", [])
+        polys = res.get("dt_polys", []) or []
+        for text, score, poly in zip(texts, scores, polys):
+            poly = poly.tolist() if hasattr(poly, "tolist") else poly
+            out.append((poly, str(text), float(score)))
+    # Older list style [[poly, (text, score)], ...]
+    elif isinstance(res, list):
+        for line in res:
+            poly = line[0]
+            text = line[1][0]
+            score = line[1][1]
+            poly = poly.tolist() if hasattr(poly, "tolist") else poly
+            out.append((poly, str(text), float(score)))
 
     return out
+
+
+def ocr_frames(frame_imgs: List[np.ndarray]) -> List[List[Tuple[List[List[float]], str, float]]]:
+    """
+    Returns one OCR output list per input frame.
+    Uses PaddleOCR batch input when multiple frames are provided.
+    """
+    if not frame_imgs:
+        return []
+    result = OCR_ENGINE.predict(input=frame_imgs)
+    return [_parse_ocr_result(res) for res in result]
+
+
+def ocr_frame(frame_img: np.ndarray) -> List[Tuple[List[List[float]], str, float]]:
+    outs = ocr_frames([frame_img])
+    return outs[0] if outs else []
 
 
 # =========================
@@ -494,14 +689,19 @@ def summarize_tracks(tracks: List[Track]) -> List[Dict[str, Any]]:
 # Gemini judge
 # =========================
 def gemini_judge(prompt_text: str, payload: Dict[str, Any]) -> Dict[str, Any]:
-    model = _get_gemini_model()
-
-    user_text = GEMINI_USER_TEMPLATE.format(
+    system_instruction, user_template = PROMPT_VARIANTS[PROMPT_VARIANT]
+    user_text = user_template.format(
         prompt_text=prompt_text,
         tracks_json=json.dumps(payload, ensure_ascii=False),
     )
-    resp = model.generate_content(user_text, request_options={"timeout": TIMEOUT_S})
-    data = json.loads(_extract_json(resp.text))
+    raw_text = generate_content_text(
+        model_name=MODEL_NAME,
+        user_parts=[user_text],
+        api_key=_get_gemini_api_key(),
+        timeout_s=TIMEOUT_S,
+        system_instruction=system_instruction,
+    )
+    data = json.loads(_extract_json(raw_text))
 
     # ---- NEW: normalize added fields ----
     def to_bool(x, default=False):
@@ -576,15 +776,6 @@ def run(video_path: str, prompt_text: str, out_path: str, payload_path: Optional
         json.dump(result, f, ensure_ascii=False, indent=2)
 
     return result
-
-import os
-import re
-import json
-import csv
-import time
-import argparse
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Tuple
 def _gemini_worker(
     video_path: str,
     video_stem: str,
@@ -625,33 +816,21 @@ def _gemini_worker(
         "video_path": video_path,
         "video_stem": video_stem,
         "overall_text_quality_score": result.get("overall_text_quality_score", ""),
+        "prompt_requires_visible_text": result.get("prompt_requires_visible_text", False),
+        "text_presence": result.get("text_presence", "none"),
+        "missing_required_text": result.get("missing_required_text", False),
+        "incidental_text_is_contextual": result.get("incidental_text_is_contextual", None),
         "legibility_accuracy": subs.get("legibility_accuracy", ""),
         "temporal_stability": subs.get("temporal_stability", ""),
         "spatial_stability": subs.get("spatial_stability", ""),
         "completeness": subs.get("completeness", ""),
         "prompt_text_match": subs.get("prompt_text_match", ""),
         "confidence": result.get("confidence", ""),
+        "summary": result.get("summary", ""),
     }
 
-import threading
-_THREAD_LOCAL = threading.local()
-
-
 def _get_gemini_api_key() -> str:
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        api_key = os.getenv("GOOGLE_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("Missing GEMINI_API_KEY or GOOGLE_API_KEY")
-    return api_key
-
-def _get_gemini_model():
-    m = getattr(_THREAD_LOCAL, "model", None)
-    if m is None:
-        genai.configure(api_key=_get_gemini_api_key())
-        m = genai.GenerativeModel(model_name=MODEL_NAME, system_instruction=GEMINI_SYSTEM)
-        _THREAD_LOCAL.model = m
-    return m
+    return resolve_api_key()
 
 
 # =========================
@@ -692,6 +871,103 @@ def find_mp4s(root: Path) -> List[Path]:
     return sorted(root.rglob("*.mp4"))
 
 
+def rel_folder_key(root: Path, video_path: Path) -> str:
+    try:
+        rel_parent = video_path.parent.relative_to(root)
+        rel_parent_str = str(rel_parent).replace("\\", "/")
+        return rel_parent_str if rel_parent_str else "."
+    except Exception:
+        return video_path.parent.name or "."
+
+
+def build_summary(
+    rows: List[Dict[str, Any]],
+    root: Path,
+    prompts_dir: Path,
+    mp4s: List[Path],
+    planned: List[Tuple[Path, Dict[str, str], Path, Path]],
+    missing_prompt: int,
+    ocr_done: int,
+    ocr_skipped: int,
+    ocr_failed: int,
+    gemini_planned: int,
+    gemini_skipped: int,
+    gemini_failed: int,
+    csv_path: Path,
+    payload_dir: Path,
+    save_json_dir: Path,
+) -> Dict[str, Any]:
+    valid_rows = []
+    for row in rows:
+        score = _to_float_for_summary(row.get("overall_text_quality_score"))
+        if score is None:
+            continue
+        valid_rows.append((row, score))
+
+    def is_summary_eligible(row: Dict[str, Any]) -> bool:
+        prompt_requires = bool(row.get("prompt_requires_visible_text", False))
+        text_presence = str(row.get("text_presence", "none") or "none").strip().lower()
+        return prompt_requires or text_presence == "incidental"
+
+    eligible_rows = [(row, score) for row, score in valid_rows if is_summary_eligible(row)]
+
+    folder_scores: Dict[str, List[float]] = {}
+    for row, score in eligible_rows:
+        folder = str(row.get("folder", ".") or ".")
+        folder_scores.setdefault(folder, []).append(score)
+
+    by_folder = {}
+    for folder, scores in sorted(folder_scores.items(), key=lambda x: x[0]):
+        by_folder[folder] = {
+            "n": len(scores),
+            "mean_score": safe_mean(scores),
+        }
+
+    text_presence_counts: Dict[str, int] = {}
+    for row, _ in valid_rows:
+        key = str(row.get("text_presence", "unknown"))
+        text_presence_counts[key] = text_presence_counts.get(key, 0) + 1
+
+    return {
+        "videos_root": str(root),
+        "prompts_dir": str(prompts_dir),
+        "count_total_videos_found": len(mp4s),
+        "count_with_prompt": len(planned),
+        "count_missing_prompt": missing_prompt,
+        "count_scored": len(valid_rows),
+        "count_eligible_for_summary": len(eligible_rows),
+        "mean_score": safe_mean([score for _, score in eligible_rows]),
+        "avg_score": safe_mean([score for _, score in eligible_rows]),
+        "ocr_stage": {
+            "done": ocr_done,
+            "skipped_existing": ocr_skipped,
+            "failed_or_missing": ocr_failed,
+        },
+        "gemini_stage": {
+            "planned": gemini_planned,
+            "skipped_existing": gemini_skipped,
+            "failed": gemini_failed,
+        },
+        "text_presence_counts": text_presence_counts,
+        "summary_inclusion_rule": "include sample if prompt_requires_visible_text == true or text_presence == 'incidental'",
+        "by_folder": by_folder,
+        "artifacts": {
+            "results_csv": str(csv_path),
+            "payload_dir": str(payload_dir),
+            "result_json_dir": str(save_json_dir),
+        },
+    }
+
+
+def _to_float_for_summary(x: Any) -> Optional[float]:
+    try:
+        if x is None or str(x).strip() == "":
+            return None
+        return float(x)
+    except Exception:
+        return None
+
+
 def run_ocr_only(video_path: str, out_payload_path: str) -> Dict[str, Any]:
     """
     Run OCR+merge+track+summarize only.
@@ -712,6 +988,52 @@ def run_ocr_only(video_path: str, out_payload_path: str) -> Dict[str, Any]:
     dets_all: List[Det] = []
     frame_idx = 0
     processed = 0
+    pending_frames: List[np.ndarray] = []
+    pending_meta: List[Tuple[int, float]] = []
+
+    def flush_pending() -> None:
+        if not pending_frames:
+            return
+
+        try:
+            batch_outs = ocr_frames(pending_frames)
+        except Exception:
+            batch_outs = []
+            for frame in pending_frames:
+                try:
+                    batch_outs.append(ocr_frame(frame))
+                except Exception:
+                    batch_outs.append([])
+
+        for (sampled_frame_idx, sampled_t), ocr_out in zip(pending_meta, batch_outs):
+            frame_dets: List[Det] = []
+            for poly, text, conf in ocr_out:
+                try:
+                    conf = float(conf)
+                    if conf < MIN_OCR_CONF:
+                        continue
+                    poly = [[float(p[0]), float(p[1])] for p in poly]
+                    aabb = poly_to_aabb(poly)
+                    aabb_n = normalize_aabb(aabb, w, h)
+                    frame_dets.append(
+                        Det(
+                            frame=sampled_frame_idx,
+                            t=sampled_t,
+                            text=str(text),
+                            conf=conf,
+                            poly=poly,
+                            aabb=aabb,
+                            aabb_norm=aabb_n,
+                        )
+                    )
+                except Exception:
+                    continue
+
+            frame_merged = merge_dets_in_frame(frame_dets)
+            dets_all.extend(frame_merged)
+
+        pending_frames.clear()
+        pending_meta.clear()
 
     while True:
         ret, frame = cap.read()
@@ -728,35 +1050,15 @@ def run_ocr_only(video_path: str, out_payload_path: str) -> Dict[str, Any]:
             continue
 
         t = frame_idx / fps if fps > 0 else 0.0
-
-        try:
-            ocr_out = ocr_frame(frame)
-        except Exception:
-            frame_idx += 1
-            processed += 1
-            continue
-
-        frame_dets: List[Det] = []
-        for poly, text, conf in ocr_out:
-            try:
-                conf = float(conf)
-                if conf < MIN_OCR_CONF:
-                    continue
-                poly = [[float(p[0]), float(p[1])] for p in poly]
-                aabb = poly_to_aabb(poly)
-                aabb_n = normalize_aabb(aabb, w, h)
-                frame_dets.append(
-                    Det(frame=frame_idx, t=t, text=str(text), conf=conf,
-                        poly=poly, aabb=aabb, aabb_norm=aabb_n)
-                )
-            except Exception:
-                continue
-
-        frame_merged = merge_dets_in_frame(frame_dets)
-        dets_all.extend(frame_merged)
+        pending_frames.append(frame)
+        pending_meta.append((frame_idx, t))
 
         frame_idx += 1
         processed += 1
+        if len(pending_frames) >= OCR_BATCH_SIZE:
+            flush_pending()
+
+    flush_pending()
 
     cap.release()
 
@@ -814,6 +1116,10 @@ def main():
     ap.add_argument("--out_dir", default="outputs_text_quality_batch", help="output directory")
     ap.add_argument("--save_csv", default="results_text_quality.csv",
                     help="per-video CSV path (relative to out_dir unless absolute)")
+    ap.add_argument("--save_summary_csv", default="summary.csv",
+                    help="summary CSV path (relative to out_dir unless absolute)")
+    ap.add_argument("--save_summary_json", default="summary.json",
+                    help="summary JSON path (relative to out_dir unless absolute)")
     ap.add_argument("--save_json_dir", default="per_video_json",
                     help="dir to save per-video detailed json (inside out_dir)")
     ap.add_argument("--payload_dir", default="payload_json",
@@ -852,6 +1158,16 @@ def main():
     if not csv_path.is_absolute():
         csv_path = out_dir / csv_path
     csv_path.parent.mkdir(parents=True, exist_ok=True)
+
+    summary_csv_path = Path(args.save_summary_csv)
+    if not summary_csv_path.is_absolute():
+        summary_csv_path = out_dir / summary_csv_path
+    summary_csv_path.parent.mkdir(parents=True, exist_ok=True)
+
+    summary_json_path = Path(args.save_summary_json)
+    if not summary_json_path.is_absolute():
+        summary_json_path = out_dir / summary_json_path
+    summary_json_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Load prompts and discover videos
     prompt_map = load_prompts(prompts_dir, max_len=args.safe_max_len)
@@ -949,6 +1265,7 @@ def main():
         if not payload_path.exists():
             # OCR failed/missing
             rows.append({
+                "folder": rel_folder_key(root, vp),
                 "video_path": str(vp),
                 "video_stem": vp.stem,
                 "content": meta["content"],
@@ -980,6 +1297,7 @@ def main():
                 # attach prompt metadata for CSV
                 # We need to find meta again: simplest is to use prompt_map with video_stem
                 meta2 = prompt_map.get(row.get("video_stem", ""), {})
+                row["folder"] = rel_folder_key(root, Path(row["video_path"]))
                 row["content"] = meta2.get("content", "")
                 row["prompt_source"] = meta2.get("source", "")
                 rows.append(row)
@@ -999,10 +1317,15 @@ def main():
                 j = json.loads(out_json.read_text(encoding="utf-8"))
                 subs = j.get("subscores") or {}
                 rows.append({
+                    "folder": rel_folder_key(root, vp),
                     "video_path": str(vp),
                     "video_stem": vp.stem,
                     "content": meta["content"],
                     "prompt_source": meta["source"],
+                    "prompt_requires_visible_text": j.get("prompt_requires_visible_text", False),
+                    "text_presence": j.get("text_presence", "none"),
+                    "missing_required_text": j.get("missing_required_text", False),
+                    "incidental_text_is_contextual": j.get("incidental_text_is_contextual", None),
                     "overall_text_quality_score": j.get("overall_text_quality_score", ""),
                     "legibility_accuracy": subs.get("legibility_accuracy", ""),
                     "temporal_stability": subs.get("temporal_stability", ""),
@@ -1010,6 +1333,7 @@ def main():
                     "completeness": subs.get("completeness", ""),
                     "prompt_text_match": subs.get("prompt_text_match", ""),
                     "confidence": j.get("confidence", ""),
+                    "summary": j.get("summary", ""),
                 })
             except Exception:
                 pass
@@ -1022,11 +1346,51 @@ def main():
             w.writeheader()
             w.writerows(rows)
 
+    summary = build_summary(
+        rows=rows,
+        root=root,
+        prompts_dir=prompts_dir,
+        mp4s=mp4s,
+        planned=planned,
+        missing_prompt=missing_prompt,
+        ocr_done=ocr_done,
+        ocr_skipped=ocr_skipped,
+        ocr_failed=ocr_failed,
+        gemini_planned=gemini_planned,
+        gemini_skipped=gemini_skipped,
+        gemini_failed=gemini_failed,
+        csv_path=csv_path,
+        payload_dir=payload_dir,
+        save_json_dir=save_json_dir,
+    )
+
+    with summary_json_path.open("w", encoding="utf-8") as f:
+        json.dump(summary, f, ensure_ascii=False, indent=2)
+
+    summary_rows = []
+    for folder, stats in sorted(summary.get("by_folder", {}).items(), key=lambda x: x[0]):
+        summary_rows.append({
+            "folder": folder,
+            "n": stats.get("n", 0),
+            "mean_score": stats.get("mean_score", ""),
+        })
+    summary_rows.append({
+        "folder": "__ALL__",
+        "n": summary.get("count_eligible_for_summary", 0),
+        "mean_score": summary.get("mean_score", ""),
+    })
+    with summary_csv_path.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=["folder", "n", "mean_score"])
+        w.writeheader()
+        w.writerows(summary_rows)
+
     print(
         f"Done. videos={len(mp4s)}, with_prompt={len(planned)}, missing_prompt={missing_prompt}\n"
         f"OCR: done={ocr_done}, skipped_existing={ocr_skipped}, failed/missing={ocr_failed}\n"
         f"Gemini: planned={gemini_planned}, skipped_existing={gemini_skipped}, failed={gemini_failed}\n"
         f"Saved CSV: {csv_path}\n"
+        f"Saved summary CSV: {summary_csv_path}\n"
+        f"Saved summary JSON: {summary_json_path}\n"
         f"Payload dir: {payload_dir}\n"
         f"Result json dir: {save_json_dir}"
     )

@@ -27,7 +27,7 @@ def evaluate_video_with_official_api(video_path):
         print(f"Error: {e}")
 
 # --- Example usage ---
-my_video_path = "/path/to/video_generation/ovi/ads/Do you know what customers are saying about you_ (Anonymized).mp4"
+my_video_path = "/home/v-wangrui5/AVGen-Bench-Videos/LTX-2/ads/Caucus on Super Tuesday _ Political Candidate Ad (Anonymized).mp4"
 
 # If the sample video is unavailable, use your own local file.
 # my_video_path = "your_local_video.mp4"

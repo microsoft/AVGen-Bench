@@ -3,6 +3,7 @@ import os
 import re
 import json
 import hashlib
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -10,9 +11,14 @@ import numpy as np
 import librosa
 from moviepy.editor import VideoFileClip
 
-import google.generativeai as genai
 from basic_pitch.inference import predict_and_save
 import basic_pitch
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from dmx_gemini_client import generate_content_text, resolve_api_key
 
 
 # =========================
@@ -20,6 +26,7 @@ import basic_pitch
 # =========================
 MODEL_NAME = "gemini-3-flash-preview" 
 DEFAULT_TIMEOUT_S = int(os.getenv("GEMINI_TIMEOUT_S", "180"))
+PROMPT_VARIANT = os.getenv("MUSIC_PROMPT_VARIANT", "original").strip().lower()
 
 TEMP_DIR = Path(os.getenv("MUSIC_TEMP_DIR", "./temp_music_analysis"))
 TEMP_DIR.mkdir(parents=True, exist_ok=True)
@@ -29,12 +36,7 @@ CHORD_ONSET_WINDOW_S = float(os.getenv("MUSIC_CHORD_ONSET_WINDOW_S", "0.08"))  #
 
 
 def _get_gemini_api_key() -> str:
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        api_key = os.getenv("GOOGLE_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("Missing GEMINI_API_KEY env var. Please: export GEMINI_API_KEY='...'")
-    return api_key
+    return resolve_api_key()
 
 
 # =========================
@@ -193,6 +195,280 @@ Output STRICT JSON:
   "summary": "short assessment"
 }}
 """.strip()
+
+PROMPT_TO_CONSTRAINTS_SYSTEM_V1 = """
+You are a strict benchmark judge for music-generation compliance.
+
+## Your first job
+Decide whether MIDI-based evaluation is appropriate at all.
+
+MIDI-based evaluation is appropriate ONLY when the prompt contains explicit, testable musical note/chord/scale constraints
+(e.g., named notes like C4, pitch classes like C major, chord names like Am7, scale degrees/solfege, short note sequences),
+AND the described sound source is reasonably "midi-transcribable" with Basic Pitch (monophonic/clear pitched instruments).
+
+Do NOT use MIDI evaluation when:
+- The prompt contains no explicit notes/chords/scales (e.g., "nice music", "beautiful melody", "upbeat song", "jazzy vibe").
+- The prompt is mainly about rhythm/genre/tempo/mood without pitch constraints.
+- The prompt is mainly about instruments that are hard to reliably transcribe to MIDI here, especially: bowed strings (violin/viola/cello/double bass), vocal singing/choir, or complex ensembles/orchestras.
+- The prompt asks for sound design / SFX / drums-only / noise / ambience.
+
+If MIDI evaluation is not appropriate, output should_midi_eval=false with a short reason, and keep constraints minimal (task_type="unknown").
+
+If MIDI evaluation IS appropriate, extract ONLY testable constraints that can be verified from:
+- A raw list of detected MIDI note events: (time_seconds, duration_seconds, note_name_with_octave, midi_number)
+- Derived chord frames built by grouping near-simultaneous note onsets
+
+Important:
+- The transcription may contain noise/extra notes. Be robust: allow tolerance unless the prompt demands strictness.
+- Treat octave as strict ONLY if the prompt explicitly mentions an octave (e.g., C4) or says "one octave starting at ...".
+
+Output STRICT JSON only. No markdown, no code fences, no extra text.
+""".strip()
+
+PROMPT_TO_CONSTRAINTS_USER_V1 = """
+## From PROMPT_TEXT, output STRICT JSON
+{
+  "prompt_text": "...",
+  "should_midi_eval": true,
+  "skip_reason": null,
+  "instrument_family": "keyboard|guitar|bass|wind|brass|mallet|synth|drums|voice|bowed_strings|ensemble|unknown",
+  "task_type": "single_chord|chord_progression|note_sequence|scale|mixed|unknown",
+  "octave_strict": false,
+  "constraints": {
+    "expected_chord": null,
+    "expected_chord_quality": null,
+    "expected_pitch_classes_in_chord": [],
+    "expected_scale": null,
+    "expected_pitch_class_sequence": [],
+    "expected_note_sequence": [],
+    "tolerance": {
+      "allow_extra_notes": true,
+      "allow_inversions": true,
+      "match_by_pitch_class": true,
+      "required_pc_coverage": 1.0,
+      "max_extra_pcs_in_chord": 3
+    }
+  }
+}
+
+## Decision rules (IMPORTANT)
+1. Set should_midi_eval=false if PROMPT_TEXT lacks explicit note/chord/scale constraints.
+2. Set should_midi_eval=false if instrument_family is voice, bowed_strings, or ensemble (strings/orchestra/choir etc.).
+3. If should_midi_eval=false:
+   - set skip_reason to a short string (e.g., "no explicit notes/chords/scales" or "bowed strings not evaluated")
+   - set task_type="unknown"
+   - keep constraints minimal (mostly null/empty)
+4. Only extract what is explicitly required by the prompt.
+5. Do NOT require exact voicing/octave unless specified.
+
+PROMPT_TEXT:
+""".strip()
+
+RAW_EVENTS_VALIDATE_SYSTEM_V1 = """
+You are a strict, evidence-based music judge.
+
+## Inputs
+- Original prompt text
+- Extracted constraints JSON
+- RAW MIDI note events (may include noise)
+- Derived chord frames (grouped by onset proximity)
+
+## Task
+Determine if the music content matches the prompt (e.g., C major chord, 5-note ascending scale).
+
+## Scoring (IMPORTANT)
+- overall_score is an INTEGER from 0 to 100 (full score = 100).
+- 100 means all applicable extracted constraints are satisfied with strong evidence.
+- 0 means clearly not satisfied or no usable evidence.
+- If constraints are partially satisfied, assign an intermediate score proportional to compliance.
+- If the provided constraints_json indicates skipping (e.g., should_midi_eval=false or skipped=true), still output JSON and set:
+  overall_score = 0, confidence = 0, and add a check explaining it was skipped.
+
+You MUST:
+1. Use chord frames to judge chord claims (major/minor/etc.) primarily by pitch class set, allowing inversions unless disallowed.
+2. Use raw events to judge sequences/scales, but be robust to noise: focus on dominant/most plausible structure.
+3. Produce checks and violations with evidence grounded in the provided data.
+4. Output overall_score (0-100, full score=100) and confidence (0-1).
+
+## Rules
+- Use ONLY the provided data as evidence.
+- If multiple plausible interpretations exist due to noise, choose the best-supported one and lower confidence.
+- Output STRICT JSON only. No markdown, no code fences, no extra text.
+""".strip()
+
+RAW_EVENTS_VALIDATE_USER_TEMPLATE_V1 = """
+## PROMPT_TEXT
+{prompt_text}
+
+## CONSTRAINTS_JSON
+{constraints_json}
+
+## RAW_NOTE_EVENTS_JSON (truncated)
+{raw_events_json}
+
+## CHORD_FRAMES_JSON
+{chord_frames_json}
+
+## Output STRICT JSON
+{{
+  "overall_score": 0,
+  "confidence": 0.0,
+  "subscores": {{
+    "chord": null,
+    "sequence_or_scale": null
+  }},
+  "interpretation": {{
+    "best_chord_frame": null,
+    "best_chord_pitch_classes": [],
+    "best_sequence_pitch_classes": [],
+    "notes_used_as_evidence": []
+  }},
+  "checks": [
+    {{
+      "id": "C1",
+      "aspect": "chord|scale|sequence|other",
+      "status": "match|mismatch|missing|uncertain",
+      "severity": 1,
+      "evidence": "specific event/frame evidence"
+    }}
+  ],
+  "violations": [
+    {{
+      "type": "wrong_chord|missing_chord_tones|too_many_extra_tones|wrong_scale|wrong_direction|wrong_order|missing_notes|noisy_transcription|other",
+      "severity": 1,
+      "evidence": "specific evidence"
+    }}
+  ],
+  "summary": "brief assessment"
+}}
+""".strip()
+
+PROMPT_TO_CONSTRAINTS_SYSTEM_V2 = """
+You are a strict benchmark judge for music-generation compliance.
+
+Your first job is to decide whether MIDI-based evaluation is appropriate at all.
+
+MIDI-based evaluation is appropriate ONLY when the prompt contains explicit, testable musical note/chord/scale constraints (e.g., named notes like C4, pitch classes like C major, chord names like Am7, scale degrees/solfege, short note sequences), AND the described sound source is reasonably "midi-transcribable" with Basic Pitch (monophonic/clear pitched instruments).
+
+Do NOT use MIDI evaluation when the prompt contains no explicit notes/chords/scales, when it is mainly about rhythm/genre/tempo/mood without pitch constraints, when it is mainly about instruments that are hard to reliably transcribe to MIDI here such as bowed strings, vocal singing/choir, or complex ensembles/orchestras, or when it asks for sound design, SFX, drums-only, noise, or ambience.
+
+If MIDI evaluation is not appropriate, output should_midi_eval=false with a short reason, and keep constraints minimal with task_type="unknown". If MIDI evaluation IS appropriate, extract ONLY testable constraints that can be verified from a raw list of detected MIDI note events and derived chord frames built by grouping near-simultaneous note onsets.
+
+Important: the transcription may contain noise/extra notes, so be robust and allow tolerance unless the prompt demands strictness. Treat octave as strict ONLY if the prompt explicitly mentions an octave, such as C4, or says "one octave starting at ...".
+
+Output STRICT JSON only. No markdown, no code fences, no extra text.
+""".strip()
+
+PROMPT_TO_CONSTRAINTS_USER_V2 = """
+From PROMPT_TEXT, output STRICT JSON:
+{
+  "prompt_text": "...",
+  "should_midi_eval": true,
+  "skip_reason": null,
+  "instrument_family": "keyboard|guitar|bass|wind|brass|mallet|synth|drums|voice|bowed_strings|ensemble|unknown",
+  "task_type": "single_chord|chord_progression|note_sequence|scale|mixed|unknown",
+  "octave_strict": false,
+  "constraints": {
+    "expected_chord": null,
+    "expected_chord_quality": null,
+    "expected_pitch_classes_in_chord": [],
+    "expected_scale": null,
+    "expected_pitch_class_sequence": [],
+    "expected_note_sequence": [],
+    "tolerance": {
+      "allow_extra_notes": true,
+      "allow_inversions": true,
+      "match_by_pitch_class": true,
+      "required_pc_coverage": 1.0,
+      "max_extra_pcs_in_chord": 3
+    }
+  }
+}
+
+Decision rules (IMPORTANT):
+1) Set should_midi_eval=false if PROMPT_TEXT lacks explicit note/chord/scale constraints.
+2) Set should_midi_eval=false if instrument_family is voice, bowed_strings, or ensemble (strings/orchestra/choir etc.).
+3) If should_midi_eval=false:
+   - set skip_reason to a short string (e.g., "no explicit notes/chords/scales" or "bowed strings not evaluated")
+   - set task_type="unknown"
+   - keep constraints minimal (mostly null/empty)
+4) Only extract what is explicitly required by the prompt.
+5) Do NOT require exact voicing/octave unless specified.
+
+PROMPT_TEXT:
+""".strip()
+
+RAW_EVENTS_VALIDATE_SYSTEM_V2 = """
+You are a strict, evidence-based music judge.
+
+Inputs: original prompt text, extracted constraints JSON, raw MIDI note events that may include noise, and derived chord frames grouped by onset proximity.
+
+Task: determine if the music content matches the prompt, for example C major chord or a 5-note ascending scale.
+
+Scoring (IMPORTANT): overall_score is an INTEGER from 0 to 100, with full score = 100. 100 means all applicable extracted constraints are satisfied with strong evidence. 0 means clearly not satisfied or no usable evidence. If constraints are partially satisfied, assign an intermediate score proportional to compliance. If the provided constraints_json indicates skipping, such as should_midi_eval=false or skipped=true, still output JSON and set overall_score = 0, confidence = 0, and add a check explaining it was skipped.
+
+You MUST use chord frames to judge chord claims primarily by pitch class set while allowing inversions unless disallowed, use raw events to judge sequences/scales while being robust to noise and focusing on the dominant or most plausible structure, produce checks and violations with evidence grounded in the provided data, and output overall_score (0-100, full score=100) plus confidence (0-1).
+
+Rules: use ONLY the provided data as evidence. If multiple plausible interpretations exist due to noise, choose the best-supported one and lower confidence. Output STRICT JSON only. No markdown, no code fences, no extra text.
+""".strip()
+
+RAW_EVENTS_VALIDATE_USER_TEMPLATE_V2 = """
+PROMPT_TEXT:
+{prompt_text}
+
+CONSTRAINTS_JSON:
+{constraints_json}
+
+RAW_NOTE_EVENTS_JSON:
+{raw_events_json}
+
+CHORD_FRAMES_JSON:
+{chord_frames_json}
+
+Output STRICT JSON:
+{{
+  "overall_score": 0,
+  "confidence": 0.0,
+  "subscores": {{"chord": null, "sequence_or_scale": null}},
+  "interpretation": {{
+    "best_chord_frame": null,
+    "best_chord_pitch_classes": [],
+    "best_sequence_pitch_classes": [],
+    "notes_used_as_evidence": []
+  }},
+  "checks": [
+    {{"id": "C1", "aspect": "chord|scale|sequence|other", "status": "match|mismatch|missing|uncertain", "severity": 1, "evidence": "grounded evidence"}}
+  ],
+  "violations": [
+    {{"type": "wrong_chord|missing_chord_tones|too_many_extra_tones|wrong_scale|wrong_direction|wrong_order|missing_notes|noisy_transcription|other", "severity": 1, "evidence": "grounded evidence"}}
+  ],
+  "summary": "short judgment"
+}}
+""".strip()
+
+PROMPT_VARIANTS = {
+    "original": {
+        "stage1_system": PROMPT_TO_CONSTRAINTS_SYSTEM,
+        "stage1_user": PROMPT_TO_CONSTRAINTS_USER,
+        "stage2_system": RAW_EVENTS_VALIDATE_SYSTEM,
+        "stage2_user": RAW_EVENTS_VALIDATE_USER_TEMPLATE,
+    },
+    "v1": {
+        "stage1_system": PROMPT_TO_CONSTRAINTS_SYSTEM_V1,
+        "stage1_user": PROMPT_TO_CONSTRAINTS_USER_V1,
+        "stage2_system": RAW_EVENTS_VALIDATE_SYSTEM_V1,
+        "stage2_user": RAW_EVENTS_VALIDATE_USER_TEMPLATE_V1,
+    },
+    "v2": {
+        "stage1_system": PROMPT_TO_CONSTRAINTS_SYSTEM_V2,
+        "stage1_user": PROMPT_TO_CONSTRAINTS_USER_V2,
+        "stage2_system": RAW_EVENTS_VALIDATE_SYSTEM_V2,
+        "stage2_user": RAW_EVENTS_VALIDATE_USER_TEMPLATE_V2,
+    },
+}
+
+if PROMPT_VARIANT not in PROMPT_VARIANTS:
+    raise ValueError(f"Unsupported MUSIC_PROMPT_VARIANT: {PROMPT_VARIANT}")
 
 
 # =========================
@@ -390,10 +666,15 @@ def build_chord_frames(events: List[Dict[str, Any]], onset_window_s: float = CHO
 # Gemini stage 1 & 2
 # =========================
 def gemini_extract_constraints(prompt_text: str, timeout_s: int = DEFAULT_TIMEOUT_S) -> Dict[str, Any]:
-    genai.configure(api_key=_get_gemini_api_key())
-    model = genai.GenerativeModel(model_name=MODEL_NAME, system_instruction=PROMPT_TO_CONSTRAINTS_SYSTEM)
-    resp = model.generate_content(PROMPT_TO_CONSTRAINTS_USER + prompt_text, request_options={"timeout": timeout_s})
-    constraints_obj = json.loads(_extract_json(resp.text))
+    prompts = PROMPT_VARIANTS[PROMPT_VARIANT]
+    raw_text = generate_content_text(
+        model_name=MODEL_NAME,
+        user_parts=[prompts["stage1_user"] + prompt_text],
+        api_key=_get_gemini_api_key(),
+        timeout_s=timeout_s,
+        system_instruction=prompts["stage1_system"],
+    )
+    constraints_obj = json.loads(_extract_json(raw_text))
 
     if not constraints_obj.get("should_midi_eval", True):
         # Skip Basic Pitch / MIDI / stage-2 evaluation directly.
@@ -404,23 +685,27 @@ def gemini_extract_constraints(prompt_text: str, timeout_s: int = DEFAULT_TIMEOU
             "constraints": constraints_obj,
         }
 
-    return json.loads(_extract_json(resp.text))
+    return json.loads(_extract_json(raw_text))
 
 
 def gemini_validate(prompt_text: str, constraints: Dict[str, Any],
                     raw_events: List[Dict[str, Any]], chord_frames: List[Dict[str, Any]],
                     timeout_s: int = DEFAULT_TIMEOUT_S) -> Dict[str, Any]:
-    genai.configure(api_key=_get_gemini_api_key())
-    model = genai.GenerativeModel(model_name=MODEL_NAME, system_instruction=RAW_EVENTS_VALIDATE_SYSTEM)
-
-    user_text = RAW_EVENTS_VALIDATE_USER_TEMPLATE.format(
+    prompts = PROMPT_VARIANTS[PROMPT_VARIANT]
+    user_text = prompts["stage2_user"].format(
         prompt_text=prompt_text,
         constraints_json=json.dumps(constraints, ensure_ascii=False),
         raw_events_json=json.dumps(raw_events[:MAX_EVENTS_TO_SEND], ensure_ascii=False),
         chord_frames_json=json.dumps(chord_frames, ensure_ascii=False),
     )
-    resp = model.generate_content(user_text, request_options={"timeout": timeout_s})
-    data = json.loads(_extract_json(resp.text))
+    raw_text = generate_content_text(
+        model_name=MODEL_NAME,
+        user_parts=[user_text],
+        api_key=_get_gemini_api_key(),
+        timeout_s=timeout_s,
+        system_instruction=prompts["stage2_system"],
+    )
+    data = json.loads(_extract_json(raw_text))
     data["overall_score"] = _clamp_int_0_100(data.get("overall_score", 0))
     data["confidence"] = _clamp_float_0_1(data.get("confidence", 0.0))
     return data

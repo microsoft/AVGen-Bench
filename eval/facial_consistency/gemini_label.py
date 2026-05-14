@@ -3,21 +3,24 @@ import json
 import time
 import glob
 import random
+import sys
+from pathlib import Path
 from typing import Dict, Any, List, Tuple, Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-import google.generativeai as genai
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from dmx_gemini_client import generate_content_text, resolve_api_key
 
 MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-3-flash-preview")
+PROMPT_VARIANT = os.getenv("FACIAL_PROMPT_VARIANT", "original").strip().lower()
+REQUEST_TIMEOUT_S = int(os.getenv("FACIAL_GEMINI_TIMEOUT_S", "300"))
 
 
 def _get_gemini_api_key() -> str:
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        api_key = os.getenv("GOOGLE_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("GEMINI_API_KEY / GOOGLE_API_KEY is empty. Please export one of them.")
-    return api_key
+    return resolve_api_key()
 
 FACESPEC_INSTRUCTION = r"""
 You are an evaluation analyst for text-to-video prompts.
@@ -64,6 +67,98 @@ Rules:
 - Keep rationale concise.
 """.strip()
 
+FACESPEC_INSTRUCTION_V1 = r"""
+You are an evaluation analyst for text-to-video prompts.
+
+## Task
+Infer the EXPECTED NUMBER OF PRIMARY ON-SCREEN HUMAN FACIAL IDENTITIES from the prompt text.
+
+## Definitions
+- "Primary characters" are the main narrative actors explicitly described with actions, dialogue, close-ups, or repeated focus.
+- Count DISTINCT human facial identities for primary characters only.
+- Ignore background bystanders/crowds unless a specific person is singled out as a main actor.
+- If the prompt implies many people (crowds, groups, soldiers), set crowd_possible=true but do NOT count them as primary unless clearly highlighted.
+- If faces could appear as graphics/posters/screens/logos/masks, set non_human_or_graphic_face_possible=true.
+- If there are NO humans or faces, min_ids=max_ids=0.
+
+## Output STRICT JSON ONLY
+No markdown, no code fences.
+
+Use this schema:
+{
+  "primary_faces": {
+    "min_ids": integer,
+    "max_ids": integer,
+    "confidence": number,
+    "rationale": string,
+    "likely_on_screen": boolean,
+    "crowd_possible": boolean,
+    "non_human_or_graphic_face_possible": boolean
+  },
+  "primary_characters": [
+    {
+      "name": string,
+      "type": "human" | "nonhuman" | "unknown",
+      "count": integer,
+      "face_visibility": "likely" | "possible" | "unlikely",
+      "notes": string
+    }
+  ],
+  "constraints": {
+    "ignore_background_bystanders": true,
+    "ignore_posters_screens_faces": true
+  }
+}
+
+## Rules
+- min_ids <= max_ids
+- confidence in [0,1]
+- Keep rationale concise.
+""".strip()
+
+FACESPEC_INSTRUCTION_V2 = r"""
+You are an evaluation analyst for text-to-video prompts. Infer the EXPECTED NUMBER OF PRIMARY ON-SCREEN HUMAN FACIAL IDENTITIES from the prompt text.
+
+Definitions: "Primary characters" are the main narrative actors explicitly described with actions, dialogue, close-ups, or repeated focus. Count DISTINCT human facial identities for primary characters only. Ignore background bystanders/crowds unless a specific person is singled out as a main actor. If the prompt implies many people such as crowds, groups, or soldiers, set crowd_possible=true but do NOT count them as primary unless clearly highlighted. If faces could appear as graphics, posters, screens, logos, or masks, set non_human_or_graphic_face_possible=true. If there are NO humans or faces, min_ids=max_ids=0.
+
+Return STRICT JSON ONLY, with no markdown and no code fences, matching this schema:
+{
+  "primary_faces": {
+    "min_ids": integer,
+    "max_ids": integer,
+    "confidence": number,
+    "rationale": string,
+    "likely_on_screen": boolean,
+    "crowd_possible": boolean,
+    "non_human_or_graphic_face_possible": boolean
+  },
+  "primary_characters": [
+    {
+      "name": string,
+      "type": "human" | "nonhuman" | "unknown",
+      "count": integer,
+      "face_visibility": "likely" | "possible" | "unlikely",
+      "notes": string
+    }
+  ],
+  "constraints": {
+    "ignore_background_bystanders": true,
+    "ignore_posters_screens_faces": true
+  }
+}
+
+Rules: min_ids <= max_ids. confidence in [0,1]. Keep rationale concise.
+""".strip()
+
+FACESPEC_PROMPTS = {
+    "original": FACESPEC_INSTRUCTION,
+    "v1": FACESPEC_INSTRUCTION_V1,
+    "v2": FACESPEC_INSTRUCTION_V2,
+}
+
+if PROMPT_VARIANT not in FACESPEC_PROMPTS:
+    raise ValueError(f"Unsupported FACIAL_PROMPT_VARIANT: {PROMPT_VARIANT}")
+
 
 def _strip_code_fences(text: str) -> str:
     t = (text or "").strip()
@@ -94,13 +189,15 @@ def ensure_int_range(spec: Dict[str, Any]) -> Dict[str, Any]:
     return spec
 
 
-def gemini_analyze_prompt(prompt_text: str, model) -> Dict[str, Any]:
+def gemini_analyze_prompt(prompt_text: str, timeout_s: int = REQUEST_TIMEOUT_S) -> Dict[str, Any]:
     user = f"PROMPT:\n{prompt_text}\n"
-    resp = model.generate_content(
-        [FACESPEC_INSTRUCTION, user],
-        request_options={"timeout": 120},
+    out = generate_content_text(
+        model_name=MODEL_NAME,
+        user_parts=[FACESPEC_PROMPTS[PROMPT_VARIANT], user],
+        api_key=_get_gemini_api_key(),
+        timeout_s=timeout_s,
     )
-    out = _strip_code_fences(resp.text)
+    out = _strip_code_fences(out)
     return ensure_int_range(json.loads(out))
 
 
@@ -153,13 +250,12 @@ def analyze_one(
     max_retries: int,
 ) -> Tuple[int, Dict[str, Any]]:
     """
-    Worker task. Creates its own model instance to reduce shared-state issues.
+    Worker task. Each call performs its own DMX request.
     """
-    model = genai.GenerativeModel(model_name=MODEL_NAME)
     last_err = None
     for attempt in range(max_retries):
         try:
-            spec = gemini_analyze_prompt(prompt, model)
+            spec = gemini_analyze_prompt(prompt)
             merged = {"content": content, "prompt": prompt, **spec}
             return idx, merged
         except Exception as e:
@@ -176,7 +272,7 @@ def batch_analyze_prompts_parallel(
     max_workers: int = 6,
     max_retries: int = 4,
 ):
-    genai.configure(api_key=_get_gemini_api_key())
+    _get_gemini_api_key()
 
     files = sorted(glob.glob(os.path.join(prompts_dir, "*.json")))
     if not files:

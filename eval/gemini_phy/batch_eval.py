@@ -8,17 +8,23 @@ import json
 import csv
 import hashlib
 import argparse
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, DefaultDict
 from collections import defaultdict
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
-import google.generativeai as genai
-
 try:
     from filelock import FileLock
 except Exception:
     FileLock = None  # will fallback to no-lock mode (not recommended)
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from dmx_gemini_client import generate_content_text, inline_file_part, resolve_api_key
 
 
 TEXT_TO_EXPECTATIONS_SYSTEM = """
@@ -178,6 +184,296 @@ Constraints:
 
 MODEL_NAME_DEFAULT = "gemini-3-flash-preview"
 DEFAULT_TIMEOUT_S = int(os.getenv("GEMINI_TIMEOUT_S", "900"))
+PROMPT_VARIANT = os.getenv("GEMINI_PHY_PROMPT_VARIANT", "original").strip().lower()
+
+TEXT_TO_EXPECTATIONS_SYSTEM_V1 = """
+You are a benchmark judge. Extract ONLY observable, testable expectations from a given generation prompt.
+
+## Focus
+Focus on semantic/world-knowledge physical correctness: what a viewer should be able to see/hear if the prompt is followed.
+
+## Rules
+- Produce expectations that are directly observable in the video/audio (color change, glow, bubbles, delayed vs sudden change, etc.).
+- Avoid non-observable chemistry/physics equations unless tied to an observable outcome.
+- If the prompt is underspecified, keep expectations minimal and mark them as "weak".
+- Output STRICT JSON only. No markdown. No code fences. No extra text.
+""".strip()
+
+EXPECTATIONS_USER_INSTRUCTIONS_V1 = """
+## Given the prompt, output STRICT JSON with
+{
+  "prompt": "...",
+  "expectations": [
+    {
+      "id": "E1",
+      "type": "color_change|luminescence|gas|precipitation|motion|contact|lighting|audio|temporal|other",
+      "strength": "strong|medium|weak",
+      "expectation": "single observable requirement",
+      "negative_examples": ["clear observable failure cases"],
+      "notes": "optional"
+    }
+  ]
+}
+
+## Constraints
+- 3 to 10 expectations max.
+- Keep each expectation short and testable.
+""".strip()
+
+SEMANTIC_JUDGE_SYSTEM_V1 = """
+You are a strict, evidence-based video judge for an AV generation benchmark.
+
+## Inputs
+- A text prompt (what the video should depict)
+- A list of observable expectations derived from that prompt
+- The video
+
+## Task
+1. Create a short event log (3-8 items) describing what is seen/heard (no speculation).
+2. For each expectation, determine status: match|mismatch|missing|uncertain.
+3. Score semantic_physics_score in [0,100] based ONLY on expectations alignment.
+4. Output STRICT JSON only.
+
+## Rules
+- Use ONLY observable audio/visual evidence. Do NOT assume hidden causes.
+- If not determinable due to quality/darkness/blur/cuts, choose UNCERTAIN and do not penalize.
+- Do not penalize continuity breaks caused by obvious hard cuts unless the prompt explicitly requires a single continuous shot.
+- Output STRICT JSON only. No markdown. No code fences. No extra text.
+
+## Deduct guidelines (apply per notable expectation; floor at 0)
+- Severe mismatch: -30
+- Moderate mismatch: -15
+- Minor mismatch: -8
+- Missing a strong expected phenomenon: -20 (medium: -12, weak: -6)
+- Uncertain: -0
+""".strip()
+
+SEMANTIC_JUDGE_USER_TEMPLATE_V1 = """
+## Prompt
+{prompt_text}
+
+## Expectations JSON
+{expectations_json}
+
+## Output STRICT JSON with
+{{
+  "semantic_physics_score": 0,
+  "confidence": 0.0,
+  "event_log": [
+    {{"where": "beginning|middle|end|event_k", "what": "observable evidence"}}
+  ],
+  "checks": [
+    {{
+      "expectation_id": "E1",
+      "status": "match|mismatch|missing|uncertain",
+      "severity": 1,
+      "evidence": "observable support for the status"
+    }}
+  ],
+  "major_issues": ["main semantic or physical issues"]
+}}
+
+## Constraints
+- checks must cover ALL expectations from the input.
+- severity is 1-5 (5 = most severe).
+- confidence is 0-1 (lower if many uncertain checks or low visibility).
+""".strip()
+
+VISUAL_SCAN_SYSTEM_V1 = """
+You are a strict video physics auditor for an AV generation benchmark.
+
+## Input
+- The video only
+
+## Task
+Scan the video for PHYSICAL IMPLAUSIBILITIES that do NOT require the text prompt:
+- Kinematics: teleporting, sudden velocity/acceleration jumps without cause, impossible trajectories
+- Gravity: hovering, falling upward, wrong fall behavior
+- Dynamics/Collisions: impact without reaction, missing recoil, implausible momentum transfer
+- Contact/Support: interpenetration (objects pass through), floating without support, incorrect grasping
+- Occlusion/Depth: front/back ordering flips, impossible occlusion boundaries
+- Temporal identity: object shape/texture/identity changes within a continuous shot
+- Fluids/Smoke/Fire: clearly impossible flow behavior
+- Camera/Imaging physics (optional): shadows/reflections grossly inconsistent within a continuous shot
+
+## Rules
+- Use ONLY observable evidence. No speculation about hidden forces.
+- Do NOT treat hard cuts as violations; mark them as "cut_detected" in notes if relevant.
+- Output STRICT JSON only. No markdown. No code fences. No extra text.
+
+## Scoring
+Return visual_physics_score in [0,100] with deduction:
+- Severe violation: -25
+- Moderate: -12
+- Minor: -5
+- Uncertain: -0 (do not penalize)
+""".strip()
+
+VISUAL_SCAN_USER_TEMPLATE_V1 = """
+## Watch the video and output STRICT JSON with
+{
+  "visual_physics_score": 0,
+  "confidence": 0.0,
+  "cut_detected": true,
+  "audit_by_category": {
+    "kinematics": [ { "severity": 1, "evidence": "...", "where": "beginning|middle|end|event_k" } ],
+    "gravity": [],
+    "dynamics": [],
+    "contact": [],
+    "occlusion": [],
+    "identity": [],
+    "fluids_fire": [],
+    "imaging": []
+  },
+  "visual_violations": [
+    {
+      "type": "kinematics|gravity|dynamics|contact|occlusion|identity_drift|fluid|imaging|other",
+      "severity": 1,
+      "evidence": "observable evidence",
+      "where": "beginning|middle|end|event_k"
+    }
+  ],
+  "major_issues": ["top visual issues affecting the score"]
+}
+
+## Constraints
+- audit_by_category MUST include all listed keys (use empty arrays if none).
+- visual_violations should be a deduplicated summary of audit_by_category.
+- severity is 1-5 (5 = most severe).
+- confidence is 0-1.
+""".strip()
+
+TEXT_TO_EXPECTATIONS_SYSTEM_V2 = """
+You are a benchmark judge. Extract ONLY observable, testable expectations from a given generation prompt. Focus on semantic/world-knowledge physical correctness: what a viewer should be able to see/hear if the prompt is followed.
+
+Rules: produce expectations that are directly observable in the video/audio (color change, glow, bubbles, delayed vs sudden change, etc.). Avoid non-observable chemistry/physics equations unless tied to an observable outcome. If the prompt is underspecified, keep expectations minimal and mark them as "weak". Output STRICT JSON only. No markdown. No code fences. No extra text.
+""".strip()
+
+EXPECTATIONS_USER_INSTRUCTIONS_V2 = """
+Given the prompt, output STRICT JSON with:
+{
+  "prompt": "...",
+  "expectations": [
+    {
+      "id": "E1",
+      "type": "color_change|luminescence|gas|precipitation|motion|contact|lighting|audio|temporal|other",
+      "strength": "strong|medium|weak",
+      "expectation": "observable requirement",
+      "negative_examples": ["observable contradiction"],
+      "notes": "optional"
+    }
+  ]
+}
+
+Constraints: 3 to 10 expectations max. Keep each expectation short and testable.
+""".strip()
+
+SEMANTIC_JUDGE_SYSTEM_V2 = """
+You are a strict, evidence-based video judge for an AV generation benchmark.
+
+Inputs: a text prompt describing what the video should depict, a list of observable expectations derived from that prompt, and the video.
+
+Task: create a short event log with 3-8 items describing what is seen/heard with no speculation. For each expectation, determine status as match, mismatch, missing, or uncertain. Score semantic_physics_score in [0,100] based ONLY on expectations alignment. Output STRICT JSON only.
+
+Rules: use ONLY observable audio/visual evidence. Do NOT assume hidden causes. If not determinable due to quality/darkness/blur/cuts, choose UNCERTAIN and do not penalize. Do not penalize continuity breaks caused by obvious hard cuts unless the prompt explicitly requires a single continuous shot. Output STRICT JSON only. No markdown. No code fences. No extra text.
+
+Deduct guidelines: severe mismatch is -30. Moderate mismatch is -15. Minor mismatch is -8. Missing a strong expected phenomenon is -20, medium is -12, weak is -6. Uncertain is -0.
+""".strip()
+
+SEMANTIC_JUDGE_USER_TEMPLATE_V2 = """
+Prompt:
+{prompt_text}
+
+Expectations JSON:
+{expectations_json}
+
+Output STRICT JSON with:
+{{
+  "semantic_physics_score": 0,
+  "confidence": 0.0,
+  "event_log": [
+    {{"where": "beginning|middle|end|event_k", "what": "factual observable description"}}
+  ],
+  "checks": [
+    {{"expectation_id": "E1", "status": "match|mismatch|missing|uncertain", "severity": 1, "evidence": "factual evidence"}}
+  ],
+  "major_issues": ["largest issues affecting the score"]
+}}
+
+Constraints: checks must cover ALL expectations from the input. severity is 1-5 (5 = most severe). confidence is 0-1 (lower if many uncertain checks or low visibility).
+""".strip()
+
+VISUAL_SCAN_SYSTEM_V2 = """
+You are a strict video physics auditor for an AV generation benchmark.
+
+Input: the video only.
+
+Task: scan the video for PHYSICAL IMPLAUSIBILITIES that do NOT require the text prompt. This includes kinematics such as teleporting, sudden velocity/acceleration jumps without cause, and impossible trajectories; gravity issues such as hovering, falling upward, or wrong fall behavior; dynamics/collisions such as impact without reaction, missing recoil, or implausible momentum transfer; contact/support issues such as interpenetration, floating without support, or incorrect grasping; occlusion/depth issues such as front/back ordering flips or impossible occlusion boundaries; temporal identity changes such as object shape, texture, or identity changes within a continuous shot; fluids/smoke/fire with clearly impossible flow behavior; and optional camera/imaging physics issues such as shadows/reflections grossly inconsistent within a continuous shot.
+
+Rules: use ONLY observable evidence. No speculation about hidden forces. Do NOT treat hard cuts as violations; mark them as "cut_detected" in notes if relevant. Output STRICT JSON only. No markdown. No code fences. No extra text.
+
+Scoring: return visual_physics_score in [0,100] with deduction. Severe violation is -25. Moderate is -12. Minor is -5. Uncertain is -0 and should not be penalized.
+""".strip()
+
+VISUAL_SCAN_USER_TEMPLATE_V2 = """
+Watch the video and output STRICT JSON with:
+{
+  "visual_physics_score": 0,
+  "confidence": 0.0,
+  "cut_detected": true,
+  "audit_by_category": {
+    "kinematics": [],
+    "gravity": [],
+    "dynamics": [],
+    "contact": [],
+    "occlusion": [],
+    "identity": [],
+    "fluids_fire": [],
+    "imaging": []
+  },
+  "visual_violations": [
+    {
+      "type": "kinematics|gravity|dynamics|contact|occlusion|identity_drift|fluid|imaging|other",
+      "severity": 1,
+      "evidence": "observable evidence",
+      "where": "beginning|middle|end|event_k"
+    }
+  ],
+  "major_issues": ["top issues"]
+}
+
+Constraints: audit_by_category MUST include all listed keys (use empty arrays if none). visual_violations should be a deduplicated summary of audit_by_category. severity is 1-5 (5 = most severe). confidence is 0-1.
+""".strip()
+
+PROMPT_VARIANTS = {
+    "original": {
+        "expect_system": TEXT_TO_EXPECTATIONS_SYSTEM,
+        "expect_user": EXPECTATIONS_USER_INSTRUCTIONS,
+        "semantic_system": SEMANTIC_JUDGE_SYSTEM,
+        "semantic_user": SEMANTIC_JUDGE_USER_TEMPLATE,
+        "visual_system": VISUAL_SCAN_SYSTEM,
+        "visual_user": VISUAL_SCAN_USER_TEMPLATE,
+    },
+    "v1": {
+        "expect_system": TEXT_TO_EXPECTATIONS_SYSTEM_V1,
+        "expect_user": EXPECTATIONS_USER_INSTRUCTIONS_V1,
+        "semantic_system": SEMANTIC_JUDGE_SYSTEM_V1,
+        "semantic_user": SEMANTIC_JUDGE_USER_TEMPLATE_V1,
+        "visual_system": VISUAL_SCAN_SYSTEM_V1,
+        "visual_user": VISUAL_SCAN_USER_TEMPLATE_V1,
+    },
+    "v2": {
+        "expect_system": TEXT_TO_EXPECTATIONS_SYSTEM_V2,
+        "expect_user": EXPECTATIONS_USER_INSTRUCTIONS_V2,
+        "semantic_system": SEMANTIC_JUDGE_SYSTEM_V2,
+        "semantic_user": SEMANTIC_JUDGE_USER_TEMPLATE_V2,
+        "visual_system": VISUAL_SCAN_SYSTEM_V2,
+        "visual_user": VISUAL_SCAN_USER_TEMPLATE_V2,
+    },
+}
+
+if PROMPT_VARIANT not in PROMPT_VARIANTS:
+    raise ValueError(f"Unsupported GEMINI_PHY_PROMPT_VARIANT: {PROMPT_VARIANT}")
 
 
 # ========================== Utilities ==========================
@@ -234,51 +530,53 @@ def safe_mean(vals: List[float]) -> Optional[float]:
 
 # ========================== Gemini core ==========================
 def extract_expectations(prompt_text: str, model_name: str, timeout_s: int) -> Dict[str, Any]:
-    model = genai.GenerativeModel(model_name=model_name, system_instruction=TEXT_TO_EXPECTATIONS_SYSTEM)
-    resp = model.generate_content(
-        EXPECTATIONS_USER_INSTRUCTIONS + "\n\nPROMPT:\n" + prompt_text,
-        request_options={"timeout": timeout_s},
+    prompts = PROMPT_VARIANTS[PROMPT_VARIANT]
+    raw_text = generate_content_text(
+        model_name=model_name,
+        user_parts=[prompts["expect_user"] + "\n\nPROMPT:\n" + prompt_text],
+        timeout_s=timeout_s,
+        system_instruction=prompts["expect_system"],
     )
-    return json.loads(_extract_json(resp.text))
+    return json.loads(_extract_json(raw_text))
 
 
 def judge_semantic_with_expectations(
-    video_file: Any,
+    video_path: str,
     prompt_text: str,
     expectations: Dict[str, Any],
     model_name: str,
     timeout_s: int,
 ) -> Dict[str, Any]:
-    model = genai.GenerativeModel(model_name=model_name, system_instruction=SEMANTIC_JUDGE_SYSTEM)
-    user_text = SEMANTIC_JUDGE_USER_TEMPLATE.format(
+    prompts = PROMPT_VARIANTS[PROMPT_VARIANT]
+    user_text = prompts["semantic_user"].format(
         prompt_text=prompt_text,
         expectations_json=json.dumps(expectations, ensure_ascii=False),
     )
-    resp = model.generate_content([video_file, user_text], request_options={"timeout": timeout_s})
-    data = json.loads(_extract_json(resp.text))
+    raw_text = generate_content_text(
+        model_name=model_name,
+        user_parts=[inline_file_part(video_path, mime_type="video/mp4"), user_text],
+        timeout_s=timeout_s,
+        system_instruction=prompts["semantic_system"],
+    )
+    data = json.loads(_extract_json(raw_text))
     data["semantic_physics_score"] = _clamp_int_0_100(data.get("semantic_physics_score", 0))
     data["confidence"] = _clamp_float_0_1(data.get("confidence", 0.0))
     return data
 
 
-def scan_visual_physics(video_file: Any, model_name: str, timeout_s: int) -> Dict[str, Any]:
-    model = genai.GenerativeModel(model_name=model_name, system_instruction=VISUAL_SCAN_SYSTEM)
-    resp = model.generate_content([video_file, VISUAL_SCAN_USER_TEMPLATE], request_options={"timeout": timeout_s})
-    data = json.loads(_extract_json(resp.text))
+def scan_visual_physics(video_path: str, model_name: str, timeout_s: int) -> Dict[str, Any]:
+    prompts = PROMPT_VARIANTS[PROMPT_VARIANT]
+    raw_text = generate_content_text(
+        model_name=model_name,
+        user_parts=[inline_file_part(video_path, mime_type="video/mp4"), prompts["visual_user"]],
+        timeout_s=timeout_s,
+        system_instruction=prompts["visual_system"],
+    )
+    data = json.loads(_extract_json(raw_text))
     data["visual_physics_score"] = _clamp_int_0_100(data.get("visual_physics_score", 0))
     data["confidence"] = _clamp_float_0_1(data.get("confidence", 0.0))
     data["cut_detected"] = bool(data.get("cut_detected", False))
     return data
-
-
-def upload_video(video_path: str) -> Any:
-    video_file = genai.upload_file(path=video_path)
-    while video_file.state.name == "PROCESSING":
-        time.sleep(2)
-        video_file = genai.get_file(video_file.name)
-    if video_file.state.name == "FAILED":
-        raise RuntimeError("Video processing failed on Gemini File API.")
-    return video_file
 
 
 def _load_cache(cache_path: str) -> Dict[str, Any]:
@@ -358,66 +656,59 @@ def run_two_stage_with_dual_stage2(
         expectations_cache_path=expectations_cache_path,
     )
 
-    video_file = upload_video(video_path)
-    try:
-        semantic = judge_semantic_with_expectations(
-            video_file=video_file,
-            prompt_text=prompt_text,
-            expectations=expectations,
-            model_name=model_name,
-            timeout_s=timeout_s,
-        )
-        visual = scan_visual_physics(
-            video_file=video_file,
-            model_name=model_name,
-            timeout_s=timeout_s,
-        )
+    semantic = judge_semantic_with_expectations(
+        video_path=video_path,
+        prompt_text=prompt_text,
+        expectations=expectations,
+        model_name=model_name,
+        timeout_s=timeout_s,
+    )
+    visual = scan_visual_physics(
+        video_path=video_path,
+        model_name=model_name,
+        timeout_s=timeout_s,
+    )
 
-        w_sem, w_vis = weights
-        semantic_score = _clamp_int_0_100(semantic.get("semantic_physics_score", 0))
-        visual_score = _clamp_int_0_100(visual.get("visual_physics_score", 0))
-        overall = int(round(w_sem * semantic_score + w_vis * visual_score))
-        overall = max(0, min(100, overall))
+    w_sem, w_vis = weights
+    semantic_score = _clamp_int_0_100(semantic.get("semantic_physics_score", 0))
+    visual_score = _clamp_int_0_100(visual.get("visual_physics_score", 0))
+    overall = int(round(w_sem * semantic_score + w_vis * visual_score))
+    overall = max(0, min(100, overall))
 
-        result: Dict[str, Any] = {
-            "overall_score": overall,
-            "semantic_physics_score": semantic_score,
-            "visual_physics_score": visual_score,
-            "confidence": round((semantic.get("confidence", 0.0) + visual.get("confidence", 0.0)) / 2.0, 4),
-            "expectations": expectations.get("expectations", expectations),
-            "semantic": {
-                "event_log": semantic.get("event_log", []),
-                "checks": semantic.get("checks", []),
-                "major_issues": semantic.get("major_issues", []),
-                "confidence": semantic.get("confidence", 0.0),
-            },
-            "visual": {
-                "cut_detected": visual.get("cut_detected", False),
-                "audit_by_category": visual.get("audit_by_category", {}),
-                "visual_violations": visual.get("visual_violations", []),
-                "major_issues": visual.get("major_issues", []),
-                "confidence": visual.get("confidence", 0.0),
-            },
-            "_input": {
-                "prompt_id": prompt_id,
-                "prompt_text": prompt_text,
-                "video_path": video_path,
-                "model": model_name,
-                "weights": {"semantic": w_sem, "visual": w_vis},
-            },
-        }
+    result: Dict[str, Any] = {
+        "overall_score": overall,
+        "semantic_physics_score": semantic_score,
+        "visual_physics_score": visual_score,
+        "confidence": round((semantic.get("confidence", 0.0) + visual.get("confidence", 0.0)) / 2.0, 4),
+        "expectations": expectations.get("expectations", expectations),
+        "semantic": {
+            "event_log": semantic.get("event_log", []),
+            "checks": semantic.get("checks", []),
+            "major_issues": semantic.get("major_issues", []),
+            "confidence": semantic.get("confidence", 0.0),
+        },
+        "visual": {
+            "cut_detected": visual.get("cut_detected", False),
+            "audit_by_category": visual.get("audit_by_category", {}),
+            "visual_violations": visual.get("visual_violations", []),
+            "major_issues": visual.get("major_issues", []),
+            "confidence": visual.get("confidence", 0.0),
+        },
+        "_input": {
+            "prompt_id": prompt_id,
+            "prompt_text": prompt_text,
+            "video_path": video_path,
+            "model": model_name,
+            "weights": {"semantic": w_sem, "visual": w_vis},
+        },
+    }
 
-        if save_result_path:
-            os.makedirs(os.path.dirname(save_result_path) or ".", exist_ok=True)
-            with open(save_result_path, "w", encoding="utf-8") as f:
-                json.dump(result, f, ensure_ascii=False, indent=2)
+    if save_result_path:
+        os.makedirs(os.path.dirname(save_result_path) or ".", exist_ok=True)
+        with open(save_result_path, "w", encoding="utf-8") as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
 
-        return result
-    finally:
-        try:
-            genai.delete_file(video_file.name)
-        except Exception:
-            pass
+    return result
 
 
 # ========================== Prompt index ==========================
@@ -465,9 +756,6 @@ def _worker_eval_one(task: Dict[str, Any]) -> Dict[str, Any]:
       video_path, folder, stem, prompt_text, matched_content, source_prompt_file,
       model, timeout_s, weights, expectations_cache, save_json, api_key
     """
-    api_key = task["api_key"]
-    genai.configure(api_key=api_key)
-
     try:
         result = run_two_stage_with_dual_stage2(
             video_path=task["video_path"],
@@ -528,9 +816,7 @@ def main():
     parser.add_argument("--workers", type=int, default=1, help="Video-level parallel workers (recommended 2-8 depending on quota/network)")
     args = parser.parse_args()
 
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("Missing GEMINI_API_KEY env var. Please: export GEMINI_API_KEY='...'")
+    api_key = resolve_api_key()
 
     if args.workers > 1 and FileLock is None and args.expectations_cache:
         print("WARNING: filelock not installed; expectations cache is not multiprocess-safe and may duplicate Stage1 calls.")
