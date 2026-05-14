@@ -288,6 +288,7 @@ https://github.com/user-attachments/assets/b9200272-3f13-4a7a-9a9a-caa83350e45f
 
 To ensure reproducibility and minimize dependency conflicts, each evaluation module uses a dedicated Conda environment defined in `environments/*.yml`.
 
+For the environment maintenance policy, exact local environment exports, and import-level validation workflow, see [`docs/environment_reproducibility.md`](docs/environment_reproducibility.md). In short: keep `environments/*.yml` as portable user-facing specs, use `bash scripts/export_repro_envs.sh` to refresh exact Linux snapshots under `environments/locks/linux-64/`, and use `bash scripts/check_eval_envs.sh` for smoke checks before full evaluation.
 
 ### 1. Prerequisites
 

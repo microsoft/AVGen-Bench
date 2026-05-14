@@ -105,7 +105,6 @@ dependencies:
       - nvidia-cusparse-cu11==11.7.4.91
       - nvidia-nccl-cu11==2.14.3
       - nvidia-nvtx-cu11==11.7.91
-      - opencv-python==4.12.0.88
       - orjson==3.11.5
       - packaging==25.0
       - pandas==2.3.3
@@ -122,7 +121,6 @@ dependencies:
       - python-multipart==0.0.21
       - pytz==2025.2
       - pyyaml==6.0.3
-      - q-align==1.2.0
       - referencing==0.37.0
       - regex==2025.11.3
       - requests==2.32.5

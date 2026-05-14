@@ -62,7 +62,7 @@ dependencies:
   - libopenvino-pytorch-frontend=2024.4.0=h5888daf_2
   - libopenvino-tensorflow-frontend=2024.4.0=h6481b9d_2
   - libopenvino-tensorflow-lite-frontend=2024.4.0=h5888daf_2
-  - libopus=1.6=h0fd0de7_0
+  - libopus
   - libpciaccess=0.18=hb9d3cd8_0
   - libpng=1.6.53=h421ea60_0
   - libprotobuf=5.28.2=h5b01275_0
