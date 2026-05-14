@@ -12,7 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from dmx_gemini_client import generate_content_text, resolve_api_key
+from gemini_client import generate_content_text, resolve_api_key
 
 MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-3-flash-preview")
 PROMPT_VARIANT = os.getenv("FACIAL_PROMPT_VARIANT", "original").strip().lower()
@@ -250,7 +250,7 @@ def analyze_one(
     max_retries: int,
 ) -> Tuple[int, Dict[str, Any]]:
     """
-    Worker task. Each call performs its own DMX request.
+    Worker task. Each call performs its own Gemini request.
     """
     last_err = None
     for attempt in range(max_retries):

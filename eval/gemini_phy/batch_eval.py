@@ -24,7 +24,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from dmx_gemini_client import generate_content_text, inline_file_part, resolve_api_key
+from gemini_client import generate_content_text, inline_file_part, resolve_api_key
 
 
 TEXT_TO_EXPECTATIONS_SYSTEM = """

@@ -21,7 +21,7 @@
 # - optionally caches raw Gemini results per video to allow resume.
 #
 # Install:
-#   no special Gemini SDK required; requests go through the shared DMX HTTP client
+#   no special Gemini SDK required; requests use the official Gemini REST API.
 #
 # Env:
 #   export GEMINI_API_KEY="..."
@@ -32,7 +32,7 @@
 #   python batch_eval.py --prompts_dir prompts --root_videos sora2_generated --out_json plot_eval_results.json
 #
 # Notes:
-# - This script sends each video inline to the DMX Gemini-compatible API.
+# - This script sends each video inline to the official Gemini API.
 # - Concurrency is supported; keep workers small to avoid 429.
 # - Resume: if cache exists for a video key, it will not re-judge unless --force.
 from collections import defaultdict
@@ -52,7 +52,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from dmx_gemini_client import generate_content_text, inline_file_part, resolve_api_key
+from gemini_client import generate_content_text, inline_file_part, resolve_api_key
 
 
 # ----------------------------
@@ -362,7 +362,7 @@ def main():
     args = ap.parse_args()
 
     if not args.api_key:
-        raise SystemExit("Missing DMX/Gemini API key. Set DMX_API_KEY/GEMINI_API_KEY or pass --api_key")
+        raise SystemExit("Missing Gemini API key. Set GEMINI_API_KEY/GOOGLE_API_KEY or pass --api_key")
 
     cache = load_cache(args.cache_json) if (args.cache_json and not args.force) else {}
 

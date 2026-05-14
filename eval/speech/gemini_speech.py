@@ -11,7 +11,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from dmx_gemini_client import generate_content_text, resolve_api_key
+from gemini_client import generate_content_text, resolve_api_key
 
 
 # =========================
@@ -222,7 +222,7 @@ def evaluate_speech_with_gemini(
     model_name: str = GEMINI_MODEL_NAME,
 ) -> Dict[str, Any]:
     if not GEMINI_API_KEY:
-        raise RuntimeError("Missing DMX/Gemini API key env var (for example DMX_API_KEY=...).")
+        raise RuntimeError("Missing Gemini API key env var (for example GEMINI_API_KEY=...).")
 
     evaluator_prompt = SPEECH_PROMPT_TEMPLATES[PROMPT_VARIANT].format(
         generation_prompt=generation_prompt,

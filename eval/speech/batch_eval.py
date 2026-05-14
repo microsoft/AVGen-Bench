@@ -18,7 +18,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from dmx_gemini_client import generate_content_text, resolve_api_key
+from gemini_client import generate_content_text, resolve_api_key
 
 PROMPT_VARIANT = os.getenv("SPEECH_PROMPT_VARIANT", "original").strip().lower()
 
@@ -138,7 +138,7 @@ def evaluate_speech_with_gemini(
     retry_backoff_s: float = 2.0,
 ) -> Dict[str, Any]:
     if not api_key:
-        raise RuntimeError("Missing DMX/Gemini API key.")
+        raise RuntimeError("Missing Gemini API key.")
 
     prompt_templates = {
         "original": """
@@ -396,7 +396,7 @@ def main():
 
     api_key = resolve_api_key(required=False) or ""
     if not api_key:
-        raise RuntimeError("Missing DMX/Gemini API key env var.")
+        raise RuntimeError("Missing Gemini API key env var.")
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"[info] device={device}")

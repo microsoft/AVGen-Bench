@@ -32,7 +32,7 @@ Component labels in this README use text markers instead of color backgrounds.
 
 | Model | Components | Vis | Aud (PQ) | AV | Lip | Text | Face | Music | Speech | Lo-Phy | Hi-Phy | Holistic | Total |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Seedance-2 | Seedance-2 (Proprietary) | 0.945 | **7.15** | **0.15** | 4.14 | 74.83 | **60.95** | **28.12** | 94.09 | 3.89 | **83.16** | **89.61** | **72.07** |
+| Seedance 2.0 | Seedance 2.0 (Proprietary) | 0.945 | **7.15** | **0.15** | 4.14 | 74.83 | **60.95** | **28.12** | 94.09 | 3.89 | **83.16** | **89.61** | **72.07** |
 | Veo 3.1-fast | Veo 3.1-fast (Proprietary) | **0.960** | 6.64 | *0.21* | 2.39 | 75.10 | 52.77 | 3.13 | *94.53* | 3.68 | 67.43 | 86.27 | *67.87* |
 | Veo 3.1-quality | Veo 3.1-quality (Proprietary) | 0.954 | 6.77 | 0.24 | 3.59 | *76.53* | 52.90 | 5.00 | **96.09** | 3.74 | 68.53 | 84.10 | 66.28 |
 | Sora-2 | Sora-2 (Proprietary) | 0.848 | 5.91 | 0.25 | 4.50 | 74.84 | 51.17 | 7.81 | 88.63 | **4.05** | *78.95* | *88.89* | 64.16 |
@@ -977,6 +977,6 @@ We gratefully acknowledge the open-source projects and toolkits that power AVGen
 - [`InsightFace`](https://github.com/deepinsight/insightface) (used in `eval/facial_consistency/`) for facial representation and consistency analysis.
 - [`Faster-Whisper`](https://github.com/SYSTRAN/faster-whisper) (used in `eval/speech/`) for speech transcription.
 - [`Basic Pitch`](https://github.com/spotify/basic-pitch) (used in `eval/music_check/`) for symbolic music transcription.
-- [`Gemini API (Python)`](https://ai.google.dev/gemini-api/docs/python) via `google-generativeai` (used in `eval/gemini_phy/`, `eval/plot_matching/`, `eval/speech/`, `eval/music_check/`, and `eval/Ocr/`) for MLLM-based reasoning modules.
+- [`Gemini API`](https://ai.google.dev/gemini-api/docs) via the official Google endpoint (used in `eval/gemini_phy/`, `eval/plot_matching/`, `eval/speech/`, `eval/music_check/`, and `eval/Ocr/`) for MLLM-based reasoning modules.
 
 Please refer to the original repositories, papers, and licenses of these projects for attribution, usage terms, and model-specific restrictions.
