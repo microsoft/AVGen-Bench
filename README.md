@@ -2,13 +2,17 @@
 
 AVGen-Bench is a **task-driven benchmark** for multi-granular evaluation of Text-to-Audio-Video (T2AV) generation.
 
-🔗 **Project Page:** [AVGen-Bench Homepage](index.html)
+[![Project Page](https://img.shields.io/badge/Project%20Page-AVGenBench-8dbb3c?style=for-the-badge&labelColor=4c4c4c)](http://aka.ms/avgenbench)
+[![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b?style=for-the-badge&labelColor=4c4c4c)](https://arxiv.org/abs/2604.08540)
+[![Hugging Face Paper](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Paper-f59e0b?style=for-the-badge)](https://huggingface.co/papers/2604.08540)
+[![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-d4af37?style=for-the-badge)](https://huggingface.co/datasets/microsoft/AVGen-Bench)
 
 ## Repository Information
 
 - Support: see [SUPPORT.md](SUPPORT.md) for bug reports, usage questions, and issue filing guidance.
 - Security: see [SECURITY.md](SECURITY.md) for responsible vulnerability reporting instructions.
 - Code of Conduct: see [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community participation expectations.
+
 
 
 
@@ -980,3 +984,19 @@ We gratefully acknowledge the open-source projects and toolkits that power AVGen
 - [`Gemini API`](https://ai.google.dev/gemini-api/docs) via the official Google endpoint (used in `eval/gemini_phy/`, `eval/plot_matching/`, `eval/speech/`, `eval/music_check/`, and `eval/Ocr/`) for MLLM-based reasoning modules.
 
 Please refer to the original repositories, papers, and licenses of these projects for attribution, usage terms, and model-specific restrictions.
+
+## Citation
+
+If you find AVGen-Bench useful, please cite:
+
+```bibtex
+@misc{zhou2026avgenbenchtaskdrivenbenchmarkmultigranular,
+      title={AVGen-Bench: A Task-Driven Benchmark for Multi-Granular Evaluation of Text-to-Audio-Video Generation}, 
+      author={Ziwei Zhou and Zeyuan Lai and Rui Wang and Yifan Yang and Zhen Xing and Yuqing Yang and Qi Dai and Lili Qiu and Chong Luo},
+      year={2026},
+      eprint={2604.08540},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2604.08540}, 
+}
+```
