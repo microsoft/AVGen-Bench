@@ -130,7 +130,7 @@ pycparser==2.21
 pydantic-core==2.6.1
 pydantic==2.2.1
 pydub==0.25.1
-pygments==2.16.1
+pygments==2.20.0
 pyopenssl==23.2.0
 pyparsing==3.0.9
 pysocks==1.7.1
