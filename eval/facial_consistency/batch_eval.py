@@ -152,6 +152,8 @@ class MultiFaceConsistencyV2:
                       min_face_px=30,
                       min_det_score=0.6,
                       min_rel_area=0.0005):
+        if sample_rate <= 0:
+            raise ValueError("sample rate must be positive")
         cap = cv2.VideoCapture(video_path)
         all_faces = []
 
@@ -713,6 +715,13 @@ def evaluate_category(
     return results, summary
 
 
+def _positive_sample_rate(value):
+    rate = int(value)
+    if rate <= 0:
+        raise argparse.ArgumentTypeError("sample rate must be positive")
+    return rate
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--prompts_dir", type=str, required=True,
@@ -725,7 +734,7 @@ def main():
     ap.add_argument("--det_size", type=str, default="640,640")
 
     # pipeline cfg
-    ap.add_argument("--sample_rate", type=int, default=1)
+    ap.add_argument("--sample_rate", type=_positive_sample_rate, default=1)
     ap.add_argument("--min_face_px", type=int, default=30)
     ap.add_argument("--min_det_score", type=float, default=0.6)
     ap.add_argument("--min_rel_area", type=float, default=0.0005)
